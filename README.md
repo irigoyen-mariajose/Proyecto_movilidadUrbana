@@ -1,14 +1,24 @@
 #Andensur - aplicación de movilidad urbana de Neuquén
+
 ###Integrantes del grupo
+
 *Dahud Pedro Tomas
+
 González Facundo
+
 Irigoyen maria José
+
 Lepe Mateo
+
 Rocha Aixa Antonela
+
 Rodríguez Ormanchea Tiago
+
 Rojas Ángeles Eluney del Milagro
 *
+
 ##Andensur - objetivo
+
 **Andenur es una aplicación enfocada en la movilidad urbana del valle Neuquén. Tiene como objetivo facilitar y optimizar el uso del tren, permitiendo que se pueda conocer los horarios, paradas e información como tarifas y servicios. El objetivo también es incentivar a más personas a hacer uso de transporte ferroviario, dándoles una herramienta que les permita acceder de una forma mas sencilla al servicio.**
 
 ##Herramientas utilizadas
@@ -20,17 +30,23 @@ Rojas Ángeles Eluney del Milagro
 •Editor.md**
 
 ##Descripción de las pantallas
+
 ####• Pantalla de inicio:
 **Bienvenida al usuario, Permitiéndole acceder a todas las interfaces y funciones de la aplicación.
 Permite el acceso a un login, registro, notificaciones, soporte y los horarios del tren.**
+
 ####• Login: 
 **Acá podemos iniciar sesión, en caso de ya contar una cuenta creada se puede acceder fácilmente desde Google o Facebook. En caso de no contar con una se puede registrar el usuario.**
+
 ####• búsqueda del mapa: 
 **Esta pantalla permite programar un viaje, ver búsquedas recientes y visualizar el mapa de la ciudad de Neuquén. podemos observar la ruta y las paradas.**
+
 ####• Mapa:
 **Al seleccionar una parada esta se marcara con un color verde y mostrará el estado del tren y su horario de llegada. También permitirá notificar unos minutos antes de que el tren arribe.**
+
 ####• notificaciones: 
 **En esta pantalla podemos visualizar toda información útil para el usuario, como aumento de la tarifa, nuevas paradas, horarios, cualquier complicación, así se mantiene al usuario informado de cualquier cambio o nueva información.**
+
 ####• soporte: 
 **En esta sección podemos contar con un soporte para el usuario y para poder reportar un problema ocurrido que afecte el funcionamiento del transporte.**
 
