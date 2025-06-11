@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import "../css/FormularioNombreApellido.css";
 import CloseIcon from "@mui/icons-material/Close";
 
-const FrmRegistar = ({ titulo = "registrarse" }) => {
+
+const FrmRegistar = ({ titulo = "soporte" }) => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
-  const [contrasenia, setContrasenia] = useState("");
-  const [correo, setCorreo] = useState("");
+  const [contraseña, setContrasenia] = useState("");
+  const [correos, setCorreo] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -15,7 +16,7 @@ const FrmRegistar = ({ titulo = "registrarse" }) => {
 
     // Navegar a PantallaDestino y pasar los datos
     navigate("/resultado", {
-      state: { nombre, apellido, contrasenia, correo },
+      state: { nombre, apellido, contraseña, correos },
     });
   };
 
@@ -48,7 +49,7 @@ const FrmRegistar = ({ titulo = "registrarse" }) => {
           <label>Contraseña</label>
           <input
             type="text"
-            value={contrasenia}
+            value={contraseña}
             onChange={(e) => setContrasenia(e.target.value)}
             placeholder="Ingrese su contraseña"
           />
@@ -69,4 +70,4 @@ const FrmRegistar = ({ titulo = "registrarse" }) => {
   );
 };
 
-export default FrmRegistar;
+export default FrmReclamos;
