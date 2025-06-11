@@ -6,8 +6,8 @@ import CloseIcon from "@mui/icons-material/Close";
 const FrmRegistar = ({ titulo = "registrarse" }) => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
-  const [contraseña, setContrasenia] = useState("");
-  const [correos, setCorreo] = useState("");
+  const [contrasenia, setContrasenia] = useState("");
+  const [correo, setCorreo] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -15,7 +15,7 @@ const FrmRegistar = ({ titulo = "registrarse" }) => {
 
     // Navegar a PantallaDestino y pasar los datos
     navigate("/resultado", {
-      state: { nombre, apellido, contraseña, correos },
+      state: { nombre, apellido, contrasenia, correo },
     });
   };
 
@@ -48,7 +48,7 @@ const FrmRegistar = ({ titulo = "registrarse" }) => {
           <label>Contraseña</label>
           <input
             type="text"
-            value={contraseña}
+            value={contrasenia}
             onChange={(e) => setContrasenia(e.target.value)}
             placeholder="Ingrese su contraseña"
           />
