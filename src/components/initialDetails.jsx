@@ -36,4 +36,4 @@ const initialDetails = [
   },
 ];
 
-export default initialDetails;
+export default initialDetails; 

@@ -1,0 +1,19 @@
+body{
+  background-color: white;
+}
+.form-container{
+  display: flex;
+  height: 799px;
+  width: 644px;
+  background-color: #ffbd59;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+label{
+  height: 108px;
+  width: 531px;
+  border-radius: 15px;
+  gap: 15px;
+}
+

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../css/FormularioNombreApellido.css";
 import CloseIcon from "@mui/icons-material/Close";
 
-const FrmRegistar = ({ titulo = "registrarse" }) => {
+const FrmRegistar = ({ titulo = "Registrarse" }) => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [contrasenia, setContrasenia] = useState("");
@@ -63,7 +63,7 @@ const FrmRegistar = ({ titulo = "registrarse" }) => {
           />
         </div>
 
-        <button type="submit">Enviar</button>
+        <button type="submit">Entrar</button>
       </form>
     </div>
   );

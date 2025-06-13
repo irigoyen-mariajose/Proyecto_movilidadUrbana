@@ -13,12 +13,10 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.2",
     "react-scripts": "5.0.1",
-<<<<<<< HEAD
     "react-select": "^5.10.1",
-=======
     "tachyons": "^4.12.0",
->>>>>>> 9ea13629eb9175bc1a9d93bf982aec5d1183da8a
     "web-vitals": "^2.1.4"
   },
   "scripts": {
