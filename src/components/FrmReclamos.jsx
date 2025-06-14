@@ -2,21 +2,49 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/FormularioNombreApellido.css";
 import CloseIcon from "@mui/icons-material/Close";
+import Select from "react-select";
+import { FaImage } from "react-icons/fa"; 
 
-
-const FrmRegistar = ({ titulo = "soporte" }) => {
-  const [nombre, setNombre] = useState("");
-  const [apellido, setApellido] = useState("");
-  const [contraseña, setContrasenia] = useState("");
-  const [correos, setCorreo] = useState("");
+const FrmReclamos = ({ titulo = "Soporte" }) => {
+  const [parada, setParada] = useState(null);
+  const [problema, setProblema] = useState(null);
+  const [detalle, setDetalle] = useState("");
+  const [archivo, setArchivo] = useState(null);
   const navigate = useNavigate();
+
+// Opciones de paradas para el selector
+  const opcionesParadas = [
+    { value: "neuquen", label: "Neuquén (Terminal)" },
+    { value: "eton", label: "ETON" },
+    { value: "union", label: "Barrio Unión" },
+    { value: "aeropuerto", label: "Aeropuerto de Neuquén" },
+    { value: "constituyentes", label: "Constituyentes" },
+    { value: "cholar", label: "El Cholar" },
+    { value: "rivas", label: "Ignacio Rivas" },
+    { value: "plottier", label: "Plottier" }
+  ];
+
+// Opciones de problemas para el selector
+  const opcionesProblemas = [
+    { value: "ubicacion", label: "La ubicación de la parada no coincide con la de la aplicación" },
+    { value: "fuera-servicio", label: "La parada está fuera de servicio" },
+    { value: "no-freno", label: "El tren no frenó" },
+    { value: "problemas", label: "La parada tiene problemas" },
+    { value: "trabajadores", label: "Los trabajadores del tren" }
+  ];
+
+  // Esta funcion se ejecuta cuando se manda el formulario
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Navegar a PantallaDestino y pasar los datos
+    // Validación para que si o si elija una parada y problema
+    if (!parada || !problema) {
+      alert("Por favor, selecciona una parada y un problema."); // Mensaje de alerta si llega a faltar informacion
+      return;// Sale de la función si no se cumple la validación
+    }
+    // Redirige a la ruta "/resultado" pasando los datos del formulario
     navigate("/resultado", {
-      state: { nombre, apellido, contraseña, correos },
+      state: { parada, problema, detalle, archivo }
     });
   };
 
@@ -26,42 +54,48 @@ const FrmRegistar = ({ titulo = "soporte" }) => {
         <h2>{titulo}</h2>
 
         <div className="form-group">
-          <label>Nombre</label>
-          <input
-            type="text"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            placeholder="Escribe tu nombre"
+          <label>Nombre de parada</label>
+          <Select
+            options={opcionesParadas}
+            placeholder="Nombre de parada"
+            onChange={setParada}
+            isClearable
           />
-          <CloseIcon />
         </div>
 
         <div className="form-group">
-          <label>Apellido</label>
-          <input
-            type="text"
-            value={apellido}
-            onChange={(e) => setApellido(e.target.value)}
-            placeholder="Escribe tu apellido"
+          <label>Seleccione un problema</label>
+          <Select
+            options={opcionesProblemas}
+            placeholder="Seleccione un problema"
+            onChange={setProblema}
+            isClearable
           />
         </div>
-        <div className="form-group">
-          <label>Contraseña</label>
-          <input
-            type="text"
-            value={contraseña}
-            onChange={(e) => setContrasenia(e.target.value)}
-            placeholder="Ingrese su contraseña"
+
+        <div className="form-group textarea-group" style={{ position: "relative" }}>
+          <label>Cuéntanos más acerca de tu problema</label>
+          <textarea
+            value={detalle}
+            onChange={(e) => setDetalle(e.target.value)}
+            placeholder="Cuéntanos más acerca de tu problema..."
+            rows={4}
           />
-        </div>
-        <div className="form-group">
-          <label>Correo</label>
           <input
-            type="text"
-            value={correo}
-            onChange={(e) => setCorreo(e.target.value)}
-            placeholder="Escribe tu correo"
+            type="file"
+            accept="image/*,video/*"
+            onChange={(e) => setArchivo(e.target.files[0])}
+            style={{ display: "none" }}
+            id="input-file"
           />
+          <label htmlFor="input-file" style={{
+            position: "absolute",
+            bottom: "10px",
+            right: "10px",
+            cursor: "pointer"
+          }}>
+            <FaImage size={20} />
+          </label>
         </div>
 
         <button type="submit">Enviar</button>
@@ -69,5 +103,6 @@ const FrmRegistar = ({ titulo = "soporte" }) => {
     </div>
   );
 };
+
 
 export default FrmReclamos;
