@@ -22,48 +22,55 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit} className="glass-form">
-        <h2>{titulo}</h2>
+        <h2 className="titulo">{titulo}</h2>
 
         <div className="form-group">
-          <label>Nombre</label>
+          <label></label>
           <input
+            className="barras"
             type="text"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
-            placeholder="Escribe tu nombre"
+            placeholder="Nombre"
           />
           <CloseIcon />
         </div>
 
         <div className="form-group">
-          <label>Apellido</label>
+          <label></label>
           <input
+            className="barras"
             type="text"
             value={apellido}
             onChange={(e) => setApellido(e.target.value)}
-            placeholder="Escribe tu apellido"
+            placeholder="Apellido"
           />
         </div>
         <div className="form-group">
-          <label>Contraseña</label>
+          <label></label>
           <input
-            type="text"
-            value={contrasenia}
-            onChange={(e) => setContrasenia(e.target.value)}
-            placeholder="Ingrese su contraseña"
-          />
-        </div>
-        <div className="form-group">
-          <label>Correo</label>
-          <input
+            className="barras"
             type="text"
             value={correo}
             onChange={(e) => setCorreo(e.target.value)}
-            placeholder="Escribe tu correo"
+            placeholder="Correo"
+          />
+        </div>
+        <div className="form-group">
+          <label></label>
+          <input
+            className="barras"
+            type="text"
+            value={contrasenia}
+            onChange={(e) => setContrasenia(e.target.value)}
+            placeholder="Contraseña"
           />
         </div>
 
-        <button type="submit">Entrar</button>
+        <button type="submit" className="button">
+          Entrar
+        </button>
+        <p>ya tenes cuenta? botonIniciarsesion</p>
       </form>
     </div>
   );
