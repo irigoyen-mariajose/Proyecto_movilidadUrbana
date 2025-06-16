@@ -4,7 +4,7 @@ import "../css/FormularioNombreApellido.css";
 import "../css/App.css";
 
 const FrmIniciosesion = ({ titulo = "Iniciar sesion" }) => {
-    const [correos, setCorreo] = useState("");
+  const [correo, setCorreo] = useState("");
   const [contraseña, setContrasenia] = useState("");
   const navigate = useNavigate();
 
@@ -12,7 +12,7 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion" }) => {
     e.preventDefault();
 
     navigate("/resultado", {
-      state: { correo, contraseña},
+      state: { correo, contraseña },
     });
   };
 

@@ -20,17 +20,41 @@ body {
   background-color: #f9943b;
   border-radius: 10px;
 }
-.barras {
-  height: 40px;
-  width: 190px;
-  color: #fdfcfa;
-  background-color: #eeeae6;
-  border-radius: 10px;
-}
+
 .form-group {
-  height: 90px;
-  width: 320px;
+  width: 220px;
+  margin-bottom: 15px;
+  position: relative;
 }
 .titulo {
   color: darkblue;
+}
+
+.barras {
+  height: 40px;
+  width: 100%;
+  color: #0d0d0d;
+  background-color: #eeeae6;
+  border-radius: 10px;
+  padding-right: 40px;
+  box-sizing: border-box;
+  font-size: 16px;
+  border: 1px solid #ccc;
+}
+.password-wrapper {
+  width: 220px;
+}
+
+.icon-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #555;
+  height: 24px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

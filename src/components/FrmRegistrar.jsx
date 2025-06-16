@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/FormularioNombreApellido.css";
-import CloseIcon from "@mui/icons-material/Close";
+
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const FrmRegistar = ({ titulo = "Registrarse" }) => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [contrasenia, setContrasenia] = useState("");
   const [correo, setCorreo] = useState("");
+  const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -33,7 +36,6 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
             onChange={(e) => setNombre(e.target.value)}
             placeholder="Nombre"
           />
-          <CloseIcon />
         </div>
 
         <div className="form-group">
@@ -56,15 +58,25 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
             placeholder="Correo"
           />
         </div>
-        <div className="form-group">
+        <div
+          className="form-group password-wrapper"
+          style={{ position: "relative" }}
+        >
           <label></label>
           <input
             className="barras"
-            type="text"
+            type={mostrarContrasenia ? "text" : "password"}
             value={contrasenia}
             onChange={(e) => setContrasenia(e.target.value)}
             placeholder="Contraseña"
+            style={{ paddingRight: "40px" }} // deja espacio para el icono
           />
+          <span
+            className="icon-password"
+            onClick={() => setMostrarContrasenia(!mostrarContrasenia)}
+          >
+            {mostrarContrasenia ? <VisibilityIcon /> : <VisibilityOffIcon />}
+          </span>
         </div>
 
         <button type="submit" className="button">

@@ -1,9 +1,10 @@
 import React from "react";
-import "../css/navbar.css";
+import "../css/Navbar.css";
 
 const Navbar = () => {
   return (
     <div className="GeneralNavbar">
+      <h1 className="tituloP">ANDENSUR</h1>
       <div className="TituloNavbar">
         <p>Inicio</p>
         <p>Horarios</p>

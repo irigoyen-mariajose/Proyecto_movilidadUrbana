@@ -4,7 +4,7 @@ import FrmRegistrar from "./components/FrmRegistrar";
 import React from "react";
 import Search from "./components/Search";
 import initialDetails from "./components/initialDetails";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/NavbarBARRA";
 
 function App() {
   return (
