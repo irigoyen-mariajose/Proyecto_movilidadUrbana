@@ -1,60 +1,62 @@
 body {
-  background-color: white;
+    background-color: white;
 }
+
 .form-container {
-  display: flex;
-  height: 500px;
-  width: 400px;
-  background-color: #ffbd59;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
+    display: flex;
+    height: 500px;
+    width: 400px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
 }
 
 .button {
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  width: 120px;
-  color: #fdfcfa;
-  background-color: #f9943b;
-  border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 120px;
+    color: #fdfcfa;
+    background-color: #f9943b;
+    border-radius: 10px;
 }
 
 .form-group {
-  width: 220px;
-  margin-bottom: 15px;
-  position: relative;
+    width: 220px;
+    margin-bottom: 15px;
+    position: relative;
 }
+
 .titulo {
-  color: darkblue;
+    color: darkblue;
 }
 
 .barras {
-  height: 40px;
-  width: 100%;
-  color: #0d0d0d;
-  background-color: #eeeae6;
-  border-radius: 10px;
-  padding-right: 40px;
-  box-sizing: border-box;
-  font-size: 16px;
-  border: 1px solid #ccc;
+    height: 40px;
+    width: 100%;
+    color: #0d0d0d;
+    background-color: #eeeae6;
+    border-radius: 10px;
+    padding-right: 40px;
+    box-sizing: border-box;
+    font-size: 16px;
+    border: 1px solid #ccc;
 }
+
 .password-wrapper {
-  width: 220px;
+    width: 220px;
 }
 
 .icon-password {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #555;
-  height: 24px;
-  width: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+    height: 24px;
+    width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
