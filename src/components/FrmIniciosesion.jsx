@@ -68,8 +68,8 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion" }) => {
   </div>
 </div>
 
-        <p className="texto-opcion">
-          ¿No tenés cuenta, burro? <span className="enlace-regitrarse">Registrate</span>
+        <p>
+          ¿No tenés cuenta? <span className="enlace-registrarse">Registrate</span>
         </p>
       </form>
     </div>

@@ -28,12 +28,12 @@ function Search({ details }) {
 
   return (
     <section className="garamond">
-      <div className="navy georgia ma0 grow ">
+      <div >
         <h2 className="f2 light-yellow">Busqueda del mapa</h2>
       </div>
       <div className="pa2">
         <input 
-          className="pa3 bb br3 grow b--none bg-light-yellow ma3"
+          className="pa3 bb b--none bg-light-yellow ma3"
           type = "search" 
           placeholder = "¿A donde vas?" 
           onChange = {handleChange}
