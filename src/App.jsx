@@ -6,17 +6,21 @@ import Search from "./components/Search";
 import initialDetails from "./components/initialDetails";
 import Navbar from "./components/NavbarBARRA";
 import FrmIniciosesion from "./components/FrmIniciosesion";
+import FrmReclamos from "./components/FrmReclamos";
 
 
 function App() {
   return (
-    <div className="tc bg-green ma0 pa4 min-vh-100">
+    <div className="tc ma0 pa4 min-vh-100">
       <Navbar />
       <Search details={initialDetails} />
-      <div className="contenedor-formularios">
+     
       <FrmRegistrar />
       <FrmIniciosesion />
-      </div>    
+      <FrmReclamos />
+      
+         
+    
     </div>
   );
 }

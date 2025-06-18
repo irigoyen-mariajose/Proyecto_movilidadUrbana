@@ -1,0 +1,100 @@
+.form-container {
+    display: flex;
+    height: 500px;
+    width: 400px;
+    background-color: #ffb954;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 8px 8px 0 #c6822e;
+    border-radius: 10px;
+}
+
+
+/* tarjeta */
+
+
+/*
+.glass-form {
+    background-color: #ffb954;
+    padding: 2rem;
+    border-radius: 20px;
+    width: 320px;
+}
+
+
+/* encabezado */
+
+.glass-form h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #ff0808;
+    font-size: 1.5rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+
+/* la sombra de la caja que tiene todo*/
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #75ff47;
+}
+
+
+/* estilo de los select y textarea */
+
+.form-group .css-13cymwt-control,
+.form-group textarea {
+    border-radius: 20px;
+    border: none;
+    padding: 0.75rem 1rem;
+    background-color: #f0f0f0;
+    width: 100%;
+    font-size: 1rem;
+    outline: none;
+    resize: none;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 0.75rem;
+    background: linear-gradient(to right, #ffa94d, #ff7c18);
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+
+/* esto escala el boton cuando pasas el mouse */
+
+button[type="submit"]:hover {
+    transform: scale(1.05);
+}
+
+
+/* botón de subir imagen dentro del textarea */
+
+.textarea-group label[for="input-file"] {
+    position: absolute;
+    bottom: 12px;
+    right: 15px;
+    color: #333;
+}
+
+
+/* el espacio a la derecha para el icono */
+
+.textarea-group textarea {
+    padding-right: 2.5rem;
+}
