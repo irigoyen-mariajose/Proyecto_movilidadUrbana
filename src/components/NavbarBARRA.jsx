@@ -1,20 +1,19 @@
 import React from "react";
-import "../css/Navbar.css";
+import "../css/navbar.css";
 
 const Navbar = () => {
   return (
     <div className="GeneralNavbar">
-      <h1 className="tituloP">ANDENSUR</h1>
+      
       <div className="TituloNavbar">
+        <h1 className="tituloP">ANDENSUR</h1>
         <p>Inicio</p>
         <p>Horarios</p>
         <p>Notificaciones</p>
         <p>Soporte</p>
       </div>
 
-      <div className="flex justify-end">
-        <button className="CerrarSesion">Salir</button>
-      </div>
+      
     </div>
   );
 };

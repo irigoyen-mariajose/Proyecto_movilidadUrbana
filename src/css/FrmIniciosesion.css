@@ -111,7 +111,13 @@ body {
     gap: 10px;
     justify-content: center;
 }
-
+.enlace-registrarse{
+    color: blue;
+    cursor: pointer;
+}
+.enlace-registrarse:hover{
+    text-decoration: underline;    
+}
 .btn-google,
 .btn-facebook {
     display: flex;

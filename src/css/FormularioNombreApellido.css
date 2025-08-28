@@ -1,5 +1,7 @@
 body {
     background-color: white;
+    margin: 0;
+    padding: 0;
 }
 
 .form-container {
@@ -59,4 +61,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.inicio{
+    color: blue;
+    cursor: pointer;
+}
+.inicio:hover{
+    text-decoration: underline;
 }

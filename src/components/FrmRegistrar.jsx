@@ -82,7 +82,7 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
         <button type="submit" className="button">
           Entrar
         </button>
-        <p>ya tenes cuenta? botonIniciarsesion</p>
+        <p>Ya tenes cuenta? <span className="inicio">Iniciar Sesion</span></p>
       </form>
     </div>
   );

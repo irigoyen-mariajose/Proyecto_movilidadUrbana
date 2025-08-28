@@ -1,26 +1,73 @@
 import logo from "./logo.svg";
+import Home from "./components/Home"
 import "./css/FormularioNombreApellido.css";
 import FrmRegistrar from "./components/FrmRegistrar";
 import React from "react";
 import Search from "./components/Search";
-import initialDetails from "./components/initialDetails";
 import Navbar from "./components/NavbarBARRA";
 import FrmIniciosesion from "./components/FrmIniciosesion";
 import FrmReclamos from "./components/FrmReclamos";
+import { Routes, Route, Navigate, Link } from "react-router-dom";
+import { useState } from "react";
 
+
+
+function PrivateRoute({ isAuthenticated, children }) {
+  return isAuthenticated ? children : <Navigate to="/FrmIniciosesion" replace />;
+
+}
 
 function App() {
-  return (
-    <div className="tc ma0 pa4 min-vh-100">
-      <Navbar />
-      <Search details={initialDetails} />
-     
-      <FrmRegistrar />
-      <FrmIniciosesion />
-      <FrmReclamos />
-      
-         
+   const [isAuthenticated, setIsAuthenticated] = useState(false);
     
+  return (
+      <div>
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            isAuthenticated ? (
+              <Navigate to="/Home" replace />
+            ) : (
+              <Navigate to="/FrmIniciosesion" replace />
+            )
+          }
+        />
+
+
+        <Route
+          path="/FrmIniciosesion"
+          element={
+            !isAuthenticated ? (
+              <FrmIniciosesion onFrmIniciosesion={() => setIsAuthenticated(true)} />
+            ) : (
+              <Navigate to="/Home" replace />
+            )
+          }
+        />
+        <Route
+          path="/FrmRegistrar"
+          element={
+            !isAuthenticated ? (
+              <FrmRegistrar onFrmRegistrar={() => setIsAuthenticated(true)} />
+            ) : (
+              <Navigate to="/Home" replace />
+            )
+          }
+        />
+
+        <Route
+          path="/Home"
+          element={
+            <PrivateRoute isAuthenticated={isAuthenticated}>
+              <Home />
+            </PrivateRoute>
+          }
+        />
+
+        <Route path="*" element={<h2>404 - Página no encontrada</h2>} />
+      </Routes>
     </div>
   );
 }

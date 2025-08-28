@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/FrmIniciosesion.css";
-
+import FrmRegistar from "./FrmRegistrar";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
@@ -68,8 +68,8 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion" }) => {
   </div>
 </div>
 
-        <p className="texto-opcion">
-          ¿No tenés cuenta, burro? <span className="enlace-regitrarse">Registrate</span>
+        <p>
+          ¿No tenés cuenta? <span  onClick={() => navigate("/FrmRegistrar")} className="enlace-registrarse"> Registrate</span>
         </p>
       </form>
     </div>
