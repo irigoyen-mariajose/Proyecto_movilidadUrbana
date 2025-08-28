@@ -1,12 +1,14 @@
 import logo from "./logo.svg";
-import Home from "./components/Home"
+import "./App.css";
 import "./css/FormularioNombreApellido.css";
 import FrmRegistrar from "./components/FrmRegistrar";
+import Home from "./components/Home";
 import React from "react";
 import Search from "./components/Search";
 import Navbar from "./components/NavbarBARRA";
 import FrmIniciosesion from "./components/FrmIniciosesion";
 import FrmReclamos from "./components/FrmReclamos";
+import Horarios from "./components/Horarios";
 import { Routes, Route, Navigate, Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -61,7 +63,16 @@ function App() {
           path="/Home"
           element={
             <PrivateRoute isAuthenticated={isAuthenticated}>
-              <Home />
+              <Home onCerrarSesion={() => setIsAuthenticated(false)} />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/Horarios"
+          element={
+            <PrivateRoute isAuthenticated={isAuthenticated}>
+              <Horarios onCerrarSesion={() => setIsAuthenticated(false)} />
             </PrivateRoute>
           }
         />

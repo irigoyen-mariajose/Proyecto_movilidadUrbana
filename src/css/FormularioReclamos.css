@@ -9,21 +9,6 @@
     border-radius: 10px;
 }
 
-
-/* tarjeta */
-
-
-/*
-.glass-form {
-    background-color: #ffb954;
-    padding: 2rem;
-    border-radius: 20px;
-    width: 320px;
-}
-
-
-/* encabezado */
-
 .glass-form h2 {
     text-align: center;
     margin-bottom: 1.5rem;
@@ -37,9 +22,6 @@
     position: relative;
 }
 
-
-/* la sombra de la caja que tiene todo*/
-
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
@@ -47,8 +29,6 @@
     color: #75ff47;
 }
 
-
-/* estilo de los select y textarea */
 
 .form-group .css-13cymwt-control,
 .form-group textarea {
@@ -76,14 +56,10 @@ button[type="submit"] {
 }
 
 
-/* esto escala el boton cuando pasas el mouse */
-
 button[type="submit"]:hover {
     transform: scale(1.05);
 }
 
-
-/* botón de subir imagen dentro del textarea */
 
 .textarea-group label[for="input-file"] {
     position: absolute;
@@ -92,8 +68,6 @@ button[type="submit"]:hover {
     color: #333;
 }
 
-
-/* el espacio a la derecha para el icono */
 
 .textarea-group textarea {
     padding-right: 2.5rem;

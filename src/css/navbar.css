@@ -1,18 +1,57 @@
 .GeneralNavbar {
     background-color: #e7842e;
     width: 100%;
+    height: 60px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 0 20px;
-    /* Espacio a los costados */
     color: white;
-    
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky; /* se mantiene arriba al hacer scroll */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.tituloP {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .TituloNavbar {
     display: flex;
     align-items: center;
-    gap: 80px;
-    font-size: 18px;
-    font-weight: bold;
+    gap: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.TituloNavbar p {
+    margin: 0;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.TituloNavbar p:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.CerrarSesion {
+    background-color: #d63384;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.CerrarSesion:hover {
+    background-color: #b02a5b;
 }

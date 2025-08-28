@@ -5,7 +5,7 @@ import FrmRegistar from "./FrmRegistrar";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
-const FrmIniciosesion = ({ titulo = "Iniciar sesion" }) => {
+const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
   const [correo, setCorreo] = useState("");
   const [contrasenia, setContrasenia] = useState("");
   const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
@@ -13,14 +13,16 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion" }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    navigate("/resultado", {
-      state: { correo, contrasenia },
-    });
+    if (typeof onFrmIniciosesion === 'function') {
+      onFrmIniciosesion();
+    }
+    // Navega a Home después de iniciar sesión
+    navigate("/Home");
   };
 
   return (
-    <div className="form-container">
+    <div className="login-page">
+      <div className="form-container">
       <form onSubmit={handleSubmit} className="glass-form">
         <h2 className="titulo">{titulo}</h2>
 
@@ -72,6 +74,7 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion" }) => {
           ¿No tenés cuenta? <span  onClick={() => navigate("/FrmRegistrar")} className="enlace-registrarse"> Registrate</span>
         </p>
       </form>
+      </div>
     </div>
   );
 };

@@ -13,7 +13,7 @@ const FrmReclamos = ({ titulo = "Soporte" }) => {
   const [archivo, setArchivo] = useState(null);
   const navigate = useNavigate();
 
-// Opciones de paradas para el selector
+
   const opcionesParadas = [
     { value: "neuquen", label: "Terminal" },
     { value: "eton", label: "ETON" },
@@ -25,7 +25,6 @@ const FrmReclamos = ({ titulo = "Soporte" }) => {
     { value: "plottier", label: "Plottier" }
   ];
 
-// Opciones de problemas para el selector
   const opcionesProblemas = [
     { value: "ubicacion", label: "La ubicación de la parada no coincide con la de la aplicación" },
     { value: "fuera-servicio", label: "La parada está fuera de servicio" },
@@ -34,16 +33,12 @@ const FrmReclamos = ({ titulo = "Soporte" }) => {
     { value: "trabajadores", label: "Los trabajadores del tren" }
   ];
 
-  // Esta funcion se ejecuta cuando se manda el formulario
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Validación para que si o si elija una parada y problema
     if (!parada || !problema) {
-      alert("Por favor, selecciona una parada y un problema."); // Mensaje de alerta si llega a faltar informacion
-      return;// Sale de la función si no se cumple la validación
+      alert("Por favor, selecciona una parada y un problema.");
+      return;
     }
-    // lo manda a otra pantalla puse resultado porque no sabia que poner 
     navigate("/resultado", {
       
     });

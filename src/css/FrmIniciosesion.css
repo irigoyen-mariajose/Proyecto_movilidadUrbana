@@ -1,10 +1,14 @@
 body {
     background-color: rgb(255, 255, 255);
     font-family: 'Sansita', sans-serif;
+}
+
+.login-page {
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    padding: 20px;
 }
 
 .contenedor-formularios {
