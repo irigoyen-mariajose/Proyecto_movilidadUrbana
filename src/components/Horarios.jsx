@@ -13,22 +13,8 @@ const Horarios = ({ onCerrarSesion }) => {
           </p>
         </header>
 
-        <section className="search-section">
-          <h2 className="results-title">Buscar tren</h2>
-          <form className="search-form">
-            <input
-              type="text"
-              placeholder="Número de tren o estación"
-              className="search-input"
-            />
-            <button type="submit" className="search-button">
-              Buscar
-            </button>
-          </form>
-        </section>
-
         <section className="results-section">
-          <h2 className="results-title">Trenes en curso</h2>
+          <h2 className="results-title">Estado del tren</h2>
           <div className="results-grid">
             <div className="result-card">
               <div>

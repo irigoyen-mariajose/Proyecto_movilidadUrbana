@@ -21,6 +21,18 @@
     font-weight: bold;
 }
 
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.brand-logo {
+    height: 24px; /* igual al tamaño de fuente de .tituloP */
+    width: auto;
+    display: inline-block;
+}
+
 .TituloNavbar {
     display: flex;
     align-items: center;

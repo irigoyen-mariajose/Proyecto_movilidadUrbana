@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/navbar.css";
+import logoAndensur from "./Imagenes/logo_andensur.jpg";
 
 
 const Navbar = ({ onCerrarSesion }) => {
@@ -17,7 +18,10 @@ const Navbar = ({ onCerrarSesion }) => {
 
   return (
     <div className="GeneralNavbar">
-      <h1 className="tituloP">ANDENSUR</h1>
+      <div className="brand">
+        <img src={logoAndensur} alt="ANDENSUR" className="brand-logo" />
+        <h1 className="tituloP">NDENSUR</h1>
+      </div>
       <div className="TituloNavbar">
         <p onClick={() => navigate("/Home")}>Inicio</p>
         <p onClick={() => navigate("/Horarios")}>Horarios</p>
