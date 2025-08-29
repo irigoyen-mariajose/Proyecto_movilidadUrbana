@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/navbar.css";
 
+
 const Navbar = ({ onCerrarSesion }) => {
   const navigate = useNavigate();
   
@@ -20,7 +21,7 @@ const Navbar = ({ onCerrarSesion }) => {
       <div className="TituloNavbar">
         <p onClick={() => navigate("/Home")}>Inicio</p>
         <p onClick={() => navigate("/Horarios")}>Horarios</p>
-        <p>Notificaciones</p>
+        <p onClick={() => navigate("/Notificaciones")}>Notificaciones</p>
         <p>Soporte</p>
       </div>
 

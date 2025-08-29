@@ -9,6 +9,7 @@ import Navbar from "./components/NavbarBARRA";
 import FrmIniciosesion from "./components/FrmIniciosesion";
 import FrmReclamos from "./components/FrmReclamos";
 import Horarios from "./components/Horarios";
+import Notificaciones from "./components/Notificaciones";
 import { Routes, Route, Navigate, Link } from "react-router-dom";
 import { useState } from "react";
 
