@@ -77,7 +77,15 @@ function App() {
             </PrivateRoute>
           }
         />
-
+        
+        <Route
+          path="/Notificaciones"
+          element={
+            <PrivateRoute isAuthenticated={isAuthenticated}>
+              <Notificaciones onCerrarSesion={() => setIsAuthenticated(false)} />
+            </PrivateRoute>
+          }
+        />
         <Route path="*" element={<h2>404 - Página no encontrada</h2>} />
       </Routes>
     </div>
