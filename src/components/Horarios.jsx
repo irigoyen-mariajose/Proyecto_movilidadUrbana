@@ -1,8 +1,16 @@
 import React from "react";
 import Navbar from "./NavbarBARRA";
 import "../css/Horarios.css";
+import { useNavigate } from "react-router-dom"; 
 
 const Horarios = ({ onCerrarSesion }) => {
+  const navigate = useNavigate(); 
+
+  const handleProgramar = (e) => {
+    e.preventDefault();
+    navigate("/ProgramarViaje");
+  };
+
   return (
     <div className="horarios-page">
       <Navbar onCerrarSesion={onCerrarSesion} />
@@ -24,6 +32,7 @@ const Horarios = ({ onCerrarSesion }) => {
             <button type="submit" className="search-button">
               Buscar
             </button>
+            <button className="programar-button" type="button"onClick={handleProgramar}> Programar viaje </button>
           </form>
         </section>
 

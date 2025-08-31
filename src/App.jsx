@@ -12,6 +12,7 @@ import Horarios from "./components/Horarios";
 import Notificaciones from "./components/Notificaciones";
 import { Routes, Route, Navigate, Link } from "react-router-dom";
 import { useState } from "react";
+import ProgramarViaje from "./components/FrmProgViaje";
 
 
 
@@ -77,7 +78,15 @@ function App() {
             </PrivateRoute>
           }
         />
-        
+        <Route
+  path="/ProgramarViaje"
+  element={
+    <PrivateRoute isAuthenticated={isAuthenticated}>
+      <ProgramarViaje />
+    </PrivateRoute>
+  }
+/>
+
         <Route
           path="/Notificaciones"
           element={
