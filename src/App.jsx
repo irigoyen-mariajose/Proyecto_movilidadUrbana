@@ -1,45 +1,33 @@
-import logo from "./logo.svg";
 import "./App.css";
 import "./css/FormularioNombreApellido.css";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
+// Componentes
 import FrmRegistrar from "./components/FrmRegistrar";
-import Home from "./components/Home";
-import React from "react";
-import Search from "./components/Search";
-import Navbar from "./components/NavbarBARRA";
 import FrmIniciosesion from "./components/FrmIniciosesion";
-import FrmReclamos from "./components/FrmReclamos";
+import FrmHome from "./components/FrmHome";
+import Home from "./components/Home";
 import Horarios from "./components/Horarios";
 import Notificaciones from "./components/Notificaciones";
-import { Routes, Route, Navigate, Link } from "react-router-dom";
-import { useState } from "react";
 import ProgramarViaje from "./components/FrmProgViaje";
+import FrmReclamos from "./components/FrmReclamos";
 
-
-
+// PrivateRoute
 function PrivateRoute({ isAuthenticated, children }) {
   return isAuthenticated ? children : <Navigate to="/FrmIniciosesion" replace />;
-
 }
 
 function App() {
-   const [isAuthenticated, setIsAuthenticated] = useState(false);
-    
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   return (
-      <div>
-
+    <Router>
       <Routes>
-        <Route
-          path="/"
-          element={
-            isAuthenticated ? (
-              <Navigate to="/Home" replace />
-            ) : (
-              <Navigate to="/FrmIniciosesion" replace />
-            )
-          }
-        />
+        {/* Página inicial (landing con botones) */}
+        <Route path="/" element={<FrmHome />} />
 
-
+        {/* Login */}
         <Route
           path="/FrmIniciosesion"
           element={
@@ -50,6 +38,8 @@ function App() {
             )
           }
         />
+
+        {/* Registro */}
         <Route
           path="/FrmRegistrar"
           element={
@@ -61,6 +51,7 @@ function App() {
           }
         />
 
+        {/* Home protegido */}
         <Route
           path="/Home"
           element={
@@ -70,6 +61,17 @@ function App() {
           }
         />
 
+        {/* Reclamos */}
+        <Route
+          path="/Reclamos"
+          element={
+            <PrivateRoute isAuthenticated={isAuthenticated}>
+              <FrmReclamos onCerrarSesion={() => setIsAuthenticated(false)} />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Horarios */}
         <Route
           path="/Horarios"
           element={
@@ -78,15 +80,18 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route
-  path="/ProgramarViaje"
-  element={
-    <PrivateRoute isAuthenticated={isAuthenticated}>
-      <ProgramarViaje />
-    </PrivateRoute>
-  }
-/>
 
+        {/* Programar Viaje */}
+        <Route
+          path="/ProgramarViaje"
+          element={
+            <PrivateRoute isAuthenticated={isAuthenticated}>
+              <ProgramarViaje onCerrarSesion={() => setIsAuthenticated(false)} />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Notificaciones */}
         <Route
           path="/Notificaciones"
           element={
@@ -95,9 +100,12 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        {/* Página no encontrada */}
         <Route path="*" element={<h2>404 - Página no encontrada</h2>} />
       </Routes>
-    </div>
+    </Router>
   );
 }
+
 export default App;
