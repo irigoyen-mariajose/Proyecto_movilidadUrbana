@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import "../css/FrmIniciosesion.css";
 import FrmRegistar from "./FrmRegistrar";
-import "../css/FrmRegistrar.css";
 
 function Inicio (){
     return (
