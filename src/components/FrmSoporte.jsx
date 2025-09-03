@@ -2,14 +2,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Soporte.css";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../css/FormularioReclamos.css";
 import CloseIcon from "@mui/icons-material/Close";
 import Select from "react-select";
 import { FaImage } from "react-icons/fa"; 
 
 
-const FrmReclamos = ({ titulo = "Soporte" }) => {
+const FrmSoporte = ({ titulo = "Soporte" }) => {
   const [parada, setParada] = useState(null);
   const [problema, setProblema] = useState(null);
   const [detalle, setDetalle] = useState("");
