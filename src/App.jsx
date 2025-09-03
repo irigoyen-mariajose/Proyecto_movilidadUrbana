@@ -12,6 +12,7 @@ import Horarios from "./components/Horarios";
 import Notificaciones from "./components/Notificaciones";
 import ProgramarViaje from "./components/FrmProgViaje";
 import FrmReclamos from "./components/FrmReclamos";
+import FrmSoporte from "./components/FrmSoporte";
 
 // PrivateRoute
 function PrivateRoute({ isAuthenticated, children }) {
@@ -97,6 +98,14 @@ function App() {
           element={
             <PrivateRoute isAuthenticated={isAuthenticated}>
               <Notificaciones onCerrarSesion={() => setIsAuthenticated(false)} />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/FrmSoporte"
+          element={
+            <PrivateRoute isAuthenticated={isAuthenticated}>
+              <FrmSoporte onCerrarSesion={() => setIsAuthenticated(false)} />
             </PrivateRoute>
           }
         />
