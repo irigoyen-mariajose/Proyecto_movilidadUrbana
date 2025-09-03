@@ -80,7 +80,7 @@ function App() {
         }
       />
 
-<<<<<<< HEAD
+
         {/* Notificaciones */}
         <Route
           path="/Notificaciones"
@@ -98,7 +98,7 @@ function App() {
             </PrivateRoute>
           }
         />
-=======
+
       {/* Programar Viaje */}
       <Route
         path="/ProgramarViaje"
@@ -108,7 +108,7 @@ function App() {
           </PrivateRoute>
         }
       />
->>>>>>> 2ae0eb5eff0f0641a6b7abb56149b5f6588bec13
+
 
       {/* Notificaciones */}
       <Route

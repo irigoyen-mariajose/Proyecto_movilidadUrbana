@@ -51,24 +51,24 @@ Permite el acceso a un login, registro, notificaciones, soporte y los horarios d
 **En esta sección podemos contar con un soporte para el usuario y para poder reportar un problema ocurrido que afecte el funcionamiento del transporte.**
 
 ## Tecnologias utilizadas
-React
-Javascript
-HTML/CSS
-React Router DOM 
-Firebase
-React icons 
-Material UI
+- React
+- Javascript
+- HTML/CSS
+- React Router DOM 
+- Firebase
+- React icons 
+- Material UI
 
 ## Funcionalidades implementadas
-Pantallas diseñadas 
-Login y registro de usuarios 
-Routes hechos entre nuestras interfaces
-Navegación con React Router
-Protección de rutas 
-Cerrar sesion simulado
-Redirección entre vistas
-Notificaciones simuladas
-Interfaz de soporte y reclamos
+- Pantallas diseñadas 
+- Login y registro de usuarios 
+- Routes hechos entre nuestras interfaces
+- Navegación con React Router
+- Protección de rutas 
+- Cerrar sesion simulado
+- Redirección entre vistas
+- Notificaciones simuladas
+- Interfaz de soporte y reclamos
 
 
 ## Capturas de pantalla 
