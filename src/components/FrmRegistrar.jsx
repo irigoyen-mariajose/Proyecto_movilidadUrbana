@@ -17,7 +17,7 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
     e.preventDefault();
 
     // Navegar a PantallaDestino y pasar los datos
-    navigate("/resultado", {
+    navigate("/Home", {
       state: { nombre, apellido, contrasenia, correo },
     });
   };
