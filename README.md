@@ -19,7 +19,7 @@ Rojas Ángeles Eluney del Milagro
 
 ##Andensur - objetivo
 
-**Andenur es una aplicación enfocada en la movilidad urbana del valle Neuquén. Tiene como objetivo facilitar y optimizar el uso del tren, permitiendo que se pueda conocer los horarios, paradas e información como tarifas y servicios. El objetivo también es incentivar a más personas a hacer uso de transporte ferroviario, dándoles una herramienta que les permita acceder de una forma mas sencilla al servicio.**
+**Andensur es una aplicación enfocada en la movilidad urbana del valle Neuquén. Tiene como objetivo facilitar y optimizar el uso del tren, permitiendo que se pueda conocer los horarios, paradas e información como tarifas y servicios. El objetivo también es incentivar a más personas a hacer uso de transporte ferroviario, dándoles una herramienta que les permita acceder de una forma mas sencilla al servicio.**
 
 ##Herramientas utilizadas
 
@@ -50,8 +50,56 @@ Permite el acceso a un login, registro, notificaciones, soporte y los horarios d
 ####• soporte: 
 **En esta sección podemos contar con un soporte para el usuario y para poder reportar un problema ocurrido que afecte el funcionamiento del transporte.**
 
+## Tecnologias utilizadas
+- React
+- Javascript
+- HTML/CSS
+- React Router DOM 
+- Firebase
+- React icons 
+- Material UI
+
+## Funcionalidades implementadas
+- Pantallas diseñadas 
+- Login y registro de usuarios 
+- Routes hechos entre nuestras interfaces
+- Navegación con React Router
+- Protección de rutas 
+- Cerrar sesion simulado
+- Redirección entre vistas
+- Notificaciones simuladas
+- Interfaz de soporte y reclamos
 
 
+## Capturas de pantalla 
+![Login](/src/components/Imagenes/Login.png)
+![Registro](/src/components/Imagenes/Registro.png)
+![Pantalla_de_inicio](/src/components/Imagenes/Pantalla%20Inicio.png)
+
+
+
+
+## Login simulado
+
+function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  return (
+    <Routes>
+
+      <Route path="/" element={<Navigate to="/FrmIniciosesion" replace />} />
+
+      {/* Login */}
+      <Route
+        path="/FrmIniciosesion"
+        element={
+          !isAuthenticated ? (
+            <FrmIniciosesion onFrmIniciosesion={() => setIsAuthenticated(true)} />
+          ) : (
+            <Navigate to="/Home" replace />
+          )
+        }
+      />
 
 # Getting Started with Create React App
 

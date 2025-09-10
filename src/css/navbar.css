@@ -54,7 +54,7 @@
 }
 
 .CerrarSesion {
-    background-color: #d63384;
+    background-color: #5D4037;
     color: white;
     border: none;
     padding: 8px 16px;
@@ -65,5 +65,5 @@
 }
 
 .CerrarSesion:hover {
-    background-color: #b02a5b;
+    background-color: #5D4037;
 }
