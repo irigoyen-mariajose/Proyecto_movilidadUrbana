@@ -44,7 +44,6 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
             value={contrasenia}
             onChange={(e) => setContrasenia(e.target.value)}
             placeholder="Contraseña" required
-            style={{ paddingRight: "40px" }}
           />
           <span
             className="ojo-icon-password"

@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Soporte.css";
-import React, { useState } from "react";
 import "../css/FormularioReclamos.css";
-import CloseIcon from "@mui/icons-material/Close";
 import Select from "react-select";
 import { FaImage } from "react-icons/fa"; 
 
