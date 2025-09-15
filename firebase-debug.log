@@ -1,13 +1,13 @@
-[debug] [2025-08-06T00:34:25.540Z] ----------------------------------------------------------------------
-[debug] [2025-08-06T00:34:25.545Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\eljul\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
-[debug] [2025-08-06T00:34:25.546Z] CLI Version:   14.11.2
-[debug] [2025-08-06T00:34:25.546Z] Platform:      win32
-[debug] [2025-08-06T00:34:25.546Z] Node Version:  v22.14.0
-[debug] [2025-08-06T00:34:25.546Z] Time:          Tue Aug 05 2025 21:34:25 GMT-0300 (hora estándar de Argentina)
-[debug] [2025-08-06T00:34:25.546Z] ----------------------------------------------------------------------
+[debug] [2025-09-15T02:36:34.584Z] ----------------------------------------------------------------------
+[debug] [2025-09-15T02:36:34.588Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2025-09-15T02:36:34.589Z] CLI Version:   14.16.0
+[debug] [2025-09-15T02:36:34.589Z] Platform:      darwin
+[debug] [2025-09-15T02:36:34.589Z] Node Version:  v23.10.0
+[debug] [2025-09-15T02:36:34.589Z] Time:          Sun Sep 14 2025 23:36:34 GMT-0300 (Argentina Standard Time)
+[debug] [2025-09-15T02:36:34.589Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2025-08-06T00:34:25.553Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2025-08-06T00:34:25.553Z] > authorizing via signed-in user (facundoezequielgonzalez2007@gmail.com)
+[debug] [2025-09-15T02:36:34.674Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-15T02:36:34.674Z] > authorizing via signed-in user (aixarochaepet20@gmail.com)
 [info] 
      ######## #### ########  ######## ########     ###     ######  ########
      ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
@@ -17,53 +17,9 @@
 
 You're about to initialize a Firebase project in this directory:
 
-  C:\Users\eljul\Desktop\Proyecto Femilabush\Proyecto_movilidadUrbana
+  /Users/aixa/Proyecto_movilidadUrbana
 
-[info] 
-=== Project Setup
-[info] 
-[info] First, let's associate this project directory with a Firebase project.
-[info] You can create multiple project aliases by running firebase use --add, 
-[info] but for now we'll just set up a default project.
-[info] 
-[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
-[debug] [2025-08-06T00:35:48.302Z] Checked if tokens are valid: true, expires at: 1754443909208
-[debug] [2025-08-06T00:35:48.303Z] Checked if tokens are valid: true, expires at: 1754443909208
-[debug] [2025-08-06T00:35:48.309Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1/projects:checkProjectId [none]
-[debug] [2025-08-06T00:35:48.310Z] >>> [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"proposedId":"andesur"}
-[debug] [2025-08-06T00:35:48.973Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1/projects:checkProjectId 200
-[debug] [2025-08-06T00:35:48.973Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"projectIdStatus":"PROJECT_ID_UNAVAILABLE","suggestedProjectId":"andesur-e79cd"}
-[debug] [2025-08-06T00:35:58.691Z] Checked if tokens are valid: true, expires at: 1754443909208
-[debug] [2025-08-06T00:35:58.692Z] Checked if tokens are valid: true, expires at: 1754443909208
-[debug] [2025-08-06T00:35:58.693Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1/projects:checkProjectId [none]
-[debug] [2025-08-06T00:35:58.694Z] >>> [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"proposedId":"andensur"}
-[debug] [2025-08-06T00:35:59.301Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1/projects:checkProjectId 200
-[debug] [2025-08-06T00:35:59.302Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"projectIdStatus":"PROJECT_ID_UNAVAILABLE","suggestedProjectId":"andensur-47aea"}
-[debug] [2025-08-06T00:36:12.422Z] Checked if tokens are valid: true, expires at: 1754443909208
-[debug] [2025-08-06T00:36:12.423Z] Checked if tokens are valid: true, expires at: 1754443909208
-[debug] [2025-08-06T00:36:12.425Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1/projects:checkProjectId [none]
-[debug] [2025-08-06T00:36:12.425Z] >>> [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"proposedId":"andensur-6777"}
-[debug] [2025-08-06T00:36:12.827Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1/projects:checkProjectId 200
-[debug] [2025-08-06T00:36:12.827Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"projectIdStatus":"PROJECT_ID_AVAILABLE","suggestedProjectId":"andensur-6777"}
-[debug] [2025-08-06T00:36:41.607Z] Checked if tokens are valid: true, expires at: 1754443909208
-[debug] [2025-08-06T00:36:41.608Z] Checked if tokens are valid: true, expires at: 1754443909208
-[debug] [2025-08-06T00:36:41.609Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
-[debug] [2025-08-06T00:36:41.609Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"andensur-6777","name":"Andesur"}
-[debug] [2025-08-06T00:36:42.904Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 200
-[debug] [2025-08-06T00:36:42.904Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"name":"operations/create_project.global.9193727110697344344"}
-[debug] [2025-08-06T00:36:42.906Z] Checked if tokens are valid: true, expires at: 1754443909208
-[debug] [2025-08-06T00:36:42.907Z] Checked if tokens are valid: true, expires at: 1754443909208
-[debug] [2025-08-06T00:36:42.907Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.9193727110697344344 [none]
-[debug] [2025-08-06T00:36:43.760Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.9193727110697344344 200
-[debug] [2025-08-06T00:36:43.760Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.9193727110697344344 {"name":"operations/create_project.global.9193727110697344344","metadata":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.ProjectCreationStatus","ready":true},"done":true,"error":{"code":9,"message":"Callers must accept Terms of Service","details":[{"@type":"type.googleapis.com/google.rpc.PreconditionFailure","violations":[{"type":"TOS","subject":"cloud","description":"Callers must accept Terms of Service"}]}]}}
-[debug] [2025-08-06T00:36:43.963Z] FirebaseError: Callers must accept Terms of Service
-    at OperationPoller.poll (C:\Users\eljul\AppData\Roaming\npm\node_modules\firebase-tools\lib\operation-poller.js:24:19)
-    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async createCloudProject (C:\Users\eljul\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:215:29)
-    at async createFirebaseProjectAndLog (C:\Users\eljul\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:83:9)
-    at async promptAndCreateNewProject (C:\Users\eljul\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\features\project.js:31:12)
-    at async Object.doSetup (C:\Users\eljul\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\features\project.js:85:31)
-    at async init (C:\Users\eljul\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\index.js:62:13)
-    at async Command.initAction [as actionFn] (C:\Users\eljul\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\init.js:205:5)
-[error] 
-[error] Error: Failed to create project. See firebase-debug.log for more info.
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
