@@ -1,35 +1,43 @@
-import { useState, useEffect } from "react";
-import { getFirestore, collection, onSnapshot, query, orderBy } from "firebase/firestore";
+import React, { useEffect } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
-export default function useHorariosTrenes(collectionName = "horarios") {
-const [horarios, setHorarios] = useState([]);
-const [cargando, setCargando] = useState(true);
-const [error, setError] = useState(null);
+function Horarios() {
+  useEffect(() => {
+    const cargarHorarios = async () => {
+      try {
+        const horariosref = collection(db, "Horarios");
 
+   
+        await addDoc(horariosref, {
+          tren: "N 1",
+          horario: "12:20"
+        });
+   await addDoc(horariosref, {
+          tren: "N 1",
+          horario: "13:20"
+        });
 
-useEffect(() => {
-const db = getFirestore();
-const q = query(collection(db, collectionName), orderBy("horaInicio"));
+         await addDoc(horariosref, {
+          tren: "N 1",
+          horario: "14:20"
+        });
 
+        console.log("Horarios cargados");
+      } catch (error) {
+        console.error("Error, no se pudieron cargar los horarios", error);
+      }
+    };
 
-const unsub = onSnapshot(
-q,
-(snapshot) => {
-const data = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
-setHorarios(data);
-setCargando(false);
-},
-(err) => {
-console.error("Error escuchando horarios de trenes:", err);
-setError(err);
-setCargando(false);
+    cargarHorarios();
+  }, []);
+
+  return (
+    <div>
+      <h1>Colección Horarios</h1>
+      <p>Se cargaron 3 documentos en Firestore.</p>
+    </div>
+  );
 }
-);
 
-
-return () => unsub();
-}, [collectionName]);
-
-
-return { horarios, cargando, error };
-}
+export default Horarios;

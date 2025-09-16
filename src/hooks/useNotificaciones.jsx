@@ -1,35 +1,40 @@
-import { useState, useEffect } from "react";
-import { getFirestore, collection, onSnapshot, query, orderBy } from "firebase/firestore";
+import React, { useEffect } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
-export default function useNotificaciones(collectionName = "notificaciones") {
-const [notificaciones, setNotificaciones] = useState([]);
-const [cargando, setCargando] = useState(true);
-const [error, setError] = useState(null);
+function Notificaciones() {
+  useEffect(() => {
+    const cargarNotificaciones = async () => {
+      try {
+        const notisref = collection(db, "Notificaciones");
 
+   
+        await addDoc(notisref, {
+          Notificacion: "Viaje suspendido"
+        });
+        await addDoc(notisref, {
+          Notificacion: "Viaje suspendido"
+        });
 
-useEffect(() => {
-const db = getFirestore();
-const q = query(collection(db, collectionName), orderBy("createdAt", "desc"));
+        await addDoc(notisref, {
+          Notificacion: "Viaje suspendido"
+        });
 
+        console.log("Notificaciones cargadas");
+      } catch (error) {
+        console.error("Error, no se pudieron cargar las notificaciones", error);
+      }
+    };
 
-const unsub = onSnapshot(
-q,
-(snapshot) => {
-const data = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
-setNotificaciones(data);
-setCargando(false);
-},
-(err) => {
-console.error("Error escuchando notificaciones:", err);
-setError(err);
-setCargando(false);
+    cargarNotis();
+  }, []);
+
+  return (
+    <div>
+      <h1>Colección Notificaciones</h1>
+      <p>Se cargaron 3 documentos en Firestore.</p>
+    </div>
+  );
 }
-);
 
-
-return () => unsub();
-}, [collectionName]);
-
-
-return { notificaciones, cargando, error };
-}
+export default Notificaciones;

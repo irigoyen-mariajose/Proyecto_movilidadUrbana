@@ -1,36 +1,40 @@
-import { useState, useEffect } from "react";
-import { getFirestore, collection, onSnapshot, query, orderBy } from "firebase/firestore";
+import React, { useEffect } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
+function Paradas() {
+  useEffect(() => {
+    const cargarParadas = async () => {
+      try {
+        const paradaref = collection(db, "Paradas");
 
-export default function useParadas(collectionName = "paradas") {
-const [paradas, setParadas] = useState([]);
-const [cargando, setCargando] = useState(true);
-const [error, setError] = useState(null);
+   
+        await addDoc(paradaref, {
+          parada: "2611"
+        });
+       await addDoc(paradaref, {
+          parada: "2601"
+        });
 
+        await addDoc(paradaref, {
+          parada: "2609"
+        });
 
-useEffect(() => {
-const db = getFirestore();
-const q = query(collection(db, collectionName), orderBy("nombre"));
+        console.log("Paradas cargadas");
+      } catch (error) {
+        console.error("Error, no se pudieron cargar las paradas", error);
+      }
+    };
 
+    cargarParadas();
+  }, []);
 
-const unsub = onSnapshot(
-q,
-(snapshot) => {
-const data = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
-setParadas(data);
-setCargando(false);
-},
-(err) => {
-console.error("Error escuchando paradas:", err);
-setError(err);
-setCargando(false);
+  return (
+    <div>
+      <h1>Colección Paradas</h1>
+      <p>Se cargaron 3 documentos en Firestore.</p>
+    </div>
+  );
 }
-);
 
-
-return () => unsub();
-}, [collectionName]);
-
-
-return { paradas, cargando, error };
-}
+export default Paradas;
