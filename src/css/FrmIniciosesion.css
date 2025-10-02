@@ -1,6 +1,9 @@
 body {
     background-color: rgb(255, 255, 255);
     font-family: 'Sansita', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
 }
 
 .login-page {
@@ -9,6 +12,28 @@ body {
     justify-content: center;
     align-items: center;
     padding: 20px;
+    background-image: url('../../tren-del-valle-2028876.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+}
+
+.login-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(128, 128, 128, 0.7);
+    z-index: 1;
+}
+
+.form-container {
+    position: relative;
+    z-index: 2;
 }
 
 .contenedor-formularios {
