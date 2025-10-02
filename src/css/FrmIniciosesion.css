@@ -9,10 +9,10 @@ body {
 .login-page {
     min-height: 100vh;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    padding: 20px;
-    background-image: url('../../tren-del-valle-2028876.jpg');
+    padding: 20px 20px 20px 100px;
+    background-image: url('../../tren2.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -46,7 +46,7 @@ body {
 
 .form-container {
     margin-top: 20px;
-    background-color: #ffbd59;
+    background-color: #eeab56;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
@@ -55,9 +55,19 @@ body {
     color: #000;
 }
 
+.glass-form {
+    background-color: transparent;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: none;
+    width: 90%;
+    max-width: 400px;
+    color: #000;
+}
+
 .glass-form h2 {
     text-align: center;
-    color: darkblue;
+    color: #713d14;
     margin-bottom: 20px;
 }
 
@@ -70,10 +80,10 @@ body {
     width: 100%;
     padding: 10px;
     font-size: 16px;
-    background-color: #eeeae6;
-    border: 1px solid #ccc;
+    background-color: #eeab56;
+    border: 1px solid #d4943a;
     border-radius: 10px;
-    color: #0d0d0d;
+    color: #713d14;
     box-sizing: border-box;
     padding-right: 40px;
 }
@@ -83,39 +93,41 @@ body {
 }
 
 .password-wrapper .barras {
-    padding-right: 45px; 
+    padding-right: 35px; 
 }
 
 .ojo-icon-password {
     position: absolute;
     top: 50%;
-    right: 15px;
+    right: 10px;
     transform: translateY(-50%);
     cursor: pointer;
-    color: #666;
-    height: 20px;
-    width: 20px;
+    color: #713d14;
+    height: 18px;
+    width: 18px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    z-index: 10;
+    z-index: 15;
     pointer-events: auto;
     background-color: transparent;
     border: none;
     outline: none;
     transition: color 0.2s ease;
+    font-size: 14px;
 }
 
 .ojo-icon-password:hover {
-    color: #333;
+    color: #4a2810;
+    transform: translateY(-50%) scale(1.1);
 }
 
 .button {
     width: 100%;
     height: 40px;
-    background-color: #f9943b;
+    background-color: #ff6b1a;
     color: #fff;
-    border: none;
+    border: 1px solid #e55a00;
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
@@ -123,17 +135,17 @@ body {
 }
 
 .button:hover {
-    background-color: #e07c1f;
+    background-color: #e55a00;
 }
 
 .texto-opcion {
     text-align: center;
     margin-top: 15px;
-    color: #333;
+    color: #fff;
 }
 
 .enlace {
-    color: darkblue;
+    color: #fff;
     font-weight: bold;
     cursor: pointer;
     text-decoration: underline;
@@ -146,7 +158,7 @@ body {
 
 .texto-social {
     margin-bottom: 10px;
-    color: #333;
+    color: #fff;
 }
 
 .botones-rds-sociales {
@@ -155,7 +167,7 @@ body {
     justify-content: center;
 }
 .enlace-registrarse{
-    color: blue;
+    color: #fff;
     cursor: pointer;
 }
 .enlace-registrarse:hover{
@@ -177,12 +189,12 @@ body {
 
 .btn-google {
     background-color: #fff;
-    color: #333;
+    color: #000;
     border: 1px solid #ccc;
 }
 
 .btn-google:hover {
-    background-color: #f1f1f1;
+    background-color: #d4943a;
 }
 
 .btn-facebook {
@@ -191,5 +203,5 @@ body {
 }
 
 .btn-facebook:hover {
-    background-color: #145ecb;
+    background-color: #166fe5;
 }
