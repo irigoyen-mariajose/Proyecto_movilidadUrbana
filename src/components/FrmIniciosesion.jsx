@@ -16,7 +16,7 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
     if (typeof onFrmIniciosesion === 'function') {
       onFrmIniciosesion();
     }
-    // Navega a Home después de iniciar sesión
+
     navigate("/Home");
   };
 
