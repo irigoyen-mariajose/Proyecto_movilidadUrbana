@@ -70,3 +70,9 @@
   font-size: 1.25rem; 
   font-weight: 600;
 }
+.search-button{
+display: flex;
+text-align: center;
+justify-content: center;
+flex-direction: column;
+}

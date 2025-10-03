@@ -20,13 +20,13 @@ const Navbar = ({ onCerrarSesion }) => {
     <div className="GeneralNavbar">
       <div className="brand">
         <img src={logoAndensur} alt="ANDENSUR" className="brand-logo" />
-        <h1 className="tituloP">NDENSUR</h1>
+        <h1 className="tituloP">ANDENSUR</h1>
       </div>
       <div className="TituloNavbar">
         <p onClick={() => navigate("/Home")}>Inicio</p>
         <p onClick={() => navigate("/Horarios")}>Horarios</p>
         <p onClick={() => navigate("/Notificaciones")}>Notificaciones</p>
-        <p>Soporte</p>
+        <p onClick={() => navigate("/Soporte")}>Soporte</p>
       </div>
 
       <div className="flex justify-end">

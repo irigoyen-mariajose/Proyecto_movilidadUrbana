@@ -115,7 +115,7 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
           </button>
 
           <div className="social-login">
-            <p className="texto-social">O iniciá sesión con:</p>
+            <p className="texto-social">O iniciá sesión con</p>
             <div className="botones-rds-sociales">
               <button type="button" className="btn-google" onClick={handleGoogleLogin}>
                   <img

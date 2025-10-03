@@ -32,8 +32,12 @@ body {
 }
 
 .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     z-index: 2;
+
 }
 
 .contenedor-formularios {
@@ -123,8 +127,10 @@ body {
 }
 
 .button {
+    display: flex;
     width: 100%;
     height: 40px;
+    text-align: center;
     background-color: #ff6b1a;
     color: #fff;
     border: 1px solid #e55a00;
@@ -158,7 +164,7 @@ body {
 
 .texto-social {
     margin-bottom: 10px;
-    color: #fff;
+    color: #000000;
 }
 
 .botones-rds-sociales {
@@ -167,7 +173,7 @@ body {
     justify-content: center;
 }
 .enlace-registrarse{
-    color: #fff;
+   color: #000000;
     cursor: pointer;
 }
 .enlace-registrarse:hover{
@@ -194,7 +200,7 @@ body {
 }
 
 .btn-google:hover {
-    background-color: #d4943a;
+    background-color: #e4e2e2;
 }
 
 .btn-facebook {
