@@ -173,11 +173,15 @@ body {
     justify-content: center;
 }
 .enlace-registrarse{
-   color: #000000;
+   color: #ff5b03;
     cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s ease;
 }
 .enlace-registrarse:hover{
+    color: #f3f3f3;
     text-decoration: underline;    
+    transform: scale(1.05)
 }
 .btn-google,
 .btn-facebook {

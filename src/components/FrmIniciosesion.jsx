@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../css/FrmIniciosesion.css";
-import FrmRegistar from "./FrmRegistrar";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { signInWithPopup } from "firebase/auth";
@@ -136,12 +135,10 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
 
           <p>
             ¿No tenés cuenta?{" "}
-            <span
-              onClick={() => navigate("/FrmRegistrar")}
-              className="enlace-registrarse"
-            >
+            <Link to="/FrmRegistrar" className="enlace-registrarse">
               Registrate
-            </span>
+            </Link>
+              
           </p>
         </form>
       </div>
