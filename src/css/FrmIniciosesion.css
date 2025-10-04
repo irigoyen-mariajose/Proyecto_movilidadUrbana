@@ -97,19 +97,19 @@ body {
 }
 
 .password-wrapper .barras {
-    padding-right: 35px; 
+    padding-right: 38px; 
 }
 
 .ojo-icon-password {
     position: absolute;
-    top: 50%;
-    right: 10px;
+    top: 44%;
+    right: 90px;
     transform: translateY(-50%);
     cursor: pointer;
     color: #713d14;
     height: 18px;
     width: 18px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     z-index: 15;
@@ -117,8 +117,8 @@ body {
     background-color: transparent;
     border: none;
     outline: none;
-    transition: color 0.2s ease;
-    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+    font-size: 20px;
 }
 
 .ojo-icon-password:hover {
