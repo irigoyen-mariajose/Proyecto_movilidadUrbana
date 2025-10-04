@@ -16,9 +16,9 @@ function Trenes() {
         const trenref = collection(db, "Trenes");
 
    
-        await addDoc(trenref, { tren: "N 1" });
-        await addDoc(trenref, { tren: "N 2" });
-        await addDoc(trenref, { tren: "N 3" });
+        await addDoc(trenref, { tren: "N 01" });
+        await addDoc(trenref, { tren: "N 02" });
+        await addDoc(trenref, { tren: "N 03" });
         console.log("INSERT → 3 trenes agregados");
 
         const snapshot = await getDocs(trenref);
@@ -27,20 +27,22 @@ function Trenes() {
 
         const idUpdate = snapshot.docs[0].id;
         const refUpdate = doc(db, "Trenes", idUpdate);
-        await updateDoc(refUpdate, { tren: "N 1 - Actualizado" });
-        console.log('UPDATE → Documento ${idUpdate} actualizado');
+        await updateDoc(refUpdate, { tren: "N 01 - Actualizado" });
+        console.log(`UPDATE → Documento ${idUpdate} actualizado`);
 
         const idDelete = snapshot.docs[1].id;
         const refDelete = doc(db, "Trenes", idDelete);
         await deleteDoc(refDelete);
-        console.log('DELETE → Documento ${idDelete} eliminado');
+        console.log(`DELETE → Documento ${idDelete} eliminado`);
 
         const q = query(trenref, orderBy("tren", "asc"));
         const ordenados = await getDocs(q);
         console.log("ORDER BY → Trenes ordenados:");
         ordenados.forEach((d) => console.log(d.id, "=>", d.data()));
+
+      console.log("Trenes cargados correctamente ");
       } catch (error) {
-        console.error("Error en consultas Firestore:", error);
+        console.error("Error en consultas Firestore :", error);
       }
     };
 

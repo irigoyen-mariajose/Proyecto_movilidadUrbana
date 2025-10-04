@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { collection, addDoc } from "firebase/firestore";
+import { collection,
+  addDoc,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  doc,
+  query,
+  orderBy } from "firebase/firestore";
 import { db } from "../../firebase";
 
 function Paradas() {

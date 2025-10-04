@@ -40,6 +40,9 @@ function Horarios() {
         console.log("ORDER BY → Horarios ordenados:");
         ordenados.forEach((d) => console.log(d.id, "=>", d.data()));
 
+
+        console.log("Horarios cargados correctamente ");
+
       } catch (error) {
         console.error("Error en consultas Firestore:", error);
       }
