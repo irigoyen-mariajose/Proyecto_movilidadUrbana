@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/FormularioNombreApellido.css";
 import "./FrmIniciosesion";
@@ -19,6 +19,19 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
   const [errores, setErrores] = useState({});
   const navigate = useNavigate();
 
+  // FEEDBACK EN VIVO
+  const [correoValido, setCorreoValido] = useState(false);
+  const [contraseniaValida, setContraseniaValida] = useState(false);
+
+  // VALIDACION CON USE EFFECT
+  useEffect(() => {
+    const regexCorreo = /^[a-zA-Z0-9._%+-]+@gmail\.com$/i;
+    setCorreoValido(regexCorreo.test(correo));
+
+    const regexPassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$/;
+    setContraseniaValida(regexPassword.test(contrasenia));
+  }, [correo, contrasenia]);
+
   const validar = () => {
     let nuevosErrores = {};
 
@@ -27,21 +40,21 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
     if (!apellido.trim()) nuevosErrores.apellido = "El apellido es obligatorio.";
 
     // VALIDACION CORRECTA Y ESTRICTA DE GMAIL
-    const regexCorreo = /^[a-zA-Z0-9._%+-]+@gmail\.com$/i;
-    if (!correo.trim()) nuevosErrores.correo = "El correo es obligatorio.";
-    else if (!regexCorreo.test(correo))
+    if (!correo.trim()) {
+      nuevosErrores.correo = "El correo es obligatorio.";
+    } else if (!correoValido) {
       nuevosErrores.correo = "Solo se permiten correos Gmail válidos.";
+    }
 
     // VALIDACION DE CONTRAEÑA MAS SEGURA
-    const regexPassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$/;
-    if (!contrasenia.trim())
+    if (!contrasenia.trim()) {
       nuevosErrores.contrasenia = "La contraseña es obligatoria.";
-    else if (!regexPassword.test(contrasenia))
+    } else if (!contraseniaValida) {
       nuevosErrores.contrasenia =
         "La contraseña debe tener min. 6 caracteres, 1 mayúscula, 1 número y 1 símbolo.";
+    }
 
     setErrores(nuevosErrores);
-
     return Object.keys(nuevosErrores).length === 0;
   };
 
@@ -49,11 +62,7 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
     e.preventDefault();
 
     const esValido = validar();
-
-    if (!esValido) {
-      console.warn("Intento de registro bloqueado por validación del front");
-      return;
-    }
+    if (!esValido) return;
 
     try {
       // CREA USUARIO :O
@@ -133,15 +142,23 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
         <div className="form-group">
           <input
             className="barras"
-            type="email"
+            type="text"
             value={correo}
             onChange={(e) => setCorreo(e.target.value)}
             placeholder="Correo"
-            pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$"
             required
           />
           {errores.correo && (
             <p className="mensaje-error">{errores.correo}</p>
+          )}
+          {!errores.correo && correo && (
+            <p
+              className={`mensaje-feedback ${
+                correoValido ? "valido" : "invalido"
+              }`}
+            >
+              {correoValido ? "Correo válido " : "Correo inválido "}
+            </p>
           )}
         </div>
 
@@ -155,8 +172,6 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
             value={contrasenia}
             onChange={(e) => setContrasenia(e.target.value)}
             placeholder="Contraseña"
-            style={{ paddingRight: "40px" }}
-            pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$"
             required
           />
           <span
@@ -167,6 +182,17 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
           </span>
           {errores.contrasenia && (
             <p className="mensaje-error">{errores.contrasenia}</p>
+          )}
+          {!errores.contrasenia && contrasenia && (
+            <p
+              className={`mensaje-feedback ${
+                contraseniaValida ? "valido" : "invalido"
+              }`}
+            >
+              {contraseniaValida
+                ? "Contraseña segura"
+                : "Contraseña insegura"}
+            </p>
           )}
         </div>
 
