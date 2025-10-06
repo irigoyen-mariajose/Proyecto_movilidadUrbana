@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import "../css/FormularioNombreApellido.css";
 import "./FrmIniciosesion";
 
+import { auth, db } from "../firebaseConfig"; // 🔹 importa auth y db
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
@@ -14,13 +18,30 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
   const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Navegar a PantallaDestino y pasar los datos
-    navigate("/Home", {
-      state: { nombre, apellido, contrasenia, correo },
-    });
+    try {
+      // CREA USUARIO
+      const userCredential = await createUserWithEmailAndPassword(auth, correo, contrasenia);
+      const user = userCredential.user;
+
+      // GUARDADO DE DATOS :v
+      await setDoc(doc(db, "users", user.uid), {
+        nombre,
+        apellido,
+        correo,
+        createdAt: new Date()
+      });
+
+      // ENTRA A HOME SOLO CON LOS DATOS
+      navigate("/Home", {
+        state: { nombre, apellido, contrasenia, correo },
+      });
+    } catch (error) {
+      console.error("Error al registrar:", error.message);
+      alert("Hubo un error: " + error.message);
+    }
   };
 
   return (
@@ -29,7 +50,6 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
         <h2 className="titulo">{titulo}</h2>
 
         <div className="form-group">
-          <label></label>
           <input
             className="barras"
             type="text"
@@ -40,7 +60,6 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
         </div>
 
         <div className="form-group">
-          <label></label>
           <input
             className="barras"
             type="text"
@@ -49,28 +68,25 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
             placeholder="Apellido"
           />
         </div>
+
         <div className="form-group">
-          <label></label>
           <input
             className="barras"
-            type="text"
+            type="email"
             value={correo}
             onChange={(e) => setCorreo(e.target.value)}
             placeholder="Correo"
           />
         </div>
-        <div
-          className="form-group password-wrapper"
-          style={{ position: "relative" }}
-        >
-          <label></label>
+
+        <div className="form-group password-wrapper" style={{ position: "relative" }}>
           <input
             className="barras"
             type={mostrarContrasenia ? "text" : "password"}
             value={contrasenia}
             onChange={(e) => setContrasenia(e.target.value)}
             placeholder="Contraseña"
-            style={{ paddingRight: "40px" }} // deja espacio para el icono
+            style={{ paddingRight: "40px" }}
           />
           <span
             className="icon-password"
@@ -83,9 +99,12 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
         <button type="submit" className="button">
           Entrar
         </button>
-        <p>Ya tenes cuenta? <span className="inicio"
-        onClick={() => navigate("/FrmIniciosesion")}
-        >Iniciar Sesion</span> </p>
+        <p>
+          Ya tenes cuenta?{" "}
+          <span className="inicio" onClick={() => navigate("/FrmIniciosesion")}>
+            Iniciar Sesion
+          </span>
+        </p>
       </form>
     </div>
   );

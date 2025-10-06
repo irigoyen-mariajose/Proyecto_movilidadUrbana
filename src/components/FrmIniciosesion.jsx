@@ -3,10 +3,8 @@ import { useNavigate, Link } from "react-router-dom";
 import "../css/FrmIniciosesion.css";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth"; // 🔹 agregamos signInWithEmailAndPassword
 import { auth, googleProvider } from "../firebaseConfig";
-
-
 
 //FORMULARIO
 const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
@@ -16,22 +14,22 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
   const [errores, setErrores] = useState({});
   const navigate = useNavigate();
 
- const handleGoogleLogin = async () => {
-  try {
-    const result = await signInWithPopup(auth, googleProvider);
-    const user = result.user;
-    console.log("Usuario logueado con Google:", user);
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      console.log("Usuario logueado con Google:", user);
 
-    if (typeof onFrmIniciosesion === "function") {
-      onFrmIniciosesion(user);
+      if (typeof onFrmIniciosesion === "function") {
+        onFrmIniciosesion(user);
+      }
+
+      navigate("/Home");
+    } catch (error) {
+      console.error("Error al iniciar sesión con Google:", error);
+      alert("No se pudo iniciar sesión con Google");
     }
-
-    navigate("/Home");
-  } catch (error) {
-    console.error("Error al iniciar sesión con Google:", error);
-    alert("No se pudo iniciar sesión con Google");
-  }
-};
+  };
 
   const validar = () => {
     let nuevosErrores = {};
@@ -53,18 +51,28 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
     return Object.keys(nuevosErrores).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validar()) {
       return;
     }
 
-    if (typeof onFrmIniciosesion === "function") {
-      onFrmIniciosesion();
-    }
+    try {
+      // LOGIN FIREBASE
+      const userCredential = await signInWithEmailAndPassword(auth, correo, contrasenia);
+      const user = userCredential.user;
+      console.log("Usuario logueado:", user);
 
-    navigate("/Home");
+      if (typeof onFrmIniciosesion === "function") {
+        onFrmIniciosesion(user);
+      }
+
+      navigate("/Home");
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error.message);
+      alert("Correo o contraseña incorrectos");
+    }
   };
 
   return (
@@ -138,7 +146,6 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
             <Link to="/FrmRegistrar" className="enlace-registrarse">
               Registrate
             </Link>
-              
           </p>
         </form>
       </div>
@@ -147,3 +154,4 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
 };
 
 export default FrmIniciosesion;
+
