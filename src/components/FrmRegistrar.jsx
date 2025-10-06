@@ -32,6 +32,7 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
     setContraseniaValida(regexPassword.test(contrasenia));
   }, [correo, contrasenia]);
 
+  // VALIDACION AL ENVIAR
   const validar = () => {
     let nuevosErrores = {};
 
@@ -39,14 +40,14 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
     if (!nombre.trim()) nuevosErrores.nombre = "El nombre es obligatorio.";
     if (!apellido.trim()) nuevosErrores.apellido = "El apellido es obligatorio.";
 
-    // VALIDACION CORRECTA Y ESTRICTA DE GMAIL
+    // VALIDACION CORREO
     if (!correo.trim()) {
       nuevosErrores.correo = "El correo es obligatorio.";
     } else if (!correoValido) {
       nuevosErrores.correo = "Solo se permiten correos Gmail válidos.";
     }
 
-    // VALIDACION DE CONTRAEÑA MAS SEGURA
+    // VALIDACION CONTRASEÑA
     if (!contrasenia.trim()) {
       nuevosErrores.contrasenia = "La contraseña es obligatoria.";
     } else if (!contraseniaValida) {
@@ -58,11 +59,12 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
     return Object.keys(nuevosErrores).length === 0;
   };
 
+  // ENVIO DEL FORM
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const esValido = validar();
-    if (!esValido) return;
+    if (!esValido) return; // ⚠️ Bloquea si hay errores
 
     try {
       // CREA USUARIO :O
@@ -120,9 +122,7 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
             placeholder="Nombre"
             required
           />
-          {errores.nombre && (
-            <p className="mensaje-error">{errores.nombre}</p>
-          )}
+          {errores.nombre && <p className="mensaje-error">{errores.nombre}</p>}
         </div>
 
         <div className="form-group">
@@ -142,30 +142,21 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
         <div className="form-group">
           <input
             className="barras"
-            type="text"
+            type="email"
             value={correo}
             onChange={(e) => setCorreo(e.target.value)}
             placeholder="Correo"
             required
           />
-          {errores.correo && (
-            <p className="mensaje-error">{errores.correo}</p>
-          )}
+          {errores.correo && <p className="mensaje-error">{errores.correo}</p>}
           {!errores.correo && correo && (
-            <p
-              className={`mensaje-feedback ${
-                correoValido ? "valido" : "invalido"
-              }`}
-            >
-              {correoValido ? "Correo válido " : "Correo inválido "}
+            <p className={`mensaje-feedback ${correoValido ? "valido" : "invalido"}`}>
+              {correoValido ? "Correo válido ✅" : "Correo inválido ❌"}
             </p>
           )}
         </div>
 
-        <div
-          className="form-group password-wrapper"
-          style={{ position: "relative" }}
-        >
+        <div className="form-group password-wrapper" style={{ position: "relative" }}>
           <input
             className="barras"
             type={mostrarContrasenia ? "text" : "password"}
@@ -184,14 +175,8 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
             <p className="mensaje-error">{errores.contrasenia}</p>
           )}
           {!errores.contrasenia && contrasenia && (
-            <p
-              className={`mensaje-feedback ${
-                contraseniaValida ? "valido" : "invalido"
-              }`}
-            >
-              {contraseniaValida
-                ? "Contraseña segura"
-                : "Contraseña insegura"}
+            <p className={`mensaje-feedback ${contraseniaValida ? "valido" : "invalido"}`}>
+              {contraseniaValida ? "Contraseña segura ✅" : "Contraseña insegura ❌"}
             </p>
           )}
         </div>
