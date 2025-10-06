@@ -13,7 +13,7 @@ import { db } from "../../firebase";
 
 function Horarios() {
   useEffect(() => {
-    const consultasFirestore = async () => {
+    const cargarHorarios = async () => {
       try {
         const horariosRef = collection(db, "Horarios");
         await addDoc(horariosRef, { tren: "N 1", horario: "12:20" });
@@ -48,7 +48,7 @@ function Horarios() {
       }
     };
 
-    consultasFirestore();
+    cargarHorarios();
   }, []);
 
   return (

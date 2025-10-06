@@ -43,7 +43,7 @@ function Notificaciones() {
 
         console.log("✔ Notificaciones cargadas correctamente");
       } catch (error) {
-        console.error("❌ Error, no se pudieron cargar las notificaciones", error);
+        console.error(" Error, no se pudieron cargar las notificaciones", error);
       }
     };
 
