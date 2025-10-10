@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import "../css/FrmIniciosesion.css";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth"; // 🔹 agregamos signInWithEmailAndPassword
+import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth"; 
 import { auth, googleProvider } from "../firebaseConfig";
 
 //FORMULARIO
@@ -12,6 +12,7 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
   const [contrasenia, setContrasenia] = useState("");
   const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
   const [errores, setErrores] = useState({});
+  const [mensajeErrorLogin, setMensajeErrorLogin] = useState("");
   const navigate = useNavigate();
 
   const handleGoogleLogin = async () => {
@@ -63,6 +64,7 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
       const userCredential = await signInWithEmailAndPassword(auth, correo, contrasenia);
       const user = userCredential.user;
       console.log("Usuario logueado:", user);
+      setMensajeErrorLogin(""); 
 
       if (typeof onFrmIniciosesion === "function") {
         onFrmIniciosesion(user);
@@ -71,7 +73,17 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
       navigate("/Home");
     } catch (error) {
       console.error("Error al iniciar sesión:", error.message);
-      alert("Correo o contraseña incorrectos");
+
+      // 🔹 Errores específicos
+      if (error.code === "auth/user-not-found") {
+        setMensajeErrorLogin("No existe un usuario con ese correo ");
+      } else if (error.code === "auth/wrong-password") {
+        setMensajeErrorLogin("Contraseña incorrecta ");
+      } else if (error.code === "auth/invalid-email") {
+        setMensajeErrorLogin("El formato del correo no es válido ");
+      } else {
+        setMensajeErrorLogin("Error al iniciar sesión, intentá de nuevo ");
+      }
     }
   };
 
@@ -117,6 +129,12 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
             )}
           </div>
 
+          {mensajeErrorLogin && (
+            <p className="mensaje-error" style={{ marginTop: "10px", color: "#ff6b6b" }}>
+              {mensajeErrorLogin}
+            </p>
+          )}
+
           <button type="submit" className="button">
             Entrar
           </button>
@@ -129,14 +147,14 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
                     src="https://img.icons8.com/color/16/000000/google-logo.png"
                     alt="Google"
                   />
-                  Google
+                  Google 
                 </button>
               <button type="button" className="btn-facebook">
                 <img
                   src="https://img.icons8.com/fluency/16/000000/facebook-new.png"
                   alt="Facebook"
                 />
-                Facebook
+                Facebook 
               </button>
             </div>
           </div>
@@ -154,4 +172,3 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
 };
 
 export default FrmIniciosesion;
-
