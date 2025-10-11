@@ -70,7 +70,7 @@ div.horarios-page {
   background-color: #895525;
   color: #ffffff;
   padding: 8px 16px;
-  height: 40px; /* para alinear con el input */
+  height: 40px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
@@ -132,9 +132,13 @@ div.horarios-page {
 
 .badge-yellow {
   background-color: #e0d988;
-  color: #914d00;
+  color: #ff8800;
 }
+.badge-red {
 
+  background-color: #f0aeae;
+  color: #ff0000;
+}
 .boleteria-section {
   float: left;
   width: 50%;
