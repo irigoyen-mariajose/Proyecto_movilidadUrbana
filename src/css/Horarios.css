@@ -135,7 +135,26 @@ div.horarios-page {
   color: #914d00;
 }
 
-.badge-red {
-  background-color: #ecc3c3;
-  color: #6d0000;
+.boleteria-section {
+  float: left;
+  width: 50%;
+  margin: 20px;
+  padding: 20px;
+  background-color: #feeb9e;
+  background-image: none;
+  border-radius: 8px;
+}
+
+.boleteria-title {
+  color: orange;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.boleteria-text {
+  color: black;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
 }
