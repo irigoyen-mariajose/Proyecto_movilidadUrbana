@@ -74,6 +74,13 @@ const Horarios = ({ onCerrarSesion }) => {
           </div>
         </section>
       </div>
+
+      {/* Nueva sección de horarios de boletería */}
+      <div className="boleteria-section">
+        <h2 className="boleteria-title">Horario Boletería Plottier / Neuquén</h2>
+        <p className="boleteria-text">Lunes a viernes de 06:00 a 22:00 hs.</p>
+        <p className="boleteria-text">Adquirí tu boleto en las boleterías habilitadas.</p>
+      </div>
     </div>
   );
 };
