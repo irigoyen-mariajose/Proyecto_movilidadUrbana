@@ -5,6 +5,8 @@ import trenInicioImage from "./Imagenes/treninicio2.jpg";
 import boletoImage from "./Imagenes/boletos.png";
 import discapacidadImage from "./Imagenes/discapacidad.png";
 import estudianteImage from "./Imagenes/estudiante.png";
+import plottierImage from "./Imagenes/tren-aplottier.png";
+import neuquenImage from "./Imagenes/tren_aneuquen.png";
 
 function Home({ onCerrarSesion }) {
   console.log("Home (antes PaginaPrincipal) renderizando, onCerrarSesion:", onCerrarSesion);
@@ -60,14 +62,13 @@ function Home({ onCerrarSesion }) {
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && e.target.value.trim()) {
                   console.log('Buscando:', e.target.value);
-                  // Aquí puedes agregar lógica adicional para manejar la búsqueda
+                 
                 }
               }}
             />
           </div>
         </section>
 
-        {/* Imagen de fondo debajo de la búsqueda */}
         <div
           className="background-image-section"
           style={{
@@ -76,34 +77,51 @@ function Home({ onCerrarSesion }) {
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
             width: '100%',
-            height: '300px', // Ajusta esta altura según necesites para que cubra desde navbar hasta fin de lupa
-            marginTop: '20px', // Espacio opcional después de la búsqueda
+            height: '300px',
+            marginTop: '20px',
           }}
         ></div>
+        <div className="destinos-section">
+          <h2 className="destinos-title">Conectá destinos, viví el viaje</h2>
+          <p className="destinos-text" style={{ fontSize: '1.1rem', lineHeight: '1.5', marginBottom: '20px', textAlign: 'center' }}>
+            Usá nuestros mapas para explorar los recorridos disponibles y elegí el trayecto que mejor se adapte a vos.
+          </p>
+          <h3 className="destinos-subtitle">Cipolletti – Neuquén – Plottier</h3>
+          <p className="destinos-text">
+            Los trenes circulan con recorrido limitado entre Neuquén y Plottier, con un cronograma provisorio debido a un incidente ajeno a Trenes Argentinos
+          </p>
+          <div className="destinos-images">
+            <div className="destinos-image-container">
+              <p className="destinos-image-title">Recorrido hacia Plottier</p>
+              <img src={plottierImage} alt="Recorrido hacia Plottier" className="destinos-image" />
+            </div>
+            <div className="destinos-image-container">
+              <p className="destinos-image-title">Recorrido hacia Neuquen</p>
+              <img src={neuquenImage} alt="Recorrido hacia Neuquen" className="destinos-image" />
+            </div>
+          </div>
+        </div>
 
-        {/* Nueva sección de tarifas */}
-        <div className="tarifas-section" style={{ marginTop: '40px', padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '8px', width: '100%', marginBottom: '20px' }}>
-          <h2 style={{ color: 'green', fontSize: '2.5rem', marginBottom: '15px', textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Conocé las tarifas antes de viajar</h2>
-          <p style={{ fontSize: '1.1rem', lineHeight: '1.5', marginBottom: '20px', textAlign: 'center' }}>
+        <div className="tarifas-section">
+          <h2 className="tarifas-title">Conocé las tarifas antes de viajar</h2>
+          <p className="tarifas-text" style={{ fontSize: '1.1rem', lineHeight: '1.5', marginBottom: '20px', textAlign: 'center' }}>
             Las tarifas varían según el recorrido que realices. Sin embargo, los estudiantes y las personas con discapacidad cuentan con precios fijos.
           </p>
-          <ul style={{ listStyle: 'none', padding: 0, display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap' }}>
-            <li style={{ marginBottom: '10px', fontSize: '1.1rem', display: 'flex', alignItems: 'center', flex: '1', justifyContent: 'center' }}>
-              <img src={boletoImage} alt="Boleto normal" style={{ width: '24px', height: '24px', marginRight: '10px' }} />
+          <ul className="tarifas-list">
+            <li className="tarifas-item">
+              <img src={boletoImage} alt="Boleto normal" className="tarifas-icon" />
               Boleto normal: $700 - $900
             </li>
-            <li style={{ marginBottom: '10px', fontSize: '1.1rem', display: 'flex', alignItems: 'center', flex: '1', justifyContent: 'center' }}>
-              <img src={estudianteImage} alt="Boleto estudiantil" style={{ width: '24px', height: '24px', marginRight: '10px' }} />
+            <li className="tarifas-item">
+              <img src={estudianteImage} alt="Boleto estudiantil" className="tarifas-icon" />
               Boleto Estudiantil: $50
             </li>
-            <li style={{ marginBottom: '10px', fontSize: '1.1rem', display: 'flex', alignItems: 'center', flex: '1', justifyContent: 'center' }}>
-              <img src={discapacidadImage} alt="Personas con discapacidad" style={{ width: '24px', height: '24px', marginRight: '10px' }} />
+            <li className="tarifas-item">
+              <img src={discapacidadImage} alt="Personas con discapacidad" className="tarifas-icon" />
               Personas con discapacidad: $50
             </li>
           </ul>
         </div>
-
-        
       </div>
     </div>
   );
