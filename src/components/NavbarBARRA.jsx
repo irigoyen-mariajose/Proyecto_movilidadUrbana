@@ -3,14 +3,13 @@ import { useNavigate } from "react-router-dom";
 import "../css/navbar.css";
 import logoAndensur from "./Imagenes/logo_andensur.jpg";
 
-
 const Navbar = ({ onCerrarSesion }) => {
   const navigate = useNavigate();
   
   console.log("Navbar renderizando, onCerrarSesion:", onCerrarSesion);
 
   const handleCerrarSesion = () => {
-    if (typeof onCerrarSesion === 'function') {
+    if (typeof onCerrarSesion === "function") {
       onCerrarSesion();
     }
     navigate("/FrmIniciosesion");
@@ -22,11 +21,12 @@ const Navbar = ({ onCerrarSesion }) => {
         <img src={logoAndensur} alt="ANDENSUR" className="brand-logo" />
         <h1 className="tituloP">ANDENSUR</h1>
       </div>
+
       <div className="TituloNavbar">
         <p onClick={() => navigate("/Home")}>Inicio</p>
         <p onClick={() => navigate("/Horarios")}>Horarios</p>
         <p onClick={() => navigate("/Notificaciones")}>Notificaciones</p>
-        <p onClick={() => navigate("/Soporte")}>Soporte</p>
+        <p onClick={() => navigate("/FrmSoporte")}>Soporte</p>
       </div>
 
       <div className="flex justify-end">
