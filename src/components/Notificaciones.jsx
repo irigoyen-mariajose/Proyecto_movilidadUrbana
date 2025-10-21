@@ -26,7 +26,7 @@ const Notificaciones = ({ onCerrarSesion }) => {
           
           <div className="noti-card">
             <h2>Paro</h2>
-            <p>Reporta problemas o solicita ayuda</p>
+            <p>Interrupción total o parcial del servicio ferroviario</p>
           </div>
         </div>
       </div>

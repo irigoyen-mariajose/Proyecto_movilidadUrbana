@@ -4,7 +4,7 @@ import "../css/FormularioReclamos.css";
 import CloseIcon from "@mui/icons-material/Close";
 import Select from "react-select";
 import { FaImage } from "react-icons/fa"; 
-
+import Navbar from "./NavbarBARRA";
 
 const FrmReclamos = ({ titulo = "Soporte" }) => {
   const [parada, setParada] = useState(null);
