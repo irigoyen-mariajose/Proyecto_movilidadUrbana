@@ -2,7 +2,10 @@ import React from "react";
 import Navbar from "./NavbarBARRA";
 import "../css/Notificaciones.css";
 
-
+/**
+ * 
+ * @param {*} onCerrarSesion
+ */
 
 const Notificaciones = ({ onCerrarSesion }) => {  
   return(

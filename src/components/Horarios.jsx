@@ -3,15 +3,26 @@ import Navbar from "./NavbarBARRA";
 import "../css/Horarios.css";
 import { useNavigate } from "react-router-dom"; 
 
+/**
+ * 
+ * @param {*} onCerrarSesion 
+ * @returns 
+ */
 const Horarios = ({ onCerrarSesion }) => {
   const navigate = useNavigate(); 
   const [searchTerm, setSearchTerm] = useState("");
-
+/**
+ * 
+ * @param {*} e 
+ */
   const handleProgramar = (e) => {
     e.preventDefault();
     navigate("/ProgramarViaje");
   };
-
+/**
+ * 
+ * @param {*} e 
+ */
   const handleSearch = (e) => {
     e.preventDefault();
     

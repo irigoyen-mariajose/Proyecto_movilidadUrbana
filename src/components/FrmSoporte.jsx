@@ -31,6 +31,11 @@ const FrmSoporte = ({ titulo = "Soporte" }) => {
     { value: "trabajadores", label: "Los trabajadores del tren" },
   ];
 
+  /**
+   * 
+   * @param {*} e 
+   * @returns 
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!parada || !problema) {

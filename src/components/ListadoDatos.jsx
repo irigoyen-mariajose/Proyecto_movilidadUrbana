@@ -1,5 +1,25 @@
+/**
+ * 
+ * @variable ListadoDatos
+ * @returns
+ *       <div>
+        <h2>Listado de horarios</h2>
+        <ul>
+          {horarios.map(horario => (
+            <li key={horario.id}>
+              {horario.nombre} - ${horario.precio}
+            </li>
+          ))}
+        </ul>
+      </div>
+ */
+
+
 const ListadoDatos = () => {
     const [horarios, setHorarios] = useState([]);
+    /**
+     * useEffect () => horarios
+     */
     useEffect(() => {
       const fetchhorarios = async () => {
         const horariosCol = collection(db, "horarios");

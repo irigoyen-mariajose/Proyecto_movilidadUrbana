@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import Scroll from './Scroll';
 
-
+/**
+ * 
+ */
 function Search({ details }) {
 
   const [searchField, setSearchField] = useState("");
@@ -20,7 +22,10 @@ function Search({ details }) {
       );
     }
   );
-
+/**
+ * 
+ * @param {*} e 
+ */
   const handleChange = e => {
     setSearchField(e.target.value);
   };

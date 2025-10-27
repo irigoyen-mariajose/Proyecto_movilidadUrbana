@@ -33,6 +33,13 @@ const FrmReclamos = ({ titulo = "Soporte" }) => {
     { value: "trabajadores", label: "Los trabajadores del tren" }
   ];
 
+  /**
+   * 
+   * @param {*} e 
+   * @returns 
+   * navigate("/resultado",{ 
+    })
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!parada || !problema) {

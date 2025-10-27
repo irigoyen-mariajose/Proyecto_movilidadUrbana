@@ -1,3 +1,6 @@
+/**
+ * @variable initialDetails
+ */
 const initialDetails = [
   {
     id: 1,

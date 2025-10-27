@@ -3,6 +3,11 @@ import "../css/ProgramarViaje.css";
 import Navbar from "./NavbarBARRA";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * 
+ * @param {*} onCerrarSesion 
+ * @returns 
+ */
 const ProgramarViaje = ({ onCerrarSesion }) => {
   const [origen, setOrigen] = useState("");
   const [destino, setDestino] = useState("");
@@ -10,6 +15,10 @@ const ProgramarViaje = ({ onCerrarSesion }) => {
   const [hora, setHora] = useState("");
   const navigate = useNavigate();
 
+  /**
+   * 
+   * @param {*} e
+   */
   const handleBuscar = (e) => {
     e.preventDefault();
     alert(`Buscando tren desde ${origen} a ${destino} el ${fecha} a las ${hora}`);
