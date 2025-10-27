@@ -9,8 +9,29 @@ import { collection,
   orderBy } from "firebase/firestore";
 import { db } from "../../firebase";
 
+/**
+ * @variable Usuarios
+ * @returns 
+ *     <div>
+      <h1>Colección Usuarios</h1>
+      <p>Se cargaron 3 documentos en Firestore.</p>
+      <ul>
+        <li><b>INSERT</b> → addDoc</li>
+        <li><b>SELECT</b> → getDocs</li>
+        <li><b>UPDATE</b> → updateDoc</li>
+        <li><b>DELETE</b> → deleteDoc</li>
+        <li><b>ORDER BY</b> → query + orderBy</li>
+      </ul>
+    </div>
+ */
 function Usuarios() {
+  /**
+   * useEffect () => cargarUsuarios
+   */
   useEffect(() => {
+    /**
+     * @varible cargarUsuarios
+     */
     const cargarUsuarios = async () => {
       try {
         const useref = collection(db, "Usuarios");

@@ -8,9 +8,29 @@ import {collection,
   query,
   orderBy } from "firebase/firestore";
 import { db } from "../../firebase";
-
+/**
+ * @variable Trenes
+ * @returns
+ *     <div>
+      <h1>Colección Trenes</h1>
+      <p>Se cargaron 3 documentos en Firestore.</p>
+      <ul>
+        <li><b>INSERT</b> → addDoc</li>
+        <li><b>SELECT</b> → getDocs</li>
+        <li><b>UPDATE</b> → updateDoc</li>
+        <li><b>DELETE</b> → deleteDoc</li>
+        <li><b>ORDER BY</b> → query + orderBy</li>
+      </ul>
+    </div>
+ */
 function Trenes() {
+  /**
+   * useEffect cargarTrenes
+   */
   useEffect(() => {
+    /**
+     * @variable cargarTrenes
+     */
     const cargarTrenes = async () => {
       try {
         const trenref = collection(db, "Trenes");

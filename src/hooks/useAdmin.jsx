@@ -10,8 +10,19 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { db } from "../firebase/firebase"; 
+/**
+ * @variable collection
+ */
 const adminRef = collection(db, "admins");
 
+/**
+ * 
+ * @param {*} param0 
+ * @returns 
+ * catch (error) {
+    console.error("Error al crear Admin:", error);
+    return false;
+ */
 export const crearAdmin = async ({ nombre, apellido, dni, telefono, direccion, rol }) => {
   try {
     const docRef = await addDoc(adminRef, {
@@ -29,6 +40,18 @@ export const crearAdmin = async ({ nombre, apellido, dni, telefono, direccion, r
     return false;
   }
 };
+/**
+ * 
+ * @param {*} id 
+ * @param {*} cb 
+ * @param {*} errCb 
+ * @returns 
+ * ref,
+    (d) => {
+      cb(d.exists() ? { id: d.id, ...d.data() } : null);
+    },
+    errCb
+ */
 export const listenById = (id, cb, errCb) => {
   const ref = doc(db, "admins", id);
   return onSnapshot(
@@ -39,11 +62,18 @@ export const listenById = (id, cb, errCb) => {
     errCb
   );
 };
-
+/**
+ * @param {*} @param
+ * @returns 
+ * { admins, loading, fetchAdmins, updateAdmin, deleteAdmin }
+ */
 export function useAdmins() {
   const [admins, setAdmins] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  /**
+   * @variable fetchAdmins
+   */
   const fetchAdmins = async () => {
     setLoading(true);
     try {
@@ -57,10 +87,18 @@ export function useAdmins() {
     }
   };
 
+  /**
+   * useEffect ()=> fetchAdmins
+   */
   useEffect(() => {
     fetchAdmins();
   }, []);
 
+  /**
+   * 
+   * @param {*} id 
+   * @param {*} newData 
+   */
   const updateAdmin = async (id, newData) => {
     try {
       const ref = doc(db, "admins", id);
@@ -72,6 +110,10 @@ export function useAdmins() {
     }
   };
 
+  /**
+   * 
+   * @param {*} id 
+   */
   const deleteAdmin = async (id) => {
     try {
       const ref = doc(db, "admins", id);

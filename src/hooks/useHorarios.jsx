@@ -11,8 +11,28 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 
+/**
+ * @param {*} param0
+ * @returns 
+ *  <div>
+      <h1>Colección Horarios</h1>
+      <ul>
+        <li><b>INSERT</b> → addDoc (agrega nuevos documentos)</li>
+        <li><b>SELECT</b> → getDocs (trae todos los documentos)</li>
+        <li><b>UPDATE</b> → updateDoc (modifica uno por ID)</li>
+        <li><b>DELETE</b> → deleteDoc (borra uno por ID)</li>
+        <li><b>ORDER BY</b> → query + orderBy (devuelve ordenados)</li>
+      </ul>
+    </div>
+ */
 function Horarios() {
+  /**
+   * useEffect () => cargarHorarios
+   */
   useEffect(() => {
+    /**
+     * @variable cargarHorarios
+     */
     const cargarHorarios = async () => {
       try {
         const horariosRef = collection(db, "Horarios");
@@ -21,6 +41,10 @@ function Horarios() {
         await addDoc(horariosRef, { tren: "N 1", horario: "14:20" });
         console.log("INSERT → 3 documentos agregados");
 
+        /**
+         * 
+         * @variable getDocs
+         */
         const snapshot = await getDocs(horariosRef);
         console.log("SELECT → Todos los horarios:");
         snapshot.forEach((doc) => console.log(doc.id, "=>", doc.data()));

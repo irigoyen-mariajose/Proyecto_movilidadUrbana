@@ -11,8 +11,28 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 
+/**
+ * @vaiable Notificaciones
+ * @returns  <div>
+      <h1>Colección Notificaciones</h1>
+      <p>Se realizaron las siguientes operaciones en Firestore:</p>
+      <ul>
+        <li><b>INSERT</b> → addDoc (crear documento)</li>
+        <li><b>SELECT</b> → getDocs (leer documentos)</li>
+        <li><b>UPDATE</b> → updateDoc (actualizar uno)</li>
+        <li><b>DELETE</b> → deleteDoc (eliminar uno)</li>
+        <li><b>ORDER BY</b> → query + orderBy (ordenar resultados)</li>
+      </ul>
+    </div>
+ */
 function Notificaciones() {
+  /**
+   * useEffect () => cargarNotificaciones
+   */
   useEffect(() => {
+    /**
+     * @variable cargarNotificaciones
+     */
     const cargarNotificaciones = async () => {
       try {
         const notisRef = collection(db, "Notificaciones");
