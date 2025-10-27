@@ -1,5 +1,9 @@
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
+/**
+ * @variable col
+ * @param {*} db
+ */
 const col = collection(db, "Paradas");
 const snap = await getDocs(col);
 const data = snap.docs.map(d => ({ id: d.id, ...d.data() }));

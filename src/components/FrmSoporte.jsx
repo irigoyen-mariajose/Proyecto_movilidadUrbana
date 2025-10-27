@@ -5,6 +5,11 @@ import "../css/FormularioReclamos.css";
 import Select from "react-select";
 import { FaImage } from "react-icons/fa";
 import Navbar from "./NavbarBARRA"; 
+/**
+ * 
+ * @param {*} titulo 
+ * @returns 
+ */
 const FrmSoporte = ({ titulo = "Soporte" }) => {
   const [parada, setParada] = useState(null);
   const [problema, setProblema] = useState(null);
@@ -12,6 +17,9 @@ const FrmSoporte = ({ titulo = "Soporte" }) => {
   const [archivo, setArchivo] = useState(null);
   const navigate = useNavigate();
 
+  /**
+   * @variable opcionesParadas
+   */
   const opcionesParadas = [
     { value: "neuquen", label: "Terminal" },
     { value: "eton", label: "ETON" },
@@ -23,6 +31,9 @@ const FrmSoporte = ({ titulo = "Soporte" }) => {
     { value: "plottier", label: "Plottier" },
   ];
 
+  /**
+   * @variable opcionesProblemas
+   */
   const opcionesProblemas = [
     { value: "ubicacion", label: "La ubicación de la parada no coincide con la de la aplicación" },
     { value: "fuera-servicio", label: "La parada está fuera de servicio" },

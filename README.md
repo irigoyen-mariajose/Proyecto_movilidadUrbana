@@ -42,9 +42,6 @@ Permite el acceso a un login, registro, notificaciones, soporte y los horarios d
 ####• búsqueda del mapa: 
 **Esta pantalla permite programar un viaje, ver búsquedas recientes y visualizar el mapa de la ciudad de Neuquén. podemos observar la ruta y las paradas.**
 
-####• Mapa:
-**Al seleccionar una parada esta se marcara con un color verde y mostrará el estado del tren y su horario de llegada. También permitirá notificar unos minutos antes de que el tren arribe.**
-
 ####• notificaciones: 
 **En esta pantalla podemos visualizar toda información útil para el usuario, como aumento de la tarifa, nuevas paradas, horarios, cualquier complicación, así se mantiene al usuario informado de cualquier cambio o nueva información.**
 
@@ -59,6 +56,7 @@ Permite el acceso a un login, registro, notificaciones, soporte y los horarios d
 - Firebase
 - React icons 
 - Material UI
+- Node JS
 
 ## Funcionalidades implementadas
 - Pantallas diseñadas 

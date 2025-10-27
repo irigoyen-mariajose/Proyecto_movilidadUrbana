@@ -10,6 +10,10 @@ import { doc, setDoc } from "firebase/firestore";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
+/**
+ * @param {*} titulo
+ * 
+ */
 const FrmRegistar = ({ titulo = "Registrarse" }) => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -28,6 +32,10 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
   const [verificandoCorreo, setVerificandoCorreo] = useState(false);
 
   // VER SI EXISTE CORREO EN FIREBASE
+  /**
+   * @varibale verificarCorreoEnUso
+   * @returns
+   */
   const verificarCorreoEnUso = useCallback(async (email) => {
     if (!email || !/^[a-zA-Z0-9._%+-]+@gmail\.com$/i.test(email)) {
       setCorreoEnUso(false);
@@ -104,7 +112,7 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
   }, [correo, contrasenia, verificarCorreoEnUso]); // Ahora sin 'errores'
 
   /**
-   * 
+   * @varibale validar
    * @returns 
    * Object.keys(nuevosErrores).length === 0;
    */
@@ -141,10 +149,19 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    /**
+     * @varibale esValido
+     */
     const esValido = validar();
     if (!esValido) return; 
 
     try {
+      /**
+       * @variable userCredential
+       * @param {*} auth
+       * @param {*} correo
+       * @param {*} contrasenia
+       */
       const userCredential = await createUserWithEmailAndPassword(auth, correo, contrasenia);
       const user = userCredential.user;
 

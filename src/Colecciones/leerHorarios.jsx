@@ -1,6 +1,8 @@
 import { collection, getDocs } from "firebase/firestore";
 /**
- * @vaiable 
+ * @variable collection 
+ * @param {*} db
+ * @param {*} "Horarios"
  */
 const col = collection(db, "Horarios");
 const snap = await getDocs(col);
