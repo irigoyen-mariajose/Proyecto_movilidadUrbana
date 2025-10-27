@@ -85,7 +85,8 @@ Permite el acceso a un login, registro, notificaciones, soporte y los horarios d
 
 
 
-
+## Paleta de colores seleccionada
+![Paleta_de_colores](/paleta%20Movilidad%20Urbana.png)
 
 ## Login simulado
 
