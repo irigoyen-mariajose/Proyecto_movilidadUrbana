@@ -2,6 +2,9 @@
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig"; // Ajusta si está en otra ruta
 
+/**
+ * @variable horarios
+ */
 const horarios = [
   {
     estacion: "Retiro",
@@ -22,6 +25,10 @@ const horarios = [
     horaLlegada: "08:55",
   }
 ];
+/**
+ * @param {*} param0
+ * @returns
+ */
   export async function cargarHorarios() {
   try {
     for (const h of horarios) {
