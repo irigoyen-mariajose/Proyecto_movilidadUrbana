@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * 
+ * @param {*} props 
+ * @returns 
+ */
 const Scroll = (props) => {
   return (
     <div style={{ overflowY: 'scroll', height: '400px' }}>

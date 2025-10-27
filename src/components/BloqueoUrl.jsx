@@ -2,9 +2,20 @@ import { useEffect } from "react";
 import { useAuth } from "./Aute";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * 
+ * @param {*} @param
+ * @returns
+ * return () => window.removeEventListener("popstate", handlePopState);
+  }, [user, navigate]);
+ */
 export default function BloqueoURL() {
   const { user } = useAuth();
   const navigate = useNavigate();
+
+/**
+ * useEffect () => navigate
+ */
 
   useEffect(() => {
     const handlePopState = () => {

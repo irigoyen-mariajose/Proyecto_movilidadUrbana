@@ -6,6 +6,13 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth"; 
 import { auth, googleProvider } from "../firebaseConfig";
 
+/**
+ * 
+ * @param {*} param0 
+ * @returns 
+ * 
+ */
+
 //FORMULARIO
 const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
   const [correo, setCorreo] = useState("");
@@ -17,6 +24,11 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
 
   const handleGoogleLogin = async () => {
     try {
+      /**
+       * @param {*} Auth
+       * @param {*} googleProvider
+       * @returns
+       */
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       console.log("Usuario logueado con Google:", user);
@@ -31,7 +43,10 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
       alert("No se pudo iniciar sesión con Google");
     }
   };
-
+/**
+ * 
+ * @variable validar
+ */
   const validar = () => {
     let nuevosErrores = {};
 
@@ -52,6 +67,11 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
     return Object.keys(nuevosErrores).length === 0;
   };
 
+  /**
+   * 
+   * @param {*} e 
+   * @returns 
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -61,6 +81,11 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
 
     try {
       // LOGIN FIREBASE
+      /**
+       * @param {*} Auth
+       * @param {*} correo
+       * @param {*} contrasenia
+       */
       const userCredential = await signInWithEmailAndPassword(auth, correo, contrasenia);
       const user = userCredential.user;
       console.log("Usuario logueado:", user);

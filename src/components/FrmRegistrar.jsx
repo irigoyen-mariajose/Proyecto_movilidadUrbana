@@ -46,6 +46,9 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
     }
   }, []);
 
+  /**
+   * useEffect () => setCorreoValido
+   */
   // VALIDACION EN TIEMPO REAL PARA FEEDBACK
   useEffect(() => {
     // 1. Validación de Correo (Gmail)
@@ -100,6 +103,11 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
 
   }, [correo, contrasenia, verificarCorreoEnUso]); // Ahora sin 'errores'
 
+  /**
+   * 
+   * @returns 
+   * Object.keys(nuevosErrores).length === 0;
+   */
   const validar = () => {
     let nuevosErrores = {};
 
@@ -125,6 +133,11 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
     return Object.keys(nuevosErrores).length === 0;
   };
 
+  /**
+   * 
+   * @param {*} e 
+   * @returns 
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -166,6 +179,11 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
     }
   };
 
+  /**
+   * 
+   * @param {*} nivel 
+   * @returns 
+   */
   const getColorFuerza = (nivel) => {
     switch (nivel) {
       case 0: return "red";
@@ -187,7 +205,7 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
           <input className="barras" type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} placeholder="Nombre" required />
           {errores.nombre && <p className="mensaje-error">{errores.nombre}</p>}
         </div>
-       
+      
         <div className="form-group">
           <input className="barras" type="text" value={apellido} onChange={(e) => setApellido(e.target.value)} placeholder="Apellido" required />
           {errores.apellido && <p className="mensaje-error">{errores.apellido}</p>}
@@ -216,7 +234,7 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
           )}
         </div>
 
-       
+      
         <div className="form-group password-wrapper" style={{ position: "relative" }}>
           <input
             className="barras"

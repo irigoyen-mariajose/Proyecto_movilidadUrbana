@@ -8,6 +8,12 @@ import estudianteImage from "./Imagenes/estudiante.png";
 import plottierImage from "./Imagenes/tren-aplottier.png";
 import neuquenImage from "./Imagenes/tren_aneuquen.png";
 
+/**
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
+
 function Home({ onCerrarSesion }) {
   console.log("Home (antes PaginaPrincipal) renderizando, onCerrarSesion:", onCerrarSesion);
   

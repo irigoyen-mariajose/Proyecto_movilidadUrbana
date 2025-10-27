@@ -19,15 +19,16 @@ Rojas Ángeles Eluney del Milagro
 
 ##Andensur - objetivo
 
-**Andensur es una aplicación enfocada en la movilidad urbana del valle Neuquén. Tiene como objetivo facilitar y optimizar el uso del tren, permitiendo que se pueda conocer los horarios, paradas e información como tarifas y servicios. El objetivo también es incentivar a más personas a hacer uso de transporte ferroviario, dándoles una herramienta que les permita acceder de una forma mas sencilla al servicio.**
+**Andensur es una aplicación enfocada en la movilidad urbana del tren del valle de Neuquén. Tiene como objetivo facilitar y optimizar el uso del tren, permitiendo que se pueda conocer los horarios, paradas e información como  las tarifas y los servicios. El objetivo también es incentivar a más personas a hacer uso de transporte ferroviario, dándoles una herramienta la cual les permita acceder de una forma mas sencilla al servicio del tren.**
 
 ##Herramientas utilizadas
 
-**•  Canva(presentacion de la interfaz).
-•JS
-•CSS
+**
+• Canva(presentacion de la interfaz).
+• JSX
+• CSS
 • GitHub
-•Editor.md**
+• Editor.md**
 
 ##Descripción de las pantallas
 
@@ -69,12 +70,19 @@ Permite el acceso a un login, registro, notificaciones, soporte y los horarios d
 - Redirección entre vistas
 - Notificaciones simuladas
 - Interfaz de soporte y reclamos
+- Arribo de trenes simulados
 
 
 ## Capturas de pantalla 
-![Login](/src/components/Imagenes/Login.png)
-![Registro](/src/components/Imagenes/Registro.png)
-![Pantalla_de_inicio](/src/components/Imagenes/Pantalla%20Inicio.png)
+![Pantalla_de_inicio](/docs/screenshots/InicioDspRegist.png)
+![Pantalla_de_inicio2](/docs/screenshots/InicioDspRegistrarse2.png)
+![Login](/docs/screenshots/Iniciosesion.png)
+![Registro](/docs/screenshots/Registrarse.png)
+![Horarios](/docs/screenshots/Horarios.png)
+![Notificaciones](/docs/screenshots/Notificaciones.png)
+![Soporte](/docs/screenshots/Soporte.png)
+
+
 
 
 
