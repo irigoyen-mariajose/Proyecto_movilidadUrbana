@@ -14,44 +14,59 @@ const paradas = [
   { nombre: "Cipolletti", descripcion: "Estación en Cipolletti (Río Negro) - Actualmente sin servicio", ubicacion: "https://www.google.com/maps/search/?api=1&query=Estación+Cipolletti+Tren+del+Valle", activa: false, orden: 9 }
 ];
 
-const CargarParadas = () => {
-  const [mensaje, setMensaje] = useState("Presioná el botón para cargar las paradas");
+const horarios = [
+  { tren: "Tren 102", salida: "06:30", llegada: "07:15", ruta: "Barrio Unión → Parque Central" },
+  { tren: "Tren 203", salida: "07:00", llegada: "07:45", ruta: "Plottier → Neuquén" },
+  { tren: "Tren 310", salida: "08:00", llegada: "08:50", ruta: "Cipolletti → Neuquén" }
+];
 
-  const cargarParadas = async () => {
+const CargarDatos = () => {
+  const [mensaje, setMensaje] = useState("Presioná el botón para cargar paradas y horarios");
+
+  const cargarDatos = async () => {
     try {
-      setMensaje("🔄 Iniciando carga de paradas...");
-      const coleccion = collection(db, "Paradas");
+      setMensaje("🔄 Iniciando carga de paradas y horarios...");
 
-      // 🔹 Verificar si ya existen paradas
-      const snapshot = await getDocs(coleccion);
-      if (!snapshot.empty) {
-        setMensaje("⚠️ Las paradas ya están cargadas en Firestore. Revisa la consola.");
+      // === CARGAR PARADAS ===
+      const paradasCol = collection(db, "Paradas");
+      const snapshotParadas = await getDocs(paradasCol);
+      if (!snapshotParadas.empty) {
         console.log("⚠️ Las paradas ya están cargadas.");
-        return;
+      } else {
+        for (const parada of paradas) {
+          const docRef = await addDoc(paradasCol, parada);
+          console.log(`✅ Parada "${parada.nombre}" agregada con ID: ${docRef.id}`);
+        }
       }
 
-      for (const parada of paradas) {
-        const docRef = await addDoc(coleccion, parada);
-        console.log(`✅ Parada "${parada.nombre}" agregada con ID: ${docRef.id}`);
+      // === CARGAR HORARIOS ===
+      const horariosCol = collection(db, "horarios");
+      const snapshotHorarios = await getDocs(horariosCol);
+      if (!snapshotHorarios.empty) {
+        console.log("⚠️ Los horarios ya están cargados.");
+      } else {
+        for (const horario of horarios) {
+          const docRef = await addDoc(horariosCol, horario);
+          console.log(`✅ Horario "${horario.tren}" agregado con ID: ${docRef.id}`);
+        }
       }
 
-      setMensaje("🎉 ¡Todas las paradas fueron cargadas exitosamente!");
-      console.log("🎉 Todas las paradas fueron cargadas exitosamente!");
+      setMensaje("🎉 ¡Paradas y horarios cargados exitosamente!");
     } catch (error) {
-      setMensaje("❌ Error al cargar paradas. Revisa la consola.");
-      console.error("❌ Error al cargar paradas:", error);
+      setMensaje("❌ Error al cargar datos. Revisa la consola.");
+      console.error("❌ Error al cargar datos:", error);
     }
   };
 
   return (
     <div style={{ textAlign: "center", padding: "50px" }}>
-      <h2>Cargar Paradas Tren del Valle</h2>
+      <h2>Cargar Paradas y Horarios Tren del Valle</h2>
       <p>{mensaje}</p>
       <button
-        onClick={cargarParadas}
+        onClick={cargarDatos}
         style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer" }}
       >
-        Cargar Paradas
+        Cargar Datos
       </button>
       <p style={{ marginTop: "20px", fontSize: "12px", color: "#666" }}>
         Verificá la consola para más detalles.
@@ -60,4 +75,4 @@ const CargarParadas = () => {
   );
 };
 
-export default CargarParadas;
+export default CargarDatos;

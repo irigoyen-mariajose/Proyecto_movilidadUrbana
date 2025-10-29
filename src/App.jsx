@@ -11,7 +11,7 @@ import Horarios from "./components/Horarios";
 import Notificaciones from "./components/Notificaciones";
 import ProgramarViaje from "./components/FrmProgViaje";
 import FrmReclamos from "./components/FrmReclamos";
-import CargarParadas from "./components/CargarParadas";
+import CargarDatos from "./components/CargarDatos";
 import FrmSoporte from "./components/FrmSoporte";
 
 // PrivateRoute
@@ -94,10 +94,10 @@ function App() {
 
     <Routes>
     <Route
-      path="/CargarParadas"
+      path="/CargarDatos"
       element={
         
-          <CargarParadas />
+          <CargarDatos/>
 
       }
     />
