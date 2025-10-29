@@ -2,7 +2,7 @@
 // Este script carga las estaciones del Tren del Valle en Firebase
 
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "./firebase/config";
+import { db } from "./firebase/config.js";
 
 const paradas = [
   {
