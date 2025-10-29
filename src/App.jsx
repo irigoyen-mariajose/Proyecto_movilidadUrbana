@@ -11,6 +11,7 @@ import Horarios from "./components/Horarios";
 import Notificaciones from "./components/Notificaciones";
 import ProgramarViaje from "./components/FrmProgViaje";
 import FrmReclamos from "./components/FrmReclamos";
+import CargarParadas from "./components/CargarParadas";
 import FrmSoporte from "./components/FrmSoporte";
 
 // PrivateRoute
@@ -90,7 +91,17 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
+
     <Routes>
+    <Route
+      path="/CargarParadas"
+      element={
+        
+          <CargarParadas />
+
+      }
+    />
+
 
       <Route path="/" element={<Navigate to="/FrmIniciosesion" replace />} />
 

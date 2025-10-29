@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase/config";
+import { db } from "../firebaseConfig"; // 🔹 db importado correctamente
 import Navbar from "./NavbarBARRA";
 import "../css/Horarios.css";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,7 @@ const Horarios = ({ onCerrarSesion }) => {
   useEffect(() => {
     const cargarParadas = async () => {
       try {
-        const col = collection(db, "Paradas");
+        const col = collection(db, "Paradas"); 
         const snap = await getDocs(col);
         const data = snap.docs.map(d => ({ id: d.id, ...d.data() }));
         setParadas(data);
@@ -38,17 +38,8 @@ const Horarios = ({ onCerrarSesion }) => {
     realizarBusqueda();
   };
 
-  // Búsqueda en tiempo real mientras escribe
-  useEffect(() => {
-    if (searchTerm.trim() === "") {
-      setResultadosBusqueda([]);
-      setBuscando(false);
-      return;
-    }
-    realizarBusqueda();
-  }, [searchTerm, paradas]);
-
-  const realizarBusqueda = () => {
+  // 🔹 Función de búsqueda envuelta en useCallback para que sea estable
+  const realizarBusqueda = useCallback(() => {
     if (searchTerm.trim() === "") {
       setResultadosBusqueda([]);
       setBuscando(false);
@@ -63,7 +54,12 @@ const Horarios = ({ onCerrarSesion }) => {
     );
 
     setResultadosBusqueda(resultados);
-  };
+  }, [searchTerm, paradas]); // 🔹 dependencias correctas
+
+  // Búsqueda en tiempo real mientras escribe
+  useEffect(() => {
+    realizarBusqueda();
+  }, [realizarBusqueda]); // 🔹 ESLint ya no da warning
 
   const abrirGoogleMaps = (ubicacion) => {
     window.open(ubicacion, '_blank');
@@ -71,66 +67,14 @@ const Horarios = ({ onCerrarSesion }) => {
 
   // Estilos inline solo para los resultados de búsqueda
   const searchResultsStyles = {
-    container: {
-      marginTop: '20px'
-    },
-    title: {
-      marginBottom: '15px',
-      fontSize: '18px',
-      color: '#333'
-    },
-    grid: {
-      display: 'grid',
-      gap: '15px',
-      gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))'
-    },
-    card: {
-      backgroundColor: '#f8f9fa',
-      padding: '20px',
-      borderRadius: '10px',
-      border: '2px solid #e0e0e0',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '12px',
-      transition: 'transform 0.2s, box-shadow 0.2s'
-    },
-    cardHover: {
-      transform: 'translateY(-2px)',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
-    },
-    stationName: {
-      fontSize: '18px',
-      fontWeight: 'bold',
-      margin: '0 0 8px 0',
-      color: '#333'
-    },
-    stationDesc: {
-      fontSize: '14px',
-      color: '#666',
-      margin: 0,
-      lineHeight: '1.5'
-    },
-    inactiveLabel: {
-      fontSize: '12px',
-      color: '#e74c3c',
-      marginLeft: '8px',
-      fontWeight: 'normal'
-    },
-    mapButton: {
-      backgroundColor: '#4285f4',
-      color: 'white',
-      padding: '10px 16px',
-      borderRadius: '6px',
-      border: 'none',
-      cursor: 'pointer',
-      fontSize: '14px',
-      fontWeight: '500',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '6px',
-      transition: 'background-color 0.2s'
-    }
+    container: { marginTop: '20px' },
+    title: { marginBottom: '15px', fontSize: '18px', color: '#333' },
+    grid: { display: 'grid', gap: '15px', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))' },
+    card: { backgroundColor: '#f8f9fa', padding: '20px', borderRadius: '10px', border: '2px solid #e0e0e0', display: 'flex', flexDirection: 'column', gap: '12px', transition: 'transform 0.2s, box-shadow 0.2s' },
+    stationName: { fontSize: '18px', fontWeight: 'bold', margin: '0 0 8px 0', color: '#333' },
+    stationDesc: { fontSize: '14px', color: '#666', margin: 0, lineHeight: '1.5' },
+    inactiveLabel: { fontSize: '12px', color: '#e74c3c', marginLeft: '8px', fontWeight: 'normal' },
+    mapButton: { backgroundColor: '#4285f4', color: 'white', padding: '10px 16px', borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: '500', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', transition: 'background-color 0.2s' }
   };
 
   return (
@@ -138,9 +82,7 @@ const Horarios = ({ onCerrarSesion }) => {
       <Navbar onCerrarSesion={onCerrarSesion} />
       <div className="horarios-container">
         <header className="horarios-header">
-          <h1>
-            Consulta el estado en tiempo real de los trenes y planifica tus viajes con facilidad.
-          </h1>
+          <h1>Consulta el estado en tiempo real de los trenes y planifica tus viajes con facilidad.</h1>
         </header>
         
         <section className="search-section">
@@ -154,6 +96,7 @@ const Horarios = ({ onCerrarSesion }) => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <button className="programar-button" type="button" onClick={handleProgramar}>
+              {/* Icono del calendario */}
               <svg className="calendar-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8 2V5M16 2V5M3 9H21M5 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
@@ -161,7 +104,7 @@ const Horarios = ({ onCerrarSesion }) => {
             </button>
           </form>
 
-          {/* Resultados de búsqueda - NUEVO */}
+          {/* Resultados de búsqueda */}
           {buscando && searchTerm && (
             <div style={searchResultsStyles.container}>
               <h3 style={searchResultsStyles.title}>
@@ -188,15 +131,11 @@ const Horarios = ({ onCerrarSesion }) => {
                         <p style={searchResultsStyles.stationName}>
                           {parada.nombre}
                           {!parada.activa && (
-                            <span style={searchResultsStyles.inactiveLabel}>
-                              (Sin servicio)
-                            </span>
+                            <span style={searchResultsStyles.inactiveLabel}>(Sin servicio)</span>
                           )}
                         </p>
                         {parada.descripcion && (
-                          <p style={searchResultsStyles.stationDesc}>
-                            {parada.descripcion}
-                          </p>
+                          <p style={searchResultsStyles.stationDesc}>{parada.descripcion}</p>
                         )}
                       </div>
                       <button
@@ -215,6 +154,7 @@ const Horarios = ({ onCerrarSesion }) => {
           )}
         </section>
 
+        {/* Estado de tren */}
         <section className="results-section">
           <h2 className="results-title">Estado del tren</h2>
           <div className="results-grid">

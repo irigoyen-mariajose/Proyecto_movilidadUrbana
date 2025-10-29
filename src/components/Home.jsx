@@ -25,55 +25,7 @@ function Home({ onCerrarSesion }) {
         <h1 className="titulo">Bienvenido a ANDENSUR</h1>
         <p className="subtitulo">Sistema de Movilidad Urbana</p>
 
-        <section className="search-section home-search" style={{ textAlign: 'center', backgroundColor: 'transparent', boxShadow: 'none', marginTop: '-20px' }}>
-          <div
-            className="integrated-search-button"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              cursor: 'pointer',
-              color: '#333',
-              fontSize: '1.5rem',
-              padding: '10px 15px',
-              backgroundColor: 'transparent',
-              border: '1px solid #ccc',
-              transition: 'color 0.3s ease',
-              width: '100%',
-              maxWidth: '500px',
-              boxShadow: 'none',
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.color = '#000';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.color = '#333';
-            }}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginRight: '10px', color: '#666', flexShrink: 0 }}>
-              <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <input
-              type="text"
-              placeholder="A dónde querés ir?"
-              className="integrated-input"
-              style={{
-                border: 'none',
-                outline: 'none',
-                background: 'transparent',
-                color: '#333',
-                fontSize: '1.5rem',
-                flex: 1,
-                cursor: 'text',
-              }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && e.target.value.trim()) {
-                  console.log('Buscando:', e.target.value);
-                 
-                }
-              }}
-            />
-          </div>
-        </section>
+        
 
         <div
           className="background-image-section"
