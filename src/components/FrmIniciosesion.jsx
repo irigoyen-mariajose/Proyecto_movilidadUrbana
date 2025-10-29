@@ -20,6 +20,7 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
   const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
   const [errores, setErrores] = useState({});
   const [mensajeErrorLogin, setMensajeErrorLogin] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleGoogleLogin = async () => {
@@ -43,10 +44,11 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
       alert("No se pudo iniciar sesión con Google");
     }
   };
-/**
- * 
- * @variable validar
- */
+
+  /**
+   * 
+   * @variable validar
+   */
   const validar = () => {
     let nuevosErrores = {};
 
@@ -80,6 +82,7 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
     }
 
     try {
+      setLoading(true);
       // LOGIN FIREBASE
       /**
        * @param {*} Auth
@@ -109,6 +112,8 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
       } else {
         setMensajeErrorLogin("Error al iniciar sesión, intentá de nuevo ");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -124,7 +129,10 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
               className="barras"
               type="email"
               value={correo}
-              onChange={(e) => setCorreo(e.target.value)}
+              onChange={(e) => {
+                setCorreo(e.target.value);
+                setErrores((prev) => ({ ...prev, correo: "" }));
+              }}
               placeholder="Escribe tu correo"
               required
             />
@@ -139,7 +147,10 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
               className="barras"
               type={mostrarContrasenia ? "text" : "password"}
               value={contrasenia}
-              onChange={(e) => setContrasenia(e.target.value)}
+              onChange={(e) => {
+                setContrasenia(e.target.value);
+                setErrores((prev) => ({ ...prev, contrasenia: "" }));
+              }}
               placeholder="Contraseña"
               required
             />
@@ -160,8 +171,8 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
             </p>
           )}
 
-          <button type="submit" className="button">
-            Entrar
+          <button type="submit" className="button" disabled={loading}>
+            {loading ? "Entrando..." : "Entrar"}
           </button>
 
           <div className="social-login">
@@ -174,13 +185,7 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
                   />
                   Google 
                 </button>
-              <button type="button" className="btn-facebook">
-                <img
-                  src="https://img.icons8.com/fluency/16/000000/facebook-new.png"
-                  alt="Facebook"
-                />
-                Facebook 
-              </button>
+              {/* Botón de Facebook eliminado por request del usuario */}
             </div>
           </div>
 

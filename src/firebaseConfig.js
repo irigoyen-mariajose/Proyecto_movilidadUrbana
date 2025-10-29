@@ -1,4 +1,3 @@
-
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
@@ -14,15 +13,12 @@ const firebaseConfig = {
   measurementId: "G-4BBBLNBRVH"
 };
 
-// Inicializa Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-// Inicializa Auth
 export const auth = getAuth(app);
 
-// Proveedor de Google
+
 export const googleProvider = new GoogleAuthProvider();
 
-// Inicializa Firestore
 export const db = getFirestore(app);
