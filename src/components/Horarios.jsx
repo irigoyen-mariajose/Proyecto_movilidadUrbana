@@ -1,67 +1,25 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { collection, getDocs, onSnapshot, orderBy, query } from "firebase/firestore";
-import { db } from "../firebaseConfig";
 import Navbar from "./NavbarBARRA";
 import "../css/Horarios.css";
 import { useNavigate } from "react-router-dom";
 
 const Horarios = ({ onCerrarSesion }) => {
   const navigate = useNavigate();
-
-  // Estado búsqueda y paradas
   const [searchTerm, setSearchTerm] = useState("");
   const [paradas, setParadas] = useState([]);
   const [resultadosBusqueda, setResultadosBusqueda] = useState([]);
   const [buscando, setBuscando] = useState(false);
 
-  // Estado trenes (tiempo real)
-  const [trenes, setTrenes] = useState([]);
-  const [cargandoTrenes, setCargandoTrenes] = useState(true);
-  const [errorTrenes, setErrorTrenes] = useState("");
-
-  // 1) Cargar PARADAS una vez (lectura simple)
+  // 🔹 Simulación de carga de paradas (sin Firebase)
   useEffect(() => {
-    const cargarParadas = async () => {
-      try {
-        const col = collection(db, "Paradas");
-        const snap = await getDocs(col);
-        const data = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-        setParadas(data);
-      } catch (err) {
-        console.error("Error al cargar paradas:", err);
-      }
-    };
-    cargarParadas();
+    const data = [
+      { id: 1, nombre: "Estación Plottier", descripcion: "Estación terminal en Plottier", activa: true, ubicacion: "https://goo.gl/maps/Plottier" },
+      { id: 2, nombre: "Barrio Unión", descripcion: "Apeadero en Río Limay, Neuquén", activa: true, ubicacion: "https://goo.gl/maps/BarrioUnion" },
+      { id: 3, nombre: "Cipolletti", descripcion: "Estación en Río Negro", activa: false, ubicacion: "https://goo.gl/maps/Cipolletti" },
+    ];
+    setParadas(data);
   }, []);
 
-  // 2) Suscripción en tiempo real a TRENES
-  useEffect(() => {
-    const q = query(collection(db, "Trenes"), orderBy("tren", "asc")); // o "numero"
-    const off = onSnapshot(
-      q,
-      (snap) => {
-        const rows = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-        setTrenes(rows);
-        setCargandoTrenes(false);
-      },
-      (e) => {
-        console.error("Error Trenes:", e);
-        setErrorTrenes("No se pudo cargar el estado de los trenes.");
-        setCargandoTrenes(false);
-      }
-    );
-    return () => off();
-  }, []);
-
-  // 3) Helper para badge según estado
-  function estadoToBadge(estado = "") {
-    const txt = estado.toLowerCase();
-    if (txt.includes("cancel")) return "badge-red";
-    if (txt.includes("retrasa") || txt.includes("demora")) return "badge-yellow";
-    return "badge-green"; // A tiempo / default
-  }
-
-  // 4) Handlers
   const handleProgramar = (e) => {
     e.preventDefault();
     navigate("/ProgramarViaje");
@@ -72,18 +30,20 @@ const Horarios = ({ onCerrarSesion }) => {
     realizarBusqueda();
   };
 
-  // 5) Búsqueda de paradas
   const realizarBusqueda = useCallback(() => {
     if (searchTerm.trim() === "") {
       setResultadosBusqueda([]);
       setBuscando(false);
       return;
     }
+
     setBuscando(true);
     const termino = searchTerm.toLowerCase().trim();
-    const resultados = paradas.filter((p) =>
-      (p.nombre || "").toLowerCase().includes(termino)
+
+    const resultados = paradas.filter((parada) =>
+      parada.nombre.toLowerCase().includes(termino)
     );
+
     setResultadosBusqueda(resultados);
   }, [searchTerm, paradas]);
 
@@ -92,11 +52,9 @@ const Horarios = ({ onCerrarSesion }) => {
   }, [realizarBusqueda]);
 
   const abrirGoogleMaps = (ubicacion) => {
-    if (!ubicacion) return;
     window.open(ubicacion, "_blank");
   };
 
-  // Estilos inline solo para resultados de búsqueda
   const searchResultsStyles = {
     container: { marginTop: "20px" },
     title: { marginBottom: "15px", fontSize: "18px", color: "#333" },
@@ -223,31 +181,32 @@ const Horarios = ({ onCerrarSesion }) => {
           )}
         </section>
 
-        {/* ESTADO DEL TREN (desde Firestore) */}
+        {/* ESTADO DEL TREN (estático) */}
         <section className="results-section">
           <h2 className="results-title">Estado del tren</h2>
-
-          {cargandoTrenes && <p>Cargando estado de trenes…</p>}
-          {errorTrenes && <p>{errorTrenes}</p>}
-          {!cargandoTrenes && !errorTrenes && (
-            <div className="results-grid">
-              {trenes.length === 0 ? (
-                <p>No hay trenes cargados.</p>
-              ) : (
-                trenes.map((t) => (
-                  <div className="result-card" key={t.id}>
-                    <div>
-                      <p className="font-semibold">{t.tren || `Tren ${t.numero || "—"}`}</p>
-                      <p className="text-gray-500">
-                        {(t.origen || "").trim()} {t.origen || t.destino ? "→" : ""} {(t.destino || "").trim()}
-                      </p>
-                    </div>
-                    <span className={`badge ${estadoToBadge(t.estado)}`}>{t.estado || "A tiempo"}</span>
-                  </div>
-                ))
-              )}
+          <div className="results-grid">
+            <div className="result-card">
+              <div>
+                <p className="font-semibold">Tren 102</p>
+                <p className="text-gray-500">Barrio Unión → Parque Central</p>
+              </div>
+              <span className="badge badge-green">A tiempo</span>
             </div>
-          )}
+            <div className="result-card">
+              <div>
+                <p className="font-semibold">Tren 203</p>
+                <p className="text-gray-500">Plottier → Neuquén</p>
+              </div>
+              <span className="badge badge-yellow">Retrasado 10 min</span>
+            </div>
+            <div className="result-card">
+              <div>
+                <p className="font-semibold">Tren 310</p>
+                <p className="text-gray-500">Cipolletti → Neuquén</p>
+              </div>
+              <span className="badge badge-red">Cancelado</span>
+            </div>
+          </div>
         </section>
       </div>
 
