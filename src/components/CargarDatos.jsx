@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
 const paradas = [
@@ -20,12 +20,18 @@ const horarios = [
   { tren: "Tren 310", salida: "08:00", llegada: "08:50", ruta: "Cipolletti → Neuquén" }
 ];
 
+const trenesSeed = [
+  { tren: "Tren 102", origen: "Barrio Unión", destino: "Parque Central",  estado: "A tiempo",         linea: "Roca", activo: true },
+  { tren: "Tren 203", origen: "Plottier",     destino: "Neuquén",         estado: "Retrasado 10 min", linea: "Roca", activo: true },
+  { tren: "Tren 310", origen: "Cipolletti",   destino: "Neuquén",         estado: "Cancelado",        linea: "Roca", activo: false },
+];
+
 const CargarDatos = () => {
-  const [mensaje, setMensaje] = useState("Presioná el botón para cargar paradas y horarios");
+  const [mensaje, setMensaje] = useState("Presioná el botón para cargar Paradas, Horarios y Trenes");
 
   const cargarDatos = async () => {
     try {
-      setMensaje("🔄 Iniciando carga de paradas y horarios...");
+      setMensaje("🔄 Iniciando carga…");
 
       // === CARGAR PARADAS ===
       const paradasCol = collection(db, "Paradas");
@@ -34,33 +40,45 @@ const CargarDatos = () => {
         console.log("⚠️ Las paradas ya están cargadas.");
       } else {
         for (const parada of paradas) {
-          const docRef = await addDoc(paradasCol, parada);
-          console.log(`✅ Parada "${parada.nombre}" agregada con ID: ${docRef.id}`);
+          const docRef = await addDoc(paradasCol, { ...parada, createdAt: serverTimestamp() });
+          console.log(`✅ Parada "${parada.nombre}" agregada (ID: ${docRef.id})`);
         }
       }
 
-      // === CARGAR HORARIOS ===
-      const horariosCol = collection(db, "horarios");
+      // === CARGAR HORARIOS ===  (usa el mismo nombre de colección en toda la app: "Horarios" o "horarios")
+      const horariosCol = collection(db, "Horarios");
       const snapshotHorarios = await getDocs(horariosCol);
       if (!snapshotHorarios.empty) {
         console.log("⚠️ Los horarios ya están cargados.");
       } else {
         for (const horario of horarios) {
-          const docRef = await addDoc(horariosCol, horario);
-          console.log(`✅ Horario "${horario.tren}" agregado con ID: ${docRef.id}`);
+          const docRef = await addDoc(horariosCol, { ...horario, createdAt: serverTimestamp() });
+          console.log(`✅ Horario "${horario.tren}" agregado (ID: ${docRef.id})`);
         }
       }
 
-      setMensaje("🎉 ¡Paradas y horarios cargados exitosamente!");
+      // === CARGAR TRENES ===
+      const trenesCol = collection(db, "Trenes");
+      const snapshotTrenes = await getDocs(trenesCol);
+      if (!snapshotTrenes.empty) {
+        console.log("⚠️ Los trenes ya están cargados.");
+      } else {
+        for (const tren of trenesSeed) {
+          const docRef = await addDoc(trenesCol, { ...tren, createdAt: serverTimestamp() });
+          console.log(`✅ Tren "${tren.tren}" agregado (ID: ${docRef.id})`);
+        }
+      }
+
+      setMensaje("🎉 ¡Paradas, Horarios y Trenes cargados exitosamente!");
     } catch (error) {
-      setMensaje("❌ Error al cargar datos. Revisa la consola.");
       console.error("❌ Error al cargar datos:", error);
+      setMensaje("❌ Error al cargar datos. Revisá la consola.");
     }
   };
 
   return (
     <div style={{ textAlign: "center", padding: "50px" }}>
-      <h2>Cargar Paradas y Horarios Tren del Valle</h2>
+      <h2>Cargar Paradas, Horarios y Trenes</h2>
       <p>{mensaje}</p>
       <button
         onClick={cargarDatos}
