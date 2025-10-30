@@ -1,12 +1,5 @@
-import React, { useEffect } from "react";
-import {collection,
-  addDoc,
-  getDocs,
-  updateDoc,
-  deleteDoc,
-  doc,
-  query,
-  orderBy } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../../firebase";
 /**
  * @variable Trenes
@@ -24,61 +17,65 @@ import { db } from "../../firebase";
     </div>
  */
 function Trenes() {
+  const [trenes, setTrenes] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState("");
   /**
    * useEffect cargarTrenes
    */
-  useEffect(() => {
+    const cargarTrenes = async () => {
+    setCargando(true);
+    setError("");
+    try {
+      const trenRef = collection(db, "Trenes");
+      const q = query(trenRef, orderBy("tren", "asc")); 
+      const snap = await getDocs(q);
+      const lista = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      setTrenes(lista);
+    } catch (e) {
+      console.error("Error leyendo Trenes:", e);
+      setError("No se pudieron cargar los trenes.");
+    } finally {
+      setCargando(false);
+    }
+  };
+
     /**
      * @variable cargarTrenes
      */
-    const cargarTrenes = async () => {
-      try {
-        const trenref = collection(db, "Trenes");
+    
+       useEffect(() => { cargarTrenes(); }, []);
 
-   
-        await addDoc(trenref, { tren: "N 01" });
-        await addDoc(trenref, { tren: "N 02" });
-        await addDoc(trenref, { tren: "N 03" });
-        console.log("INSERT → 3 trenes agregados");
 
-        const snapshot = await getDocs(trenref);
-        console.log("SELECT → Todos los trenes:");
-        snapshot.forEach((docu) => console.log(docu.id, "=>", docu.data()));
+  if (cargando) return <p>Cargando trenes…</p>;
 
-        const idUpdate = snapshot.docs[0].id;
-        const refUpdate = doc(db, "Trenes", idUpdate);
-        await updateDoc(refUpdate, { tren: "N 01 - Actualizado" });
-        console.log(`UPDATE → Documento ${idUpdate} actualizado`);
+  if (error)
+    return (
+      <div>
+        <p>{error}</p>
+        <button onClick={cargarTrenes}>Reintentar</button>
+      </div>
+    );
 
-        const idDelete = snapshot.docs[1].id;
-        const refDelete = doc(db, "Trenes", idDelete);
-        await deleteDoc(refDelete);
-        console.log(`DELETE → Documento ${idDelete} eliminado`);
+  if (!trenes.length)
+    return (
+      <div>
+        <p>No hay trenes cargados.</p>
+        <button onClick={cargarTrenes}>Recargar</button>
+      </div>
+    );
 
-        const q = query(trenref, orderBy("tren", "asc"));
-        const ordenados = await getDocs(q);
-        console.log("ORDER BY → Trenes ordenados:");
-        ordenados.forEach((d) => console.log(d.id, "=>", d.data()));
-
-      console.log("Trenes cargados correctamente ");
-      } catch (error) {
-        console.error("Error en consultas Firestore :", error);
-      }
-    };
-
-    cargarTrenes();
-  }, []);
-
+ 
   return (
     <div>
-      <h1>Colección Trenes</h1>
-      <p>Se cargaron 3 documentos en Firestore.</p>
+      <h1>Trenes</h1>
+      <button onClick={cargarTrenes} style={{ marginBottom: 8 }}>
+        Recargar
+      </button>
       <ul>
-        <li><b>INSERT</b> → addDoc</li>
-        <li><b>SELECT</b> → getDocs</li>
-        <li><b>UPDATE</b> → updateDoc</li>
-        <li><b>DELETE</b> → deleteDoc</li>
-        <li><b>ORDER BY</b> → query + orderBy</li>
+        {trenes.map((t) => (
+          <li key={t.id}>{t.tren || t.numero || "Sin nombre"}</li>
+        ))}
       </ul>
     </div>
   );
