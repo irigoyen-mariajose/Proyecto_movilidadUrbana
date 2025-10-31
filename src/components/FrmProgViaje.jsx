@@ -15,15 +15,55 @@ const ProgramarViaje = ({ onCerrarSesion }) => {
   const [hora, setHora] = useState("");
   const navigate = useNavigate();
 
-  /**
-   * 
-   * @param {*} e
-   */
-  const handleBuscar = (e) => {
-    e.preventDefault();
-    alert(`Buscando tren desde ${origen} a ${destino} el ${fecha} a las ${hora}`);
-    navigate("/Horarios");
-  };
+  // Pedir permiso para usar notificaciones cuando se carga la página
+React.useEffect(() => {
+  if (Notification.permission !== "granted") {
+    Notification.requestPermission();
+  }
+}, []);
+
+// Función para mostrar notificación
+const mostrarNotificacion = (titulo, mensaje) => {
+  if (Notification.permission === "granted") {
+    new Notification(titulo, { body: mensaje });
+  }
+};
+
+// Nueva versión del handleBuscar
+const handleBuscar = (e) => {
+  e.preventDefault();
+
+  alert(`Buscando tren desde ${origen} a ${destino} el ${fecha} a las ${hora}`);
+
+  // Combinar fecha y hora seleccionadas
+  const fechaHoraViaje = new Date(`${fecha}T${hora}`);
+  const ahora = new Date();
+
+  // Calcular diferencia de tiempo en milisegundos
+  const diferenciaMs = fechaHoraViaje - ahora;
+
+  // Si el viaje es en el futuro
+  if (diferenciaMs > 0) {
+    const recordatorioMs = diferenciaMs - 10 * 60 * 1000; // 10 minutos antes
+
+    if (recordatorioMs > 0) {
+      setTimeout(() => {
+        mostrarNotificacion(
+          "Recordatorio de viaje 🚄",
+          `Tu viaje de ${origen} a ${destino} está por comenzar en 10 minutos.`
+        );
+      }, recordatorioMs);
+    } else {
+      mostrarNotificacion(
+        "Recordatorio de viaje 🚄",
+        `Tu viaje de ${origen} a ${destino} es pronto.`
+      );
+    }
+  }
+
+  navigate("/Horarios");
+};
+
 
   return (
     <div className="programar-page">
