@@ -10,7 +10,7 @@ import Home from "./components/Home";
 import Horarios from "./components/Horarios";
 import Notificaciones from "./components/Notificaciones";
 import ProgramarViaje from "./components/FrmProgViaje";
-import FrmReclamos from "./components/FrmReclamos";
+import FrmReclamosdos from "./components/FrmReclamosdos";
 import CargarDatos from "./components/CargarDatos";
 import FrmSoporte from "./components/FrmSoporte";
 
@@ -144,7 +144,7 @@ function App() {
         path="/Reclamos"
         element={
           <PrivateRoute isAuthenticated={isAuthenticated}>
-            <FrmReclamos onCerrarSesion={() => setIsAuthenticated(false)} />
+            <FrmReclamosdos onCerrarSesion={() => setIsAuthenticated(false)} />
           </PrivateRoute>
         }
       />

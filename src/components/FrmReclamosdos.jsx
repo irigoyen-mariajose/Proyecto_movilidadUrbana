@@ -15,6 +15,7 @@ const FrmReclamos = ({ titulo = "Soporte" }) => {
   const [problema, setProblema] = useState(null);
   const [detalle, setDetalle] = useState("");
   const [archivo, setArchivo] = useState(null);
+const [enviando, setEnviando] = useState(false);
   const navigate = useNavigate();
 
 
@@ -37,23 +38,58 @@ const FrmReclamos = ({ titulo = "Soporte" }) => {
     { value: "trabajadores", label: "Los trabajadores del tren" }
   ];
 
-  /**
-   * 
-   * @param {*} e 
-   * @returns 
-   * navigate("/resultado",{ 
-    })
-   */
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!parada || !problema) {
-      alert("Por favor, selecciona una parada y un problema.");
-      return;
-    }
-    navigate("/resultado", {
-      
-    });
-  };
+ /**
+     * @description Maneja el envío del formulario, sube el archivo a Storage y guarda el documento en Firestore.
+     * @param {*} e 
+     */
+    const handleSubmit = async (e) => { // 💡 Función convertida a ASÍNCRONA
+        e.preventDefault();
+
+        if (!parada || !problema) {
+            alert("Por favor, selecciona una parada y un problema.");
+            return;
+        }
+
+        setEnviando(true);
+        let urlArchivo = null;
+
+        try {
+           
+            if (archivo) {
+                const storageRef = ref(
+                    storage, 
+                    `reclamos/${Date.now()}_${archivo.name}` 
+                );
+
+                const snapshot = await uploadBytes(storageRef, archivo);
+                
+                urlArchivo = await getDownloadURL(snapshot.ref);
+            }
+
+         
+            const datosReclamo = {
+                parada: parada.label,
+                problema: problema.label,
+                detalle: detalle,
+                fechaCreacion: new Date(),
+                estado: 'pendiente', 
+                urlArchivo: urlArchivo, 
+            };
+
+           
+            await addDoc(collection(db, "reclamos"), datosReclamo);
+
+            
+            alert("¡Reclamo enviado! Pronto recibirás una confirmación.");
+            navigate("/resultado");
+
+        } catch (error) {
+            console.error("Error al enviar el reclamo a Firebase:", error);
+            alert("Ocurrió un error al enviar el reclamo. Por favor, verifica tu conexión.");
+        } finally {
+            setEnviando(false);
+        }
+    };
 
   return (
     <div className="form-container">
