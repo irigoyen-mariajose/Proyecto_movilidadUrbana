@@ -6,7 +6,7 @@ import { db } from "./firebase/config.js";
 
 const paradas = [
   {
-    nombre: "Estación Plottier"
+    nombre: "Estación Plottier",
     descripcion: "Estación terminal en Plottier",
     ubicacion: "https://www.google.com/maps/search/?api=1&query=Estación+Plottier+Tren+del+Valle+Neuquén",
     activa: true,
