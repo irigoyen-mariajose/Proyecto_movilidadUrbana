@@ -4,22 +4,24 @@ import "../css/Soporte.css";
 import "../css/FormularioReclamos.css";
 import Select from "react-select";
 import { FaImage } from "react-icons/fa";
-import Navbar from "./NavbarBARRA"; 
-/**
- * 
- * @param {*} titulo 
- * @returns 
- */
+import Navbar from "./NavbarBARRA";
+
+import { db } from "../firebaseConfig";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+
 const FrmSoporte = ({ titulo = "Soporte" }) => {
   const [parada, setParada] = useState(null);
   const [problema, setProblema] = useState(null);
   const [detalle, setDetalle] = useState("");
-  const [archivo, setArchivo] = useState(null);
+  const [archivo, setArchivo] = useState(null); // si después querés agregar imágenes
+  const [mensaje, setMensaje] = useState("");
+  const [enviando, setEnviando] = useState(false);
   const navigate = useNavigate();
 
-  /**
-   * @variable opcionesParadas
-   */
+  const auth = getAuth();
+
+  // 🔹 Opciones del formulario
   const opcionesParadas = [
     { value: "neuquen", label: "Terminal" },
     { value: "eton", label: "ETON" },
@@ -31,9 +33,6 @@ const FrmSoporte = ({ titulo = "Soporte" }) => {
     { value: "plottier", label: "Plottier" },
   ];
 
-  /**
-   * @variable opcionesProblemas
-   */
   const opcionesProblemas = [
     { value: "ubicacion", label: "La ubicación de la parada no coincide con la de la aplicación" },
     { value: "fuera-servicio", label: "La parada está fuera de servicio" },
@@ -42,26 +41,58 @@ const FrmSoporte = ({ titulo = "Soporte" }) => {
     { value: "trabajadores", label: "Los trabajadores del tren" },
   ];
 
-  /**
-   * 
-   * @param {*} e 
-   * @returns 
-   */
-  const handleSubmit = (e) => {
+  // 🔸 Enviar datos a Firestore
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!parada || !problema) {
-      alert("Por favor, selecciona una parada y un problema.");
+    console.log("🚀 Formulario detectado. Intentando enviar reclamo...");
+
+    const user = auth.currentUser;
+    if (!user) {
+      alert("⚠️ Debés estar logueado para enviar un reclamo.");
       return;
     }
-    navigate("/resultado");
+
+    if (!parada || !problema) {
+      alert("Por favor, seleccioná una parada y un problema.");
+      return;
+    }
+
+    setEnviando(true);
+    setMensaje("⏳ Enviando reclamo...");
+
+    try {
+      // Guarda los datos en Firestore
+      console.log("🔑 UID autenticado:", user.uid);
+
+      const docRef = await addDoc(collection(db, "reclamos"), {
+        userId: user.uid,
+        parada: parada.label,
+        problema: problema.label,
+        detalle: detalle.trim(),
+        fecha: Timestamp.now(),
+      });
+
+      console.log("Reclamo creado con ID:", docRef.id);
+      setMensaje("Reclamo enviado correctamente. ¡Gracias por tu colaboración!");
+      setParada(null);
+      setProblema(null);
+      setDetalle("");
+      setArchivo(null);
+
+      // Si querés redirigir luego de enviar:
+      // navigate("/resultado");
+    } catch (error) {
+      console.error("Error al enviar reclamo:", error);
+      setMensaje("Error al enviar reclamo. Revisá las reglas o la consola.");
+    } finally {
+      setEnviando(false);
+    }
   };
 
   return (
     <>
-    
       <Navbar />
 
-      
       <div className="form-container">
         <form onSubmit={handleSubmit} className="glass-form">
           <h2>{titulo}</h2>
@@ -71,6 +102,7 @@ const FrmSoporte = ({ titulo = "Soporte" }) => {
               options={opcionesParadas}
               placeholder="Nombre de parada"
               onChange={setParada}
+              value={parada}
               isClearable
             />
           </div>
@@ -80,6 +112,7 @@ const FrmSoporte = ({ titulo = "Soporte" }) => {
               options={opcionesProblemas}
               placeholder="Seleccione un problema"
               onChange={setProblema}
+              value={problema}
               isClearable
             />
           </div>
@@ -111,7 +144,15 @@ const FrmSoporte = ({ titulo = "Soporte" }) => {
             </label>
           </div>
 
-          <button type="submit">Enviar</button>
+          <button type="submit" disabled={enviando}>
+            {enviando ? "Enviando..." : "Enviar"}
+          </button>
+
+          {mensaje && (
+            <p style={{ marginTop: "15px", color: "#fff", textAlign: "center" }}>
+              {mensaje}
+            </p>
+          )}
         </form>
       </div>
     </>
