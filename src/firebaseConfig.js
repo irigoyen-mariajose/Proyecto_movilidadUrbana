@@ -3,6 +3,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyARQKcFihBTEvFnIZNpf5tlg4jyNiMqvNY",
   authDomain: "andesur-db250.firebaseapp.com",

@@ -13,7 +13,6 @@ const paradas = [
   { nombre: "Neuquén Central", descripcion: "Estación Central de Neuquén (ex Estación Neuquén)", ubicacion: "https://www.google.com/maps/search/?api=1&query=Estación+Neuquén+Central+Parque+Central", activa: true, orden: 8 },
   { nombre: "Cipolletti", descripcion: "Estación en Cipolletti (Río Negro) - Actualmente sin servicio", ubicacion: "https://www.google.com/maps/search/?api=1&query=Estación+Cipolletti+Tren+del+Valle", activa: false, orden: 9 }
 ];
-
 const horarios = [
   { tren: "Tren 102", salida: "06:30", llegada: "07:15", ruta: "Barrio Unión → Parque Central" },
   { tren: "Tren 203", salida: "07:00", llegada: "07:45", ruta: "Plottier → Neuquén" },
@@ -50,12 +49,14 @@ const CargarDatos = () => {
           console.log(`✅ Horario "${horario.tren}" agregado con ID: ${docRef.id}`);
         }
       }
-
+      
       setMensaje("🎉 ¡Paradas y horarios cargados exitosamente!");
     } catch (error) {
       setMensaje("❌ Error al cargar datos. Revisa la consola.");
       console.error("❌ Error al cargar datos:", error);
     }
+   
+
   };
 
   return (

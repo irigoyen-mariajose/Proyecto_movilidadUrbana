@@ -176,7 +176,7 @@ function App() {
               <FrmSoporte onCerrarSesion={() => setIsAuthenticated(false)} />
             </PrivateRoute>
           }
-        />
+        /> 
 
       {/* Programar Viaje */}
       <Route

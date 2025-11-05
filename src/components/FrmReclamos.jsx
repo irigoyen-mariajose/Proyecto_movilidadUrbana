@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../css/FormularioReclamos.css";
-import CloseIcon from "@mui/icons-material/Close";
 import Select from "react-select";
-import { FaImage } from "react-icons/fa"; 
 import Navbar from "./NavbarBARRA";
+
+import { db } from "../firebaseConfig";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const FrmReclamos = ({ titulo = "Soporte" }) => {
   const [parada, setParada] = useState(null);
   const [problema, setProblema] = useState(null);
   const [detalle, setDetalle] = useState("");
-  const [archivo, setArchivo] = useState(null);
-  const navigate = useNavigate();
+  const [mensaje, setMensaje] = useState("");
+  const [enviando, setEnviando] = useState(false);
 
+  const auth = getAuth();
 
   const opcionesParadas = [
     { value: "neuquen", label: "Terminal" },
@@ -22,7 +24,7 @@ const FrmReclamos = ({ titulo = "Soporte" }) => {
     { value: "constituyentes", label: "Constituyentes" },
     { value: "cholar", label: "El Cholar" },
     { value: "rivas", label: "Ignacio Rivas" },
-    { value: "plottier", label: "Plottier" }
+    { value: "plottier", label: "Plottier" },
   ];
 
   const opcionesProblemas = [
@@ -30,82 +32,102 @@ const FrmReclamos = ({ titulo = "Soporte" }) => {
     { value: "fuera-servicio", label: "La parada está fuera de servicio" },
     { value: "no-freno", label: "El tren no frenó" },
     { value: "problemas", label: "La parada tiene problemas" },
-    { value: "trabajadores", label: "Los trabajadores del tren" }
+    { value: "trabajadores", label: "Los trabajadores del tren" },
   ];
 
-  /**
-   * 
-   * @param {*} e 
-   * @returns 
-   * navigate("/resultado",{ 
-    })
-   */
-  const handleSubmit = (e) => {
+  // 🔸 Evento del formulario
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!parada || !problema) {
-      alert("Por favor, selecciona una parada y un problema.");
+    console.log("🚀 Formulario detectado. Intentando guardar reclamo...");
+
+    const user = auth.currentUser;
+    if (!user) {
+      alert("⚠️ Debés estar logueado para enviar un reclamo.");
       return;
     }
-    navigate("/resultado", {
-      
-    });
+
+    if (!parada || !problema) {
+      alert("Por favor, seleccioná una parada y un problema.");
+      return;
+    }
+
+    setEnviando(true);
+    setMensaje("⏳ Enviando reclamo...");
+
+    try {
+      const docRef = await addDoc(collection(db, "reclamos"), {
+        userId: user.uid,
+        parada: parada.label,
+        problema: problema.label,
+        detalle: detalle.trim(),
+        fecha: Timestamp.now(),
+      });
+
+      console.log("✅ Reclamo creado con ID:", docRef.id);
+      setMensaje("✅ Reclamo enviado correctamente. ¡Gracias!");
+      setParada(null);
+      setProblema(null);
+      setDetalle("");
+    } catch (error) {
+      console.error("❌ Error al enviar reclamo:", error);
+      setMensaje("❌ Error al enviar reclamo. Revisá la consola o las reglas.");
+    } finally {
+      setEnviando(false);
+    }
   };
+
+  console.log("🧩 FrmReclamos se renderizó correctamente");
 
   return (
     <div className="form-container">
-      <form onSubmit={handleSubmit} className="glass-form">
+      <Navbar />
+      <form
+        onSubmit={handleSubmit}
+        className="glass-form"
+        style={{ padding: "20px", backgroundColor: "rgba(0,0,0,0.3)" }}
+      >
         <h2>{titulo}</h2>
 
         <div className="form-group">
-          
           <Select
             options={opcionesParadas}
             placeholder="Nombre de parada"
             onChange={setParada}
+            value={parada}
             isClearable
           />
         </div>
 
         <div className="form-group">
-          
           <Select
             options={opcionesProblemas}
             placeholder="Seleccione un problema"
             onChange={setProblema}
+            value={problema}
             isClearable
           />
         </div>
 
-        <div className="form-group textarea-group" style={{ position: "relative" }}>
-          
+        <div className="form-group">
           <textarea
             value={detalle}
             onChange={(e) => setDetalle(e.target.value)}
             placeholder="Contanos más acerca de tu problema"
             rows={4}
           />
-          <input
-            type="file"
-            accept="image/*,video/*"
-            onChange={(e) => setArchivo(e.target.files[0])}
-            style={{ display: "none" }}
-            id="input-file"
-          />
-          <label htmlFor="input-file" style={{
-            position: "absolute",
-            bottom: "10px",
-            right: "10px",
-            cursor: "pointer"
-          }}>
-            <FaImage size={20} />
-          </label>
         </div>
 
-        <button type="submit">Enviar</button>
+        {/* 🔹 Importante: botón con type="submit" dentro del <form> */}
+        <button type="submit" disabled={enviando} style={{ marginTop: "10px" }}>
+          {enviando ? "Enviando..." : "Enviar"}
+        </button>
+
+        {mensaje && (
+          <p style={{ marginTop: "15px", color: "#fff", textAlign: "center" }}>{mensaje}</p>
+        )}
       </form>
     </div>
   );
 };
-
 
 export default FrmReclamos;
