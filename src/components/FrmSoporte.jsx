@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../css/Soporte.css";
-import "../css/FormularioReclamos.css";
+//import "../css/Soporte.css";//
 import Select from "react-select";
 import { FaImage } from "react-icons/fa";
 import Navbar from "./NavbarBARRA";
