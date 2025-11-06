@@ -13,6 +13,8 @@ const FrmReclamos = ({ titulo = "Soporte" }) => {
   const [detalle, setDetalle] = useState("");
   const [mensaje, setMensaje] = useState("");
   const [enviando, setEnviando] = useState(false);
+  const [imagen, setImagen] = useState(null);
+  const [imagenPreview, setImagenPreview] = useState(null);
 
   const auth = getAuth();
 
@@ -35,7 +37,24 @@ const FrmReclamos = ({ titulo = "Soporte" }) => {
     { value: "trabajadores", label: "Los trabajadores del tren" },
   ];
 
-  // 🔸 Evento del formulario
+  const handleImagenChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImagen(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagenPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveImagen = () => {
+    setImagen(null);
+    setImagenPreview(null);
+    document.getElementById("fileInput").value = "";
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("🚀 Formulario detectado. Intentando guardar reclamo...");
@@ -55,19 +74,34 @@ const FrmReclamos = ({ titulo = "Soporte" }) => {
     setMensaje("⏳ Enviando reclamo...");
 
     try {
-      const docRef = await addDoc(collection(db, "reclamos"), {
+      const reclamoData = {
         userId: user.uid,
         parada: parada.label,
         problema: problema.label,
         detalle: detalle.trim(),
         fecha: Timestamp.now(),
-      });
+      };
+
+      if (imagen) {
+        reclamoData.tieneImagen = true;
+        reclamoData.nombreImagen = imagen.name;
+      }
+
+      const docRef = await addDoc(collection(db, "reclamos"), reclamoData);
 
       console.log("✅ Reclamo creado con ID:", docRef.id);
-      setMensaje("✅ Reclamo enviado correctamente. ¡Gracias!");
+      setMensaje(
+        imagen
+          ? `✅ Reclamo enviado con imagen adjunta (${imagen.name}). ¡Gracias!`
+          : "✅ Reclamo enviado correctamente. ¡Gracias!"
+      );
+      
       setParada(null);
       setProblema(null);
       setDetalle("");
+      setImagen(null);
+      setImagenPreview(null);
+      document.getElementById("fileInput").value = "";
     } catch (error) {
       console.error("❌ Error al enviar reclamo:", error);
       setMensaje("❌ Error al enviar reclamo. Revisá la consola o las reglas.");
@@ -76,56 +110,130 @@ const FrmReclamos = ({ titulo = "Soporte" }) => {
     }
   };
 
-  console.log("🧩 FrmReclamos se renderizó correctamente");
-
   return (
-    <div className="form-container">
+    <div className="reclamos-page-wrapper">
       <Navbar />
-      <form
-        onSubmit={handleSubmit}
-        className="glass-form"
-        style={{ padding: "20px", backgroundColor: "rgba(0,0,0,0.3)" }}
-      >
-        <h2>{titulo}</h2>
+      <div className="reclamos-form-container">
+        <form onSubmit={handleSubmit} className="reclamos-glass-form">
+          <h2>{titulo}</h2>
 
-        <div className="form-group">
-          <Select
-            options={opcionesParadas}
-            placeholder="Nombre de parada"
-            onChange={setParada}
-            value={parada}
-            isClearable
-          />
-        </div>
+          <div className="reclamos-form-group">
+            <label htmlFor="parada-select">Parada</label>
+            <Select
+              inputId="parada-select"
+              options={opcionesParadas}
+              placeholder="Seleccione una parada"
+              onChange={setParada}
+              value={parada}
+              isClearable
+              classNamePrefix="reclamos-select"
+              styles={{
+                control: (base) => ({
+                  ...base,
+                  borderRadius: '10px',
+                  border: '2px solid #e5e5e5',
+                  background: '#fafafa',
+                  padding: '0.15rem',
+                  '&:hover': {
+                    borderColor: '#6b9d4d',
+                  },
+                }),
+                menu: (base) => ({
+                  ...base,
+                  borderRadius: '10px',
+                }),
+              }}
+            />
+          </div>
 
-        <div className="form-group">
-          <Select
-            options={opcionesProblemas}
-            placeholder="Seleccione un problema"
-            onChange={setProblema}
-            value={problema}
-            isClearable
-          />
-        </div>
+          <div className="reclamos-form-group">
+            <label htmlFor="problema-select">Tipo de problema</label>
+            <Select
+              inputId="problema-select"
+              options={opcionesProblemas}
+              placeholder="Seleccione un problema"
+              onChange={setProblema}
+              value={problema}
+              isClearable
+              classNamePrefix="reclamos-select"
+              styles={{
+                control: (base) => ({
+                  ...base,
+                  borderRadius: '10px',
+                  border: '2px solid #e5e5e5',
+                  background: '#fafafa',
+                  padding: '0.15rem',
+                  '&:hover': {
+                    borderColor: '#6b9d4d',
+                  },
+                }),
+                menu: (base) => ({
+                  ...base,
+                  borderRadius: '10px',
+                }),
+              }}
+            />
+          </div>
 
-        <div className="form-group">
-          <textarea
-            value={detalle}
-            onChange={(e) => setDetalle(e.target.value)}
-            placeholder="Contanos más acerca de tu problema"
-            rows={4}
-          />
-        </div>
+          <div className="reclamos-form-group">
+            <label htmlFor="detalle">Descripción del problema</label>
+            <div className="reclamos-textarea-wrapper">
+              <textarea
+                id="detalle"
+                value={detalle}
+                onChange={(e) => setDetalle(e.target.value)}
+                placeholder="Describa el problema que ha experimentado..."
+                rows={4}
+              />
+              <div className="reclamos-attachment-area">
+                <div className="reclamos-file-input-wrapper">
+                  <label htmlFor="fileInput" className="reclamos-file-input-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                      <circle cx="8.5" cy="8.5" r="1.5" />
+                      <polyline points="21 15 16 10 5 21" />
+                    </svg>
+                    <span>Adjuntar imagen</span>
+                  </label>
+                  <input
+                    type="file"
+                    id="fileInput"
+                    accept="image/*"
+                    onChange={handleImagenChange}
+                  />
+                  {imagen && (
+                    <span className="reclamos-file-name">{imagen.name}</span>
+                  )}
+                </div>
+                {imagen && (
+                  <button
+                    type="button"
+                    className="reclamos-remove-file"
+                    onClick={handleRemoveImagen}
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+            </div>
+            {imagenPreview && (
+              <div className="reclamos-image-preview">
+                <img src={imagenPreview} alt="Vista previa" />
+              </div>
+            )}
+          </div>
 
-        {/* 🔹 Importante: botón con type="submit" dentro del <form> */}
-        <button type="submit" disabled={enviando} style={{ marginTop: "10px" }}>
-          {enviando ? "Enviando..." : "Enviar"}
-        </button>
+          <button type="submit" disabled={enviando}>
+            {enviando ? "Enviando..." : "Enviar Reclamo"}
+          </button>
 
-        {mensaje && (
-          <p style={{ marginTop: "15px", color: "#fff", textAlign: "center" }}>{mensaje}</p>
-        )}
-      </form>
+          {mensaje && (
+            <p className={`reclamos-mensaje ${mensaje.includes("❌") ? "error" : ""}`}>
+              {mensaje}
+            </p>
+          )}
+        </form>
+      </div>
     </div>
   );
 };
