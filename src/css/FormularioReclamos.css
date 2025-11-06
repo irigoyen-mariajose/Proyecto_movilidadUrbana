@@ -1,75 +1,301 @@
-.form-container {
+/* ============================================
+   ESTILOS EXCLUSIVOS PARA FORMULARIO DE RECLAMOS
+   Todas las clases tienen prefijo "reclamos-" 
+   ============================================ */
+
+/* Contenedor de la página */
+.reclamos-page-wrapper {
+    min-height: 100vh;
     display: flex;
-    height: 500px;
-    width: 400px;
-    background-color: #ffb954;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: 8px 8px 0 #c6822e;
-    border-radius: 10px;
+    background: linear-gradient(135deg, #2d5016 0%, #4a7c2c 50%, #6b9d4d 100%);
+    
 }
 
-.glass-form h2 {
+/* Caja del formulario */
+.reclamos-form-container {
+    width: 80%;
+    max-width: 520px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    padding: 2.5rem;
+    margin-top: 5rem;
+}
+
+/* Formulario */
+.reclamos-glass-form {
+    width: 100%;
+}
+
+.reclamos-glass-form h2 {
     text-align: center;
-    margin-bottom: 1.5rem;
-    color: #311f1fc0;
-    font-size: 1.5rem;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-bottom: 2rem;
+    color: #2d5016;
+    font-size: 1.75rem;
+    font-weight: 700;
 }
 
-.form-group {
-    margin-bottom: 1rem;
+/* Grupos de campos */
+.reclamos-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.reclamos-form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #3d3d3d;
+}
+
+/* Estilos para React Select */
+.reclamos-select__control {
+    border-radius: 10px !important;
+    border: 2px solid #e5e5e5 !important;
+    background: #fafafa !important;
+    transition: all 0.2s ease !important;
+    box-shadow: none !important;
+}
+
+.reclamos-select__control:hover {
+    border-color: #6b9d4d !important;
+}
+
+.reclamos-select__control--is-focused {
+    border-color: #6b9d4d !important;
+    background: #fff !important;
+    box-shadow: none !important;
+}
+
+.reclamos-select__placeholder {
+    color: #999 !important;
+    font-size: 0.95rem !important;
+}
+
+.reclamos-select__single-value {
+    color: #333 !important;
+}
+
+.reclamos-select__menu {
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+}
+
+.reclamos-select__option {
+    padding: 0.75rem 1rem !important;
+    cursor: pointer !important;
+}
+
+.reclamos-select__option--is-focused {
+    background-color: #f0f7ed !important;
+}
+
+.reclamos-select__option--is-selected {
+    background-color: #6b9d4d !important;
+}
+
+.reclamos-select__indicator-separator {
+    display: none !important;
+}
+
+.reclamos-select__dropdown-indicator {
+    color: #6b9d4d !important;
+}
+
+/* Textarea con área de adjuntar */
+.reclamos-textarea-wrapper {
     position: relative;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-    color: #75ff47;
-}
-
-
-.form-group .css-13cymwt-control,
-.form-group textarea {
-    border-radius: 20px;
-    border: none;
-    padding: 0.75rem 1rem;
-    background-color: #ffffff;
+.reclamos-form-group textarea {
     width: 100%;
-   
-    font-size: 1rem;
-    outline: none;
-    resize: none;
-}
-
-button[type="submit"] {
-    width: 100%;
-    padding: 0.75rem;
-    background: linear-gradient(to right, #ffa94d, #ff7c18);
-    border: none;
-    border-radius: 30px;
-    font-size: 1.1rem;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-
-button[type="submit"]:hover {
-    transform: scale(1.05);
-}
-
-
-.textarea-group label[for="input-file"] {
-    position: absolute;
-    bottom: 12px;
-    right: 15px;
+    border-radius: 10px;
+    border: 2px solid #e5e5e5;
+    padding: 0.9rem 1rem 3.5rem 1rem;
+    background: #fafafa;
+    font-size: 0.95rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
+    resize: vertical;
+    min-height: 120px;
+    transition: all 0.2s ease;
 }
 
+.reclamos-form-group textarea:focus {
+    outline: none;
+    border-color: #6b9d4d;
+    background: #fff;
+}
 
-.textarea-group textarea {
-    padding-right: 2.5rem;
+.reclamos-form-group textarea::placeholder {
+    color: #999;
+}
+
+/* Área de adjuntar imagen */
+.reclamos-attachment-area {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.75rem 1rem;
+    background: #f5f5f5;
+    border-top: 1px solid #e5e5e5;
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.reclamos-file-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.reclamos-file-input-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    color: #6b9d4d;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.reclamos-file-input-label:hover {
+    color: #4a7c2c;
+}
+
+.reclamos-file-input-label svg {
+    width: 20px;
+    height: 20px;
+}
+
+.reclamos-file-input-wrapper input[type="file"] {
+    display: none;
+}
+
+.reclamos-file-name {
+    font-size: 0.8rem;
+    color: #666;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.reclamos-remove-file {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+    line-height: 1;
+}
+
+.reclamos-remove-file:hover {
+    color: #dc2626;
+}
+
+/* Vista previa de imagen */
+.reclamos-image-preview {
+    margin-top: 0.75rem;
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 150px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.reclamos-image-preview img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Botón de envío */
+.reclamos-glass-form button[type="submit"] {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    background: linear-gradient(135deg, #6b9d4d 0%, #4a7c2c 100%);
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(107, 157, 77, 0.3);
+}
+
+.reclamos-glass-form button[type="submit"]:hover:not(:disabled) {
+    background: linear-gradient(135deg, #4a7c2c 0%, #2d5016 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(107, 157, 77, 0.4);
+}
+
+.reclamos-glass-form button[type="submit"]:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.reclamos-glass-form button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Mensaje de feedback */
+.reclamos-mensaje {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    color: #166534;
+    animation: reclamosFadeIn 0.3s ease;
+}
+
+.reclamos-mensaje.error {
+    background: #fef2f2;
+    border-color: #fca5a5;
+    color: #991b1b;
+}
+
+@keyframes reclamosFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .reclamos-form-container {
+        padding: 2rem 1.5rem;
+    }
+
+    .reclamos-glass-form h2 {
+        font-size: 1.5rem;
+    }
+
+    .reclamos-file-name {
+        max-width: 120px;
+    }
 }
