@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 import Navbar from "./NavbarBARRA";
 import "../css/Horarios.css";
 import { useNavigate } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebaseConfig";
 
 const Horarios = ({ onCerrarSesion }) => {
   const navigate = useNavigate();
@@ -9,16 +11,42 @@ const Horarios = ({ onCerrarSesion }) => {
   const [paradas, setParadas] = useState([]);
   const [resultadosBusqueda, setResultadosBusqueda] = useState([]);
   const [buscando, setBuscando] = useState(false);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
 
-  // 🔹 Simulación de carga de paradas (sin Firebase)
-  useEffect(() => {
-    const data = [
-      { id: 1, nombre: "Estación Plottier", descripcion: "Estación terminal en Plottier", activa: true, ubicacion: "https://goo.gl/maps/Plottier" },
-      { id: 2, nombre: "Barrio Unión", descripcion: "Apeadero en Río Limay, Neuquén", activa: true, ubicacion: "https://goo.gl/maps/BarrioUnion" },
-      { id: 3, nombre: "Cipolletti", descripcion: "Estación en Río Negro", activa: false, ubicacion: "https://goo.gl/maps/Cipolletti" },
-    ];
-    setParadas(data);
-  }, []);
+// 🔹 Cargar paradas desde Firebase
+useEffect(() => {
+  const cargarParadas = async () => {
+    try {
+      setCargando(true);
+      setError(null);
+      
+      const paradasCol = collection(db, "Paradas");
+      const snapshot = await getDocs(paradasCol);
+      
+      if (snapshot.empty) {
+        setError("No hay paradas cargadas en Firebase.");
+        setParadas([]);
+      } else {
+        const paradasData = snapshot.docs.map(doc => ({ 
+          id: doc.id, 
+          ...doc.data() 
+        }));
+        
+        paradasData.sort((a, b) => (a.orden || 0) - (b.orden || 0));
+        setParadas(paradasData);
+        console.log(`✅ ${paradasData.length} paradas cargadas desde Firebase`);
+      }
+    } catch (err) {
+      console.error("❌ Error al cargar paradas:", err);
+      setError(`Error: ${err.message}`);
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  cargarParadas();
+}, []);
 
   const handleProgramar = (e) => {
     e.preventDefault();
@@ -31,21 +59,22 @@ const Horarios = ({ onCerrarSesion }) => {
   };
 
   const realizarBusqueda = useCallback(() => {
-    if (searchTerm.trim() === "") {
-      setResultadosBusqueda([]);
-      setBuscando(false);
-      return;
-    }
+  if (searchTerm.trim() === "") {
+    setResultadosBusqueda([]);
+    setBuscando(false);
+    return;
+  }
 
-    setBuscando(true);
-    const termino = searchTerm.toLowerCase().trim();
+  setBuscando(true);
+  const termino = searchTerm.toLowerCase().trim();
 
-    const resultados = paradas.filter((parada) =>
-      parada.nombre.toLowerCase().includes(termino)
-    );
+  const resultadosEncontrados = paradas.filter((parada) =>
+    parada.nombre.toLowerCase().includes(termino) ||
+    (parada.descripcion && parada.descripcion.toLowerCase().includes(termino))
+  );
 
-    setResultadosBusqueda(resultados);
-  }, [searchTerm, paradas]);
+  setResultadosBusqueda(resultadosEncontrados);
+}, [searchTerm, paradas]);
 
   useEffect(() => {
     realizarBusqueda();
