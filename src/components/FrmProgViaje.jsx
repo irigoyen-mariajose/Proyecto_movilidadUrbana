@@ -12,7 +12,6 @@ const ProgramarViaje = ({ onCerrarSesion }) => {
   const [hora, setHora] = useState("");
   const navigate = useNavigate();
 
-  // Pedir permiso para notificaciones
   useEffect(() => {
     if (Notification.permission !== "granted") {
       Notification.requestPermission();
@@ -41,14 +40,9 @@ const ProgramarViaje = ({ onCerrarSesion }) => {
     };
 
     try {
-      console.log("Intentando guardar viaje en Firestore:", viaje);
-
-      const docRef = await addDoc(collection(db, "viajesProgramados"), viaje);
-      console.log("Documento guardado con ID:", docRef.id);
-
+      await addDoc(collection(db, "viajesProgramados"), viaje);
       alert(`✅ Viaje programado de ${origen} a ${destino}.`);
 
-      // Programar notificación 10 minutos antes
       if (diferenciaMs > 0) {
         const recordatorioMs = diferenciaMs - 10 * 60 * 1000;
         setTimeout(() => {
@@ -67,88 +61,80 @@ const ProgramarViaje = ({ onCerrarSesion }) => {
     }
   };
 
-  // 🔹 Importante: el return debe estar dentro del componente (acá)
   return (
-    <div className="programar-page">
+    <div className="prog-page">
+
       <Navbar onCerrarSesion={onCerrarSesion} />
 
-      <div className="form-container">
-        <form onSubmit={handleBuscar} className="glass-form">
-          <h2 className="titulo">Planear viaje</h2>
+      <div className="prog-container">
+        <form onSubmit={handleBuscar}>
+          <h2 className="prog-form-title">Planear viaje</h2>
 
-          <div className="form-group">
+          <div className="prog-group">
             <label>Origen</label>
             <select
-              id="origen"
-              className="barras"
+              className="prog-select"
               value={origen}
               onChange={(e) => setOrigen(e.target.value)}
               required
             >
               <option value="" disabled>Selecciona tu ubicación</option>
+              <option value="Centro">Centro</option>
+              <option value="Terminal">Terminal</option>
+              <option value="Nemo">Nemo</option>
               <option value="Plottier">Plottier</option>
-              <option value="Constituyentes">Constituyentes</option>
-              <option value="Barrio Union">Barrio Union</option>
-              <option value="Aeropuerto">Aeropuerto</option>
-              <option value="El cholar">El Cholar</option>
-              <option value="ETON">ETON</option>
-              <option value="Rivas">Ignacio Rivas</option>
-              <option value="Neuquen">Neuquen</option>
-              <option value="Cipo">Cipolletti (fuera de servicio)</option>
+              <option value="La Estrella de la Muerte">La Estrella de la Muerte</option>
+              <option value="Tatooine">Tatooine</option>
             </select>
           </div>
 
-          <div className="form-group">
+          <div className="prog-group">
             <label>Destino</label>
             <select
-              id="destino"
-              className="barras"
+              className="prog-select"
               value={destino}
               onChange={(e) => setDestino(e.target.value)}
               required
             >
               <option value="" disabled>Selecciona tu destino</option>
-               <option value="Plottier">Plottier</option>
-              <option value="Constituyentes">Constituyentes</option>
-              <option value="Barrio Union">Barrio Union</option>
-              <option value="Aeropuerto">Aeropuerto</option>
-              <option value="El cholar">El Cholar</option>
-              <option value="ETON">ETON</option>
-              <option value="Rivas">Ignacio Rivas</option>
-              <option value="Neuquen">Neuquen</option>
-              <option value="Cipo">Cipolletti (fuera de servicio)</option>
+              <option value="Centro">Centro</option>
+              <option value="Terminal">Terminal</option>
+              <option value="Nemo">Nemo</option>
+              <option value="Plottier">Plottier</option>
+              <option value="La Estrella de la Muerte">La Estrella de la Muerte</option>
+              <option value="Tatooine">Tatooine</option>
             </select>
           </div>
 
-          <div className="form-group">
+          <div className="prog-group">
             <label>Fecha</label>
             <input
               type="date"
-              className="barras"
+              className="prog-input"
               value={fecha}
               onChange={(e) => setFecha(e.target.value)}
               required
             />
           </div>
 
-          <div className="form-group">
+          <div className="prog-group">
             <label>Hora</label>
             <input
               type="time"
-              className="barras"
+              className="prog-input"
               value={hora}
               onChange={(e) => setHora(e.target.value)}
               required
             />
           </div>
 
-          <button type="submit" className="button button-verde">
+          <button type="submit" className="prog-button">
             Programar viaje
           </button>
 
           <button
             type="button"
-            className="button button-volver"
+            className="prog-button prog-button-volver"
             onClick={() => navigate("/Horarios")}
           >
             Volver a horarios
@@ -159,5 +145,4 @@ const ProgramarViaje = ({ onCerrarSesion }) => {
   );
 };
 
-// 👇 Esto es clave, el export va al final, fuera del componente
 export default ProgramarViaje;
