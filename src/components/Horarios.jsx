@@ -62,20 +62,21 @@ useEffect(() => {
 
 // 🔹 Suscripción en tiempo real a Trenes (separado)
 useEffect(() => {
-  const unsub = suscribirTrenes((lista) => {
-    try {
+  const unsub = suscribirTrenes(
+    (lista) => {
       const visibles = lista.filter((t) => t.activo !== false);
       setTrenes(visibles);
       setErrorTrenes(null);
-    } catch (e) {
-      setErrorTrenes(e.message);
-    } finally {
+      setCargandoTrenes(false);
+    },
+    (err) => {
+      setErrorTrenes(err.message || "No se pudieron cargar los trenes.");
       setCargandoTrenes(false);
     }
-  });
-
+  );
   return () => unsub();
 }, []);
+
   const handleProgramar = (e) => {
     e.preventDefault();
     navigate("/ProgramarViaje");

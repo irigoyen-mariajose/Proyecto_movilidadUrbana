@@ -1,12 +1,21 @@
-import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
-import { db } from "../firebaseConfig"; 
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../firebaseConfig";
 
 const colTrenes = collection(db, "Trenes");
 
-export function suscribirTrenes(callback) {
-  const q = query(colTrenes, orderBy("updatedAt", "desc"));
-  return onSnapshot(q, (snap) => {
-    const data = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-    callback(data);
-  });
+
+export function suscribirTrenes(onData, onError) {
+
+
+  return onSnapshot(
+    colTrenes,                               
+    (snap) => {
+      const list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      onData(list);
+    },
+    (err) => {
+      console.error("onSnapshot Trenes ERROR:", err);
+      if (onError) onError(err);
+    }
+  );
 }
