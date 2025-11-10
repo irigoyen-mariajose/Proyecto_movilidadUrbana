@@ -10,7 +10,7 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-/* --- CONTENEDOR CENTRAL --- */
+
 .form-container-registro {
   position: fixed;
   top: 50%;
@@ -28,7 +28,7 @@ body {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* --- FORMULARIO --- */
+
 .glass-form {
   display: flex;
   flex-direction: column;
@@ -36,7 +36,7 @@ body {
   width: 100%;
 }
 
-/* --- TÍTULO --- */
+
 .titulo {
   color: #f9943b;
   text-align: center;
@@ -44,7 +44,7 @@ body {
   margin-bottom: 25px;
 }
 
-/* --- CAMPOS DE ENTRADA --- */
+
 .form-group {
   width: 100%;
   margin-bottom: 18px;
@@ -70,7 +70,7 @@ body {
   box-shadow: 0 0 4px rgba(249, 148, 59, 0.5);
 }
 
-/* --- ICONO DEL OJO --- */
+
 .icon-password {
   position: absolute;
   right: 12px;
@@ -87,7 +87,7 @@ body {
   transform: translateY(-50%) scale(1.1);
 }
 
-/* --- BOTÓN --- */
+
 .button {
   margin-top: 10px;
   height: 42px;
@@ -107,7 +107,7 @@ body {
   transform: scale(1.05);
 }
 
-/* --- MENSAJES --- */
+
 .mensaje-error {
   color: #ff4444;
   font-size: 13px;
@@ -129,7 +129,7 @@ body {
   color: #d9534f;
 }
 
-/* --- ENLACE A INICIO --- */
+
 .inicio {
   color: #ff5b03;
   cursor: pointer;
