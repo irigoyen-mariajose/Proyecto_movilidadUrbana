@@ -19,3 +19,13 @@ export function suscribirTrenes(onData, onError) {
     }
   );
 }
+export async function crearTren(data) {
+  if (!data.tren || !data.origen || !data.destino || !data.estado) {
+    throw new Error("Faltan campos: tren, origen, destino y estado.");
+  }
+  await addDoc(colTrenes, {
+    ...data,
+    activo: data.activo ?? true,
+    updatedAt: serverTimestamp(),
+  });
+}

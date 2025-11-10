@@ -12,6 +12,7 @@ import Notificaciones from "./components/Notificaciones";
 import ProgramarViaje from "./components/FrmProgViaje";
 import FrmReclamos from "./components/FrmReclamos";
 import CargarDatos from "./components/CargarDatos";
+import AdminTrenes from "./components/AdminTrenes";
 
 
 // PrivateRoute
@@ -101,7 +102,7 @@ function App() {
 
       }
     />
-
+<Route path="/admin/trenes" element={<AdminTrenes />} />
 
       <Route path="/" element={<Navigate to="/FrmIniciosesion" replace />} />
 
