@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import "../css/Admin.css";
+
+
 import {
   crearTren,
   suscribirTrenes,
@@ -76,7 +79,8 @@ export default function AdminTrenes() {
   };
 
   return (
-    <div style={{ maxWidth: 860, margin: "32px auto", padding: 16 }}>
+    <div className="admin-container">
+
       <h1>Admin – Trenes</h1>
       {msg && <p>{msg}</p>}
 
