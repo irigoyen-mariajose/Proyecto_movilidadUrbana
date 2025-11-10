@@ -1,56 +1,166 @@
-import React, { useState } from "react";
-import { crearTren } from "../services/trenes";
+import React, { useEffect, useState } from "react";
+import {
+  crearTren,
+  suscribirTrenes,
+  actualizarTren,
+  borrarTren,
+} from "../services/trenes";
 
-const init = { tren:"", origen:"", destino:"", estado:"A tiempo", activo:true, linea:"Roca" };
+const init = {
+  tren: "",
+  origen: "",
+  destino: "",
+  estado: "A tiempo",
+  activo: true,
+  linea: "Roca",
+};
 
 export default function AdminTrenes() {
   const [form, setForm] = useState(init);
   const [msg, setMsg] = useState("");
+  const [trenes, setTrenes] = useState([]);
+  const [editId, setEditId] = useState(null);
+
+  
+  useEffect(() => {
+    const unsub = suscribirTrenes(setTrenes, (e) =>
+      setMsg("❌ " + (e.message || "Error leyendo trenes"))
+    );
+    return () => unsub();
+  }, []);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setMsg("");
     try {
-      await crearTren(form);
-      setMsg("✅ Tren creado");
+      if (editId) {
+        await actualizarTren(editId, form);
+        setMsg("✅ Cambios guardados");
+      } else {
+        await crearTren(form);
+        setMsg("✅ Tren creado");
+      }
       setForm(init);
+      setEditId(null);
     } catch (err) {
-      setMsg("❌ " + (err.message || "Error al crear"));
+      setMsg("❌ " + (err.message || "Error al guardar"));
+    }
+  };
+
+  const startEdit = (t) => {
+    setForm({
+      tren: t.tren || "",
+      origen: t.origen || "",
+      destino: t.destino || "",
+      estado: t.estado || "A tiempo",
+      activo: t.activo !== false,
+      linea: t.linea || "Roca",
+    });
+    setEditId(t.id);
+    setMsg("");
+  };
+
+  const cancelEdit = () => {
+    setEditId(null);
+    setForm(init);
+  };
+
+  const remove = async (id) => {
+    if (!window.confirm("¿Borrar tren?")) return;
+    try {
+      await borrarTren(id);
+      setMsg("🗑️ Tren eliminado");
+    } catch (err) {
+      setMsg("❌ " + (err.message || "No se pudo borrar"));
     }
   };
 
   return (
-    <div style={{maxWidth:720, margin:"32px auto", padding:"16px"}}>
-      <h1>Admin – Agregar tren</h1>
+    <div style={{ maxWidth: 860, margin: "32px auto", padding: 16 }}>
+      <h1>Admin – Trenes</h1>
       {msg && <p>{msg}</p>}
 
-      <form onSubmit={onSubmit} style={{display:"grid", gap:12, gridTemplateColumns:"1fr 1fr"}}>
-        <input placeholder="Tren (ej: Tren 220)" value={form.tren}
-               onChange={e=>setForm({...form, tren:e.target.value})}/>
-        <input placeholder="Origen" value={form.origen}
-               onChange={e=>setForm({...form, origen:e.target.value})}/>
-        <input placeholder="Destino" value={form.destino}
-               onChange={e=>setForm({...form, destino:e.target.value})}/>
-        <select value={form.estado} onChange={e=>setForm({...form, estado:e.target.value})}>
+      
+      <form
+        onSubmit={onSubmit}
+        style={{ display: "grid", gap: 12, gridTemplateColumns: "1fr 1fr" }}
+      >
+        <input
+          placeholder="Tren (ej: Tren 220)"
+          value={form.tren}
+          onChange={(e) => setForm({ ...form, tren: e.target.value })}
+        />
+        <input
+          placeholder="Origen"
+          value={form.origen}
+          onChange={(e) => setForm({ ...form, origen: e.target.value })}
+        />
+        <input
+          placeholder="Destino"
+          value={form.destino}
+          onChange={(e) => setForm({ ...form, destino: e.target.value })}
+        />
+        <select
+          value={form.estado}
+          onChange={(e) => setForm({ ...form, estado: e.target.value })}
+        >
           <option>A tiempo</option>
           <option>Retrasado 5 min</option>
           <option>Retrasado 10 min</option>
           <option>Cancelado</option>
         </select>
-        <input placeholder="Línea" value={form.linea}
-               onChange={e=>setForm({...form, linea:e.target.value})}/>
-        <label style={{display:"flex", alignItems:"center", gap:8}}>
-          <input type="checkbox" checked={form.activo}
-                 onChange={e=>setForm({...form, activo:e.target.checked})}/>
+        <input
+          placeholder="Línea"
+          value={form.linea}
+          onChange={(e) => setForm({ ...form, linea: e.target.value })}
+        />
+        <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <input
+            type="checkbox"
+            checked={form.activo}
+            onChange={(e) => setForm({ ...form, activo: e.target.checked })}
+          />
           Activo
         </label>
 
-        <div style={{gridColumn:"1 / -1"}}>
-          <button type="submit">Crear tren</button>
+        <div style={{ gridColumn: "1 / -1", display: "flex", gap: 8 }}>
+          <button type="submit">
+            {editId ? "Guardar cambios" : "Crear tren"}
+          </button>
+          {editId && (
+            <button type="button" onClick={cancelEdit}>
+              Cancelar
+            </button>
+          )}
         </div>
       </form>
 
-      <p style={{marginTop:12, color:"#666"}}>Al crear, aparecerá al instante en “Horarios”.</p>
+      <hr style={{ margin: "24px 0" }} />
+
+      
+      <ul style={{ listStyle: "none", padding: 0 }}>
+        {trenes.map((t) => (
+          <li
+            key={t.id}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "10px 0",
+              borderBottom: "1px solid #eee",
+            }}
+          >
+            <div>
+              <b>{t.tren}</b> — {t.origen} → {t.destino} — {t.estado}{" "}
+              {t.activo === false ? "(inactivo)" : ""}
+            </div>
+            <div style={{ display: "flex", gap: 8 }}>
+              <button onClick={() => startEdit(t)}>Editar</button>
+              <button onClick={() => remove(t.id)}>Borrar</button>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
