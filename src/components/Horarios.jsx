@@ -5,6 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
+import { suscribirTrenes } from "../services/trenes";
+
+const badgeClass = (estado = "") => {
+  const e = estado.toLowerCase();
+  if (e.includes("cancel")) return "badge badge-red";
+  if (e.includes("retrasa") || e.includes("demora")) return "badge badge-yellow";
+  return "badge badge-green";
+};
 const Horarios = ({ onCerrarSesion }) => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,25 +22,28 @@ const Horarios = ({ onCerrarSesion }) => {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
 
+  const [trenes, setTrenes] = useState([]);
+  const [cargandoTrenes, setCargandoTrenes] = useState(true);
+  const [errorTrenes, setErrorTrenes] = useState(null);
 // 🔹 Cargar paradas desde Firebase
 useEffect(() => {
   const cargarParadas = async () => {
     try {
       setCargando(true);
       setError(null);
-      
+
       const paradasCol = collection(db, "Paradas");
       const snapshot = await getDocs(paradasCol);
-      
+
       if (snapshot.empty) {
         setError("No hay paradas cargadas en Firebase.");
         setParadas([]);
       } else {
-        const paradasData = snapshot.docs.map(doc => ({ 
-          id: doc.id, 
-          ...doc.data() 
+        const paradasData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
         }));
-        
+
         paradasData.sort((a, b) => (a.orden || 0) - (b.orden || 0));
         setParadas(paradasData);
         console.log(`✅ ${paradasData.length} paradas cargadas desde Firebase`);
@@ -45,7 +56,25 @@ useEffect(() => {
     }
   };
 
+  
   cargarParadas();
+}, []);
+
+// 🔹 Suscripción en tiempo real a Trenes (separado)
+useEffect(() => {
+  const unsub = suscribirTrenes(
+    (lista) => {
+      const visibles = lista.filter((t) => t.activo !== false);
+      setTrenes(visibles);
+      setErrorTrenes(null);
+      setCargandoTrenes(false);
+    },
+    (err) => {
+      setErrorTrenes(err.message || "No se pudieron cargar los trenes.");
+      setCargandoTrenes(false);
+    }
+  );
+  return () => unsub();
 }, []);
 
   const handleProgramar = (e) => {
@@ -212,31 +241,30 @@ useEffect(() => {
 
         {/* ESTADO DEL TREN (estático) */}
         <section className="results-section">
-          <h2 className="results-title">Estado del tren</h2>
-          <div className="results-grid">
-            <div className="result-card">
-              <div>
-                <p className="font-semibold">Tren 102</p>
-                <p className="text-gray-500">Barrio Unión → Parque Central</p>
-              </div>
-              <span className="badge badge-green">A tiempo</span>
-            </div>
-            <div className="result-card">
-              <div>
-                <p className="font-semibold">Tren 203</p>
-                <p className="text-gray-500">Plottier → Neuquén</p>
-              </div>
-              <span className="badge badge-yellow">Retrasado 10 min</span>
-            </div>
-            <div className="result-card">
-              <div>
-                <p className="font-semibold">Tren 310</p>
-                <p className="text-gray-500">Cipolletti → Neuquén</p>
-              </div>
-              <span className="badge badge-red">Cancelado</span>
-            </div>
-          </div>
-        </section>
+  <h2 className="results-title">Estado del tren</h2>
+
+  {cargandoTrenes && <p>Cargando trenes...</p>}
+  {errorTrenes && <p style={{ color: "red" }}>{errorTrenes}</p>}
+  {!cargandoTrenes && !errorTrenes && trenes.length === 0 && (
+    <p>No hay trenes cargados.</p>
+  )}
+
+  <div className="results-grid">
+    {trenes.map((t) => (
+      <div className="result-card" key={t.id}>
+        <div>
+          <p className="font-semibold">{t.tren || "Tren"}</p>
+          <p className="text-gray-500">
+            {(t.origen ?? "").charAt(0).toUpperCase() + (t.origen ?? "").slice(1)}
+            {" "}→{" "}
+            {(t.destino ?? "").charAt(0).toUpperCase() + (t.destino ?? "").slice(1)}
+          </p>
+        </div>
+        <span className={badgeClass(t.estado)}>{t.estado || "Sin estado"}</span>
+      </div>
+    ))}
+  </div>
+</section>
       </div>
 
       <div className="boleteria-section">
