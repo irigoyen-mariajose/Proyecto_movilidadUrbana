@@ -60,21 +60,21 @@
   margin: 0;
 }
 
-/* Colores según tipo */
+
 .noti-card:nth-child(1) {
-  background-color: #2e7d32; /* verde recordatorio */
+  background-color: #2e7d32;
 }
 
 .noti-card:nth-child(2) {
-  background-color: #fbc02d; /* amarillo atención */
+  background-color: #fbc02d; 
   color: #333;
 }
 
 .noti-card:nth-child(3) {
-  background-color: #d32f2f; /* rojo paro */
+  background-color: #d32f2f; 
 }
 
-/* Hover más intenso */
+
 .noti-card:nth-child(1):hover {
   background-color: #388e3c;
 }
