@@ -102,8 +102,7 @@ function App() {
       }
     />
 
-
-      <Route path="/" element={<Navigate to="/FrmIniciosesion" replace />} />
+<Route path="/" element={<Navigate to="/FrmIniciosesion" replace />} />
 
       {/* Login */}
       <Route
@@ -128,6 +127,7 @@ function App() {
           )
         }
       />
+     
 
       {/* Home protegido */}
       <Route

@@ -83,7 +83,7 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
     if (/(?=.*[a-z])/.test(contrasenia)) { fuerza++; } else { feedback.push("una minúscula"); }
     if (/(?=.*[A-Z])/.test(contrasenia)) { fuerza++; } else { feedback.push("una mayúscula"); }
     if (/(?=.*\d)/.test(contrasenia)) { fuerza++; } else { feedback.push("un número"); }
-    if (/(?=.*[@$!%*?&])/.test(contrasenia)) { fuerza++; } else { feedback.push("un símbolo (@$!%*?&)"); }
+    if (/(?=.[@$!%?&])/.test(contrasenia)) { fuerza++; } else { feedback.push("un símbolo (@$!%*?&)"); }
 
     setContraseniaFuerza(fuerza);
 
@@ -126,7 +126,7 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
     // VALIDAR CORREO
     if (!correo.trim()) nuevosErrores.correo = "El correo es obligatorio.";
     else if (!correoValido)
-      nuevosErrores.correo = "Solo se permiten correos **@gmail.com** válidos.";
+      nuevosErrores.correo = "Solo se permiten correos *@gmail.com* válidos.";
     else if (correoEnUso) 
       nuevosErrores.correo = "Este correo ya está registrado en nuestra base de datos.";
 
@@ -212,92 +212,104 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
     }
   };
 
-  return (
-    <div className="form-container">
-      <form onSubmit={handleSubmit} className="glass-form">
-        <h2 className="titulo">{titulo}</h2>
+return (
+  <div className="form-container">
+    <form onSubmit={handleSubmit} className="glass-form">
+      <h2 className="titulo">{titulo}</h2>
 
-        
-        <div className="form-group">
-          <input className="barras" type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} placeholder="Nombre" required />
-          {errores.nombre && <p className="mensaje-error">{errores.nombre}</p>}
-        </div>
-      
-        <div className="form-group">
-          <input className="barras" type="text" value={apellido} onChange={(e) => setApellido(e.target.value)} placeholder="Apellido" required />
-          {errores.apellido && <p className="mensaje-error">{errores.apellido}</p>}
-        </div>
+      <div className="form-group">
+        <input
+          className="barras"
+          type="text"
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+          placeholder="Nombre"
+          required
+        />
+        {errores.nombre && <p className="mensaje-error">{errores.nombre}</p>}
+      </div>
 
-        
-        <div className="form-group">
-          <input
-            className="barras"
-            type="text"
-            value={correo}
-            onChange={(e) => setCorreo(e.target.value)}
-            placeholder="Correo"
-            required
-          />
-          {errores.correo && <p className="mensaje-error">{errores.correo}</p>}
-          
-          
-          {!errores.correo && correo && (
-            <p className={`mensaje-feedback ${correoValido && !correoEnUso ? "valido" : "invalido"}`}>
-              {verificandoCorreo && "Verificando uso..."}
-              {correoEnUso && !verificandoCorreo && "❌ ¡Este correo ya está registrado!"}
-              {!correoValido && "❌ Solo se aceptan correos **@gmail.com**"}
-              {correoValido && !correoEnUso && !verificandoCorreo && "Correo listo para usar ✅"}
+      <div className="form-group">
+        <input
+          className="barras"
+          type="text"
+          value={apellido}
+          onChange={(e) => setApellido(e.target.value)}
+          placeholder="Apellido"
+          required
+        />
+        {errores.apellido && <p className="mensaje-error">{errores.apellido}</p>}
+      </div>
+
+      <div className="form-group">
+        <input
+          className="barras"
+          type="text"
+          value={correo}
+          onChange={(e) => setCorreo(e.target.value)}
+          placeholder="Correo"
+          required
+        />
+        {errores.correo && <p className="mensaje-error">{errores.correo}</p>}
+
+        {!errores.correo && correo && (
+          <p className={`mensaje-feedback ${correoValido && !correoEnUso ? "valido" : "invalido"}`}>
+            {verificandoCorreo && "Verificando uso..."}
+            {correoEnUso && !verificandoCorreo && "❌ ¡Este correo ya está registrado!"}
+            {!correoValido && "❌ Solo se aceptan correos *@gmail.com*"}
+            {correoValido && !correoEnUso && !verificandoCorreo && "Correo listo para usar ✅"}
+          </p>
+        )}
+      </div>
+
+      <div className="form-group password-wrapper" style={{ position: "relative" }}>
+        <input
+          className="barras"
+          type={mostrarContrasenia ? "text" : "password"}
+          value={contrasenia}
+          onChange={(e) => setContrasenia(e.target.value)}
+          placeholder="Contraseña"
+          required
+        />
+        <span className="icon-password" onClick={() => setMostrarContrasenia(!mostrarContrasenia)}>
+          {mostrarContrasenia ? <VisibilityIcon /> : <VisibilityOffIcon />}
+        </span>
+
+        {errores.contrasenia && <p className="mensaje-error">{errores.contrasenia}</p>}
+
+        {!errores.contrasenia && contrasenia && (
+          <>
+            <p className={`mensaje-feedback ${contraseniaFuerza === 5 ? "valido" : "invalido"}`}>
+              {feedbackContrasenia}
             </p>
-          )}
-        </div>
+            <div
+              style={{
+                height: "5px",
+                width: `${(contraseniaFuerza / 5) * 100}%`,
+                backgroundColor: getColorFuerza(contraseniaFuerza),
+                transition: "0.3s",
+                borderRadius: "4px",
+                marginTop: "2px",
+              }}
+            ></div>
+          </>
+        )}
+      </div>
 
-      
-        <div className="form-group password-wrapper" style={{ position: "relative" }}>
-          <input
-            className="barras"
-            type={mostrarContrasenia ? "text" : "password"}
-            value={contrasenia}
-            onChange={(e) => setContrasenia(e.target.value)}
-            placeholder="Contraseña"
-            required
-          />
-          <span className="icon-password" onClick={() => setMostrarContrasenia(!mostrarContrasenia)}>
-            {mostrarContrasenia ? <VisibilityIcon /> : <VisibilityOffIcon />}
-          </span>
-          
-          {errores.contrasenia && <p className="mensaje-error">{errores.contrasenia}</p>}
-          
-          {!errores.contrasenia && contrasenia && (
-            <>
-              <p className={`mensaje-feedback ${contraseniaFuerza === 5 ? "valido" : "invalido"}`}>
-                {feedbackContrasenia}
-              </p>
-              <div
-                style={{
-                  height: "5px",
-                  width: `${(contraseniaFuerza / 5) * 100}%`,
-                  backgroundColor: getColorFuerza(contraseniaFuerza),
-                  transition: "0.3s",
-                  borderRadius: "4px",
-                  marginTop: "2px",
-                }}
-              ></div>
-            </>
-          )}
-        </div>
+      <button type="submit" className="button" disabled={correoEnUso || verificandoCorreo}>
+        Registrarse
+      </button>
+      <p>
+        ¿Ya tenés cuenta?{" "}
+        <span className="inicio" onClick={() => navigate("/FrmIniciosesion")}>
+          Iniciar Sesión
+        </span>
+      </p>
+    </form>
+  </div>
+);
 
-        <button type="submit" className="button" disabled={correoEnUso || verificandoCorreo}>
-          Registrarse
-        </button>
-        <p>
-          Ya tenes cuenta?{" "}
-          <span className="inicio" onClick={() => navigate("/FrmIniciosesion")}>
-            Iniciar Sesion
-          </span>
-        </p>
-      </form>
-    </div>
-  );
-};
-
+}
 export default FrmRegistar;
+
+

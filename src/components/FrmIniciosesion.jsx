@@ -201,4 +201,4 @@ const FrmIniciosesion = ({ titulo = "Iniciar sesion", onFrmIniciosesion }) => {
   );
 };
 
-export default FrmIniciosesion;
+export default FrmIniciosesion
