@@ -31,19 +31,18 @@ useEffect(() => {
     try {
       setCargando(true);
       setError(null);
-      
+
       const paradasCol = collection(db, "Paradas");
       const snapshot = await getDocs(paradasCol);
-      
+
       if (snapshot.empty) {
         setError("No hay paradas cargadas en Firebase.");
         setParadas([]);
       } else {
-        const paradasData = snapshot.docs.map(doc => ({ 
-          id: doc.id, 
-          ...doc.data() 
+        const paradasData = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
         }));
-        
         paradasData.sort((a, b) => (a.orden || 0) - (b.orden || 0));
         setParadas(paradasData);
         console.log(`✅ ${paradasData.length} paradas cargadas desde Firebase`);
@@ -55,10 +54,13 @@ useEffect(() => {
       setCargando(false);
     }
   };
+
+  cargarParadas();
+}, []);
 useEffect(() => {
   const unsub = suscribirTrenes((lista) => {
     try {
-      const visibles = lista.filter(t => t.activo !== false);
+      const visibles = lista.filter((t) => t.activo !== false);
       setTrenes(visibles);
       setErrorTrenes(null);
     } catch (e) {
@@ -69,9 +71,9 @@ useEffect(() => {
   });
 
   return () => unsub();
-}, []);
+}, []); 
   cargarParadas();
-}, []);
+
 
   const handleProgramar = (e) => {
     e.preventDefault();
