@@ -1,4 +1,5 @@
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, addDoc, serverTimestamp } from "firebase/firestore";
+
 import { db } from "../firebaseConfig";
 
 const colTrenes = collection(db, "Trenes");
