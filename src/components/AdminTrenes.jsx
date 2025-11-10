@@ -81,7 +81,7 @@ export default function AdminTrenes() {
   return (
     <div className="admin-container">
 
-      <h1>Admin – Trenes</h1>
+      <h1>Administrador – Trenes</h1>
       {msg && <p>{msg}</p>}
 
       

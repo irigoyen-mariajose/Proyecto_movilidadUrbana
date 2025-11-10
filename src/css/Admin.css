@@ -1,53 +1,169 @@
+/* ====== CONTENEDOR PRINCIPAL ====== */
 .admin-container {
-  max-width: 850px;
+  max-width: 900px;
   margin: 40px auto;
-  padding: 25px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 30px;
+  background: #878f97;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Roboto, sans-serif;
 }
 
+/* ====== TÍTULO ====== */
 .admin-container h1 {
   text-align: center;
-  color: #333;
+  color: #000000;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  letter-spacing: 0.5px;
+}
+
+/* ====== MENSAJES ====== */
+.admin-container p {
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 500;
   margin-bottom: 20px;
+}
+
+.admin-container p:has(> span.error),
+.admin-container p:has(> span.success) {
+  margin-bottom: 16px;
+}
+
+.admin-container p:contains("✅") {
+  background: #e8fce9;
+  border-left: 5px solid #2ecc71;
+  color: #2b7a38;
+}
+
+.admin-container p:contains("❌") {
+  background: #ffecec;
+  border-left: 5px solid #e74c3c;
+  color: #c0392b;
+}
+
+.admin-container p:contains("🗑️") {
+  background: #fff7e6;
+  border-left: 5px solid #f39c12;
+  color: #9a6b00;
+}
+
+/* ====== FORMULARIO ====== */
+.admin-container form {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 30px;
 }
 
 .admin-container input,
 .admin-container select {
-  width: 100%;
-  padding: 8px;
+  padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
+.admin-container input:focus,
+.admin-container select:focus {
+  border-color: #0078ff;
+  box-shadow: 0 0 4px rgba(0, 120, 255, 0.3);
+  outline: none;
+}
+
+/* ====== CHECKBOX ====== */
+.admin-container label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+/* ====== BOTONES ====== */
 .admin-container button {
-  background-color: #1976d2;
+  background-color: #0078ff;
   color: #fff;
   border: none;
-  padding: 8px 14px;
-  border-radius: 5px;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
   cursor: pointer;
-  font-size: 14px;
-  transition: background 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .admin-container button:hover {
-  background-color: #1565c0;
+  background-color: #005fcc;
 }
 
-ul {
+.admin-container button[type="button"] {
+  background-color: #ccc;
+  color: #222;
+}
+
+.admin-container button[type="button"]:hover {
+  background-color: #aaa;
+}
+
+/* ====== LISTA ====== */
+.admin-container ul {
   list-style: none;
   padding: 0;
-  margin-top: 25px;
+  margin-top: 10px;
 }
 
-li {
+.admin-container li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #eee;
-  padding: 10px 0;
+  background: #fdfdfd;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.admin-container li:hover {
+  background: #f5faff;
+  transform: scale(1.01);
+}
+
+.admin-container li b {
+  color: #0078ff;
+}
+
+.admin-container li button {
+  background: #0078ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-container li button:hover {
+  background: #005fcc;
+}
+
+.admin-container li button:last-child {
+  background: #e74c3c;
+}
+
+.admin-container li button:last-child:hover {
+  background: #c0392b;
+}
+
+/* ====== HR ====== */
+.admin-container hr {
+  border: none;
+  border-top: 2px solid #eee;
+  margin: 30px 0;
 }
