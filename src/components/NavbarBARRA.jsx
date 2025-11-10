@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/navbar.css";
-import logoAndensur from "./Imagenes/logo_andensur.jpg";
+import logoAndensur from "./Imagenes/logo_andensur.jpg ";
 
 /**
  * 
