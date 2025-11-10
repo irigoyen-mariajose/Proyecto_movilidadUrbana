@@ -1,217 +1,243 @@
 body {
-    background-color: rgb(255, 255, 255);
-    font-family: 'Sansita', sans-serif;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
+  background-color: rgb(255, 255, 255);
+  font-family: "Sansita", sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
+/* Fondo */
 .login-page {
-    min-height: 100vh;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 20px 20px 20px 100px;
-    background-image: url('../../tren2.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    position: relative;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-image: url("../../tren2.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
 }
 
 .login-page::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(128, 128, 128, 0.7);
-    z-index: 1;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(128, 128, 128, 0.6);
+  z-index: 1;
 }
 
+/* Contenedor principal */
 .form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    z-index: 2;
-
+  position: relative;
+  z-index: 2;
+  background-color: rgba(238, 171, 86, 0.95);
+  padding: 45px 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  max-width: 450px;
+  color: #000;
+  backdrop-filter: blur(6px);
+  animation: fadeIn 0.8s ease-in-out;
 }
 
-.contenedor-formularios {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    padding: 20px;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.form-container {
-    margin-top: 20px;
-    background-color: #eeab56;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    width: 90%;
-    max-width: 400px;
-    color: #000;
-}
-
+/* Formulario */
 .glass-form {
-    background-color: transparent;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: none;
-    width: 90%;
-    max-width: 400px;
-    color: #000;
+  background-color: transparent;
+  width: 100%;
 }
 
 .glass-form h2 {
-    text-align: center;
-    color: #713d14;
-    margin-bottom: 20px;
+  text-align: center;
+  color: #713d14;
+  margin-bottom: 30px;
+  font-size: 1.9rem;
+  text-transform: uppercase;
 }
 
+/* Inputs */
 .form-group {
-    margin-bottom: 20px;
-    position: relative;
+  margin-bottom: 25px;
+  position: relative;
 }
 
 .barras {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    background-color: #eeab56;
-    border: 1px solid #d4943a;
-    border-radius: 10px;
-    color: #713d14;
-    box-sizing: border-box;
-    padding-right: 40px;
+  width: 100%;
+  padding: 14px;
+  font-size: 17px;
+  background-color: #f6c17a;
+  border: 1px solid #d4943a;
+  border-radius: 10px;
+  color: #713d14;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.3s ease;
+  display: block;
 }
 
+.barras:focus {
+  border-color: #ff6b1a;
+  box-shadow: 0 0 10px rgba(255, 107, 26, 0.5);
+}
+
+/* Icono del ojo — ahora bien posicionado */
 .password-wrapper {
-    position: relative;
+  position: relative;
 }
 
 .password-wrapper .barras {
-    padding-right: 38px; 
+  padding-right: 45px; /* espacio reservado para el icono */
 }
 
 .ojo-icon-password {
-    position: absolute;
-    top: 44%;
-    right: 90px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #713d14;
-    height: 18px;
-    width: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 15;
-    pointer-events: auto;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    transition: color 0.2s ease, transform 0.2s ease;
-    font-size: 20px;
+  position: absolute;
+  top: 50%;
+  right: 15px; /* pegado al borde */
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #713d14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .ojo-icon-password:hover {
-    color: #4a2810;
-    transform: translateY(-50%) scale(1.1);
+  color: #4a2810;
+  transform: translateY(-50%) scale(1.1);
 }
 
+/* Botón de entrar */
 .button {
-    display: flex;
-    width: 100%;
-    height: 40px;
-    text-align: center;
-    background-color: #ff6b1a;
-    color: #fff;
-    border: 1px solid #e55a00;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
+  width: 100%;
+  height: 48px;
+  background-color: #ff6b1a;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .button:hover {
-    background-color: #e55a00;
+  background-color: #e55a00;
+  transform: translateY(-2px);
 }
 
-.texto-opcion {
-    text-align: center;
-    margin-top: 15px;
-    color: #fff;
+/* Mensajes de error */
+.mensaje-error {
+  color: #b30000;
+  font-size: 14px;
+  margin-top: 6px;
+  text-align: left;
 }
 
-.enlace {
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: underline;
-}
-
+/* Login con redes */
 .social-login {
-    margin-top: 20px;
-    text-align: center;
+  margin-top: 25px;
+  text-align: center;
 }
 
 .texto-social {
-    margin-bottom: 10px;
-    color: #000000;
+  margin-bottom: 10px;
+  color: #000;
+  font-weight: bold;
 }
 
 .botones-rds-sociales {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-.enlace-registrarse{
-   color: #ff5b03;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.25s ease;
-}
-.enlace-registrarse:hover{
-    color: #f3f3f3;
-    text-decoration: underline;    
-    transform: scale(1.05)
-}
-.btn-google,
-.btn-facebook {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 .btn-google {
-    background-color: #fff;
-    color: #000;
-    border: 1px solid #ccc;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .btn-google:hover {
-    background-color: #e4e2e2;
+  background-color: #f0efef;
+  transform: scale(1.05);
 }
 
-.btn-facebook {
-    background-color: #1877f2;
-    color: #fff;
+/* Enlace registrarse */
+p {
+  text-align: center;
+  color: #000;
+  margin-top: 25px;
 }
 
-.btn-facebook:hover {
-    background-color: #166fe5;
+.enlace-registrarse {
+  color: #ff5b03;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.enlace-registrarse:hover {
+  color: #f3f3f3;
+  text-decoration: underline;
+  transform: scale(1.05);
+}
+/* 🔧 Ajustes finales para el tamaño correcto de los inputs */
+.form-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.barras {
+  width: 100% !important;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  font-size: 17px;
+}
+
+/* Campo de contraseña con espacio para el ícono */
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper .barras {
+  padding-right: 45px;
+}
+
+.ojo-icon-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 22px;
+  color: #713d14;
 }
