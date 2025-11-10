@@ -39,10 +39,11 @@ useEffect(() => {
         setError("No hay paradas cargadas en Firebase.");
         setParadas([]);
       } else {
-        const paradasData = snapshot.docs.map(doc => ({
+        const paradasData = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
+
         paradasData.sort((a, b) => (a.orden || 0) - (b.orden || 0));
         setParadas(paradasData);
         console.log(`✅ ${paradasData.length} paradas cargadas desde Firebase`);
@@ -55,8 +56,11 @@ useEffect(() => {
     }
   };
 
+  
   cargarParadas();
 }, []);
+
+// 🔹 Suscripción en tiempo real a Trenes (separado)
 useEffect(() => {
   const unsub = suscribirTrenes((lista) => {
     try {
@@ -71,10 +75,7 @@ useEffect(() => {
   });
 
   return () => unsub();
-}, []); 
-  cargarParadas();
-
-
+}, []);
   const handleProgramar = (e) => {
     e.preventDefault();
     navigate("/ProgramarViaje");
