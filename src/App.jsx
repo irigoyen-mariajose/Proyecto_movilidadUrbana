@@ -144,7 +144,7 @@ function PrivateRoute({ isAuthenticated, children }) {
         }
       />
       <Route
-        path="/reclamos"
+        path="/FrmSoporte"
         element={
           <PrivateRoute isAuthenticated={isAuthenticated}>
             <FrmReclamos onCerrarSesion={() => setIsAuthenticated(false)} />
