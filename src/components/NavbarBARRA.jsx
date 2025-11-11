@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../css/navbar.css";
 import logoAndensur from "./Imagenes/logo_andensur.jpg";
 
+
 /**
  * 
  * @param {*} param0 

@@ -213,7 +213,8 @@ const FrmRegistar = ({ titulo = "Registrarse" }) => {
   };
 
 return (
-  <div className="form-container">
+  <div className="form-container-registro">
+
     <form onSubmit={handleSubmit} className="glass-form">
       <h2 className="titulo">{titulo}</h2>
 

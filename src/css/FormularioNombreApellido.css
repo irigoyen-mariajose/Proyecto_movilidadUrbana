@@ -1,90 +1,143 @@
 body {
-    background-color: white;
-    margin: 0;
-    padding: 0;
-    background-image: url(/tren2.jpg); 
-     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    position: relative;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+  background-image: url(/tren2.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: "Poppins", sans-serif;
 }
 
-.form-container {
-    display: flex;
-    height: 500px;
-    width: 400px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
+
+.form-container-registro {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: 420px;
+  border-radius: 15px;
+  padding: 30px;
+ background-color: rgba(238, 171, 86, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-.button {
-    align-items: center;
-    justify-content: center;
-    height: 40px;
-    width: 120px;
-    color: #fdfcfa;
-    background-color: #f9943b;
-    border-radius: 10px;
+
+.glass-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
+
+
+.titulo {
+  color: #f9943b;
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 25px;
+}
+
 
 .form-group {
-    width: 220px;
-    margin-bottom: 15px;
-    position: relative;
+  width: 100%;
+  margin-bottom: 18px;
+  position: relative;
 }
 
 .barras {
-    height: 40px;
-    width: 100%;
-    color: #0d0d0d;
-    background-color: #eeeae6;
-    border-radius: 10px;
-    padding-right: 40px;
-    box-sizing: border-box;
-    font-size: 16px;
-    border: 1px solid #ccc;
+  height: 45px;
+  width: 100%;
+  padding: 0 12px;
+  font-size: 16px;
+  color: #0d0d0d;
+  background-color: #eeeae6;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
 }
 
-.password-wrapper {
-    width: 220px;
+.barras:focus {
+  outline: none;
+  border-color: #f9943b;
+  box-shadow: 0 0 4px rgba(249, 148, 59, 0.5);
 }
 
-.icon-password,                  
-.ojo-icon-password {             
+
+.icon-password {
   position: absolute;
-  right: 90px;
-  top: 63%;
+  right: 12px;
+  top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
   color: #713d14;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;              
-  line-height: 1;
-  background: none;
-  border: none;
-  outline: none;
-  z-index: 2;
+  font-size: 20px;
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.icon-password:hover,
-.ojo-icon-password:hover {
+.icon-password:hover {
   color: #4a2810;
-  transform: translateY(-50%) scale(1.08);
+  transform: translateY(-50%) scale(1.1);
 }
 
-.inicio{
-     color: #ff5b03;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.25s ease;
+
+.button {
+  margin-top: 10px;
+  height: 42px;
+  width: 130px;
+  color: #fff;
+  background-color: #f9943b;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
-.inicio:hover{
-    color: #f3f3f3;
-    text-decoration: underline;    
-    transform: scale(1.05)
+
+.button:hover {
+  background-color: #ff8b00;
+  transform: scale(1.05);
+}
+
+
+.mensaje-error {
+  color: #ff4444;
+  font-size: 13px;
+  margin-top: 4px;
+  text-align: left;
+}
+
+.mensaje-feedback {
+  font-size: 13px;
+  margin-top: 4px;
+  text-align: left;
+}
+
+.mensaje-feedback.valido {
+  color: green;
+}
+
+.mensaje-feedback.invalido {
+  color: #d9534f;
+}
+
+
+.inicio {
+  color: #ff5b03;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.inicio:hover {
+  color: #f3f3f3;
+  text-decoration: underline;
 }
