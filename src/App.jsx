@@ -12,6 +12,7 @@ import Notificaciones from "./components/Notificaciones";
 import ProgramarViaje from "./components/FrmProgViaje";
 import FrmReclamos from "./components/FrmReclamos";
 import CargarDatos from "./components/CargarDatos";
+import AdminTrenes from "./components/AdminTrenes";
 
 
 // PrivateRoute
@@ -93,117 +94,99 @@ function App() {
   return (
 
     <Routes>
-    <Route
-      path="/CargarDatos"
-      element={
-        
-          <CargarDatos/>
+  {/* redirección por defecto */}
+  <Route path="/" element={<Navigate to="/frminiciosesion" replace />} />
 
-      }
-    />
+  {/* login / registro (sin proteger) */}
+  <Route
+    path="/frminiciosesion"
+    element={
+      !isAuthenticated ? (
+        <FrmIniciosesion onFrmIniciosesion={() => setIsAuthenticated(true)} />
+      ) : (
+        <Navigate to="/home" replace />
+      )
+    }
+  />
+  <Route
+    path="/frmregistrar"
+    element={
+      !isAuthenticated ? (
+        <FrmRegistrar onFrmRegistrar={() => setIsAuthenticated(true)} />
+      ) : (
+        <Navigate to="/home" replace />
+      )
+    }
+  />
 
-<Route path="/" element={<Navigate to="/FrmIniciosesion" replace />} />
+  {/* pantallas protegidas */}
+  <Route
+    path="/home"
+    element={
+      <PrivateRoute isAuthenticated={isAuthenticated}>
+        <Home onCerrarSesion={() => setIsAuthenticated(false)} />
+      </PrivateRoute>
+    }
+  />
+  <Route
+    path="/reclamos"
+    element={
+      <PrivateRoute isAuthenticated={isAuthenticated}>
+        <FrmReclamos onCerrarSesion={() => setIsAuthenticated(false)} />
+      </PrivateRoute>
+    }
+  />
+  <Route
+    path="/horarios"
+    element={
+      <PrivateRoute isAuthenticated={isAuthenticated}>
+        <Horarios onCerrarSesion={() => setIsAuthenticated(false)} />
+      </PrivateRoute>
+    }
+  />
+  <Route
+    path="/programarviaje"
+    element={
+      <PrivateRoute isAuthenticated={isAuthenticated}>
+        <ProgramarViaje onCerrarSesion={() => setIsAuthenticated(false)} />
+      </PrivateRoute>
+    }
+  />
+  <Route
+    path="/notificaciones"
+    element={
+      <PrivateRoute isAuthenticated={isAuthenticated}>
+        <Notificaciones onCerrarSesion={() => setIsAuthenticated(false)} />
+      </PrivateRoute>
+    }
+  />
 
-      {/* Login */}
-      <Route
-        path="/FrmIniciosesion"
-        element={
-          !isAuthenticated ? (
-            <FrmIniciosesion onFrmIniciosesion={() => setIsAuthenticated(true)} />
-          ) : (
-            <Navigate to="/Home" replace />
-          )
-        }
-      />
+  {/* admin trenes (protegido) */}
+  <Route
+    path="/admin/trenes"
+    element={
+      <PrivateRoute isAuthenticated={isAuthenticated}>
+        <AdminTrenes />
+      </PrivateRoute>
+    }
+  />
+  {/* opcional: mantener compatibilidad con /Horarios/admin */}
+  <Route
+    path="/horarios/admin"
+    element={
+      <PrivateRoute isAuthenticated={isAuthenticated}>
+        <AdminTrenes />
+      </PrivateRoute>
+    }
+  />
 
-      {/* Registro */}
-      <Route
-        path="/FrmRegistrar"
-        element={
-          !isAuthenticated ? (
-            <FrmRegistrar onFrmRegistrar={() => setIsAuthenticated(true)} />
-          ) : (
-            <Navigate to="/Home" replace />
-          )
-        }
-      />
-     
+  {/* (opcional) utilitario de carga */}
+  <Route path="/cargardatos" element={<CargarDatos />} />
 
-      {/* Home protegido */}
-      <Route
-        path="/Home"
-        element={
-          <PrivateRoute isAuthenticated={isAuthenticated}>
-            <Home onCerrarSesion={() => setIsAuthenticated(false)} />
-          </PrivateRoute>
-        }
-      />
+  {/* 404 */}
+  <Route path="*" element={<h2>404 - Página no encontrada</h2>} />
+</Routes>
 
-      {/* Reclamos */}
-      <Route
-        path="/Reclamos"
-        element={
-          <PrivateRoute isAuthenticated={isAuthenticated}>
-            <FrmReclamos onCerrarSesion={() => setIsAuthenticated(false)} />
-          </PrivateRoute>
-        }
-      />
-
-      {/* Horarios */}
-      <Route
-        path="/Horarios"
-        element={
-          <PrivateRoute isAuthenticated={isAuthenticated}>
-            <Horarios onCerrarSesion={() => setIsAuthenticated(false)} />
-          </PrivateRoute>
-        }
-      />
-
-
-        {/* Notificaciones */}
-        <Route
-          path="/Notificaciones"
-          element={
-            <PrivateRoute isAuthenticated={isAuthenticated}>
-              <Notificaciones onCerrarSesion={() => setIsAuthenticated(false)} />
-            </PrivateRoute>
-          }
-        />
-        
-        <Route
-          path="/FrmSoporte"
-          element={
-            <PrivateRoute isAuthenticated={isAuthenticated}>
-              <FrmReclamos onCerrarSesion={() => setIsAuthenticated(false)} />
-            </PrivateRoute>
-          }
-        />
-        
-
-      {/* Programar Viaje */}
-      <Route
-        path="/ProgramarViaje"
-        element={
-          <PrivateRoute isAuthenticated={isAuthenticated}>
-            <ProgramarViaje onCerrarSesion={() => setIsAuthenticated(false)} />
-          </PrivateRoute>
-        }
-      />
-
-
-      {/* Notificaciones */}
-      <Route
-        path="/Notificaciones"
-        element={
-          <PrivateRoute isAuthenticated={isAuthenticated}>
-            <Notificaciones onCerrarSesion={() => setIsAuthenticated(false)} />
-          </PrivateRoute>
-        }
-      />
-
-      {/* Página no encontrada */}
-      <Route path="*" element={<h2>404 - Página no encontrada</h2>} />
-    </Routes>
   );
 }
 
