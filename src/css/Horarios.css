@@ -105,19 +105,54 @@ div.horarios-page {
 }
 
 .results-grid {
-  display: grid;
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 12px; 
 }
 
 .result-card {
   background: #fff;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
-  border-radius: 10px;
-  padding: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  border-radius: 12px;
+  margin: 0;
+  padding: 18px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
+
+.result-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}
+
+
+.results-section .result-card p {
+  margin: 0;           
+  text-align: left;
+  font-size: 16px;
+}
+.results-section .result-card .font-semibold {
+  margin: 0 0 4px 0;   
+  font-weight: 600;
+}
+
+.results-title {               
+  margin: 0 0 18px;            
+}
+.results-section {
+  margin-bottom: 56px;         
+}
+
+
+.boleteria-section {
+  margin-top: 0;               
+  padding-top: 0;            
+}
+
+
 
 .badge {
   padding: 4px 12px;
