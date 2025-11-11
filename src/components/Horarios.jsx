@@ -13,6 +13,11 @@ const badgeClass = (estado = "") => {
   if (e.includes("retrasa") || e.includes("demora")) return "badge badge-yellow";
   return "badge badge-green";
 };
+/**
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
 const Horarios = ({ onCerrarSesion }) => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
@@ -26,6 +31,9 @@ const Horarios = ({ onCerrarSesion }) => {
   const [cargandoTrenes, setCargandoTrenes] = useState(true);
   const [errorTrenes, setErrorTrenes] = useState(null);
 // 🔹 Cargar paradas desde Firebase
+/**
+ * useEffect () => cargarParadas
+ */
 useEffect(() => {
   const cargarParadas = async () => {
     try {
@@ -60,6 +68,9 @@ useEffect(() => {
   cargarParadas();
 }, []);
 
+/**
+ * useEffect () => unsub
+ */
 // 🔹 Suscripción en tiempo real a Trenes (separado)
 useEffect(() => {
   const unsub = suscribirTrenes(
@@ -76,17 +87,25 @@ useEffect(() => {
   );
   return () => unsub();
 }, []);
-
+/**
+ * 
+ * @param {*} e 
+ */
   const handleProgramar = (e) => {
     e.preventDefault();
     navigate("/ProgramarViaje");
   };
-
+/**
+ * 
+ * @param {*} e 
+ */
   const handleSearch = (e) => {
     e.preventDefault();
     realizarBusqueda();
   };
-
+/**
+ * @variable realizarBusqueda
+ */
   const realizarBusqueda = useCallback(() => {
   if (searchTerm.trim() === "") {
     setResultadosBusqueda([]);
@@ -105,6 +124,9 @@ useEffect(() => {
   setResultadosBusqueda(resultadosEncontrados);
 }, [searchTerm, paradas]);
 
+/**
+ * useEffect () => busqueda
+ */
   useEffect(() => {
     realizarBusqueda();
   }, [realizarBusqueda]);

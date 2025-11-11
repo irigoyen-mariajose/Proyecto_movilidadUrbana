@@ -9,6 +9,9 @@ import {
   borrarTren,
 } from "../services/trenes";
 
+/**
+ * @variable Init
+ */
 const init = {
   tren: "",
   origen: "",
@@ -18,20 +21,32 @@ const init = {
   linea: "Roca",
 };
 
+/**
+ * 
+ * @param {*} param0
+ * @returns 
+ * div className="admin-container">
+ * 
+ */
 export default function AdminTrenes() {
   const [form, setForm] = useState(init);
   const [msg, setMsg] = useState("");
   const [trenes, setTrenes] = useState([]);
   const [editId, setEditId] = useState(null);
 
-  
+  /**
+   * useEffect () => navigate
+   */
   useEffect(() => {
     const unsub = suscribirTrenes(setTrenes, (e) =>
       setMsg("❌ " + (e.message || "Error leyendo trenes"))
     );
     return () => unsub();
   }, []);
-
+/**
+ * 
+ * @param {*} e 
+ */
   const onSubmit = async (e) => {
     e.preventDefault();
     setMsg("");
@@ -49,7 +64,10 @@ export default function AdminTrenes() {
       setMsg("❌ " + (err.message || "Error al guardar"));
     }
   };
-
+/**
+ * 
+ * @param {*} t 
+ */
   const startEdit = (t) => {
     setForm({
       tren: t.tren || "",
@@ -63,11 +81,19 @@ export default function AdminTrenes() {
     setMsg("");
   };
 
+  /**
+   * @variable cancelEdit
+   */
   const cancelEdit = () => {
     setEditId(null);
     setForm(init);
   };
 
+  /**
+   * 
+   * @param {*} id 
+   * @returns 
+   */
   const remove = async (id) => {
     if (!window.confirm("¿Borrar tren?")) return;
     try {

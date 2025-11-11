@@ -7,6 +7,11 @@ import { db } from "../firebaseConfig";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
+/**
+ * 
+ * @variable FrmReclamos 
+ * @returns 
+ */
 const FrmReclamos = ({ titulo = "Soporte" }) => {
   const [parada, setParada] = useState(null);
   const [problema, setProblema] = useState(null);
@@ -16,6 +21,9 @@ const FrmReclamos = ({ titulo = "Soporte" }) => {
   const [imagen, setImagen] = useState(null);
   const [imagenPreview, setImagenPreview] = useState(null);
 
+  /**
+   * @variable auth
+   */
   const auth = getAuth();
 
   const opcionesParadas = [
@@ -37,6 +45,10 @@ const FrmReclamos = ({ titulo = "Soporte" }) => {
     { value: "trabajadores", label: "Los trabajadores del tren" },
   ];
 
+  /**
+   * 
+   * @param {*} e 
+   */
   const handleImagenChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -48,13 +60,20 @@ const FrmReclamos = ({ titulo = "Soporte" }) => {
       reader.readAsDataURL(file);
     }
   };
-
+/**
+ * @variable handleRemoveImagen
+ */
   const handleRemoveImagen = () => {
     setImagen(null);
     setImagenPreview(null);
     document.getElementById("fileInput").value = "";
   };
 
+  /**
+   * 
+   * @param {*} e 
+   * @returns 
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("🚀 Formulario detectado. Intentando guardar reclamo...");

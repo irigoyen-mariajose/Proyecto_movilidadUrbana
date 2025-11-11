@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
-// ✅ Paradas completas del Tren del Valle (con todas las ubicaciones)
+//  Paradas completas del Tren del Valle (con todas las ubicaciones)
 const paradas = [
   { 
     nombre: "Estación Plottier", 

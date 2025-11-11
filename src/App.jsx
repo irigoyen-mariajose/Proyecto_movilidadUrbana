@@ -107,7 +107,6 @@ function PrivateRoute({ isAuthenticated, children }) {
     return <div style={{ padding: 20 }}>Cargando sesión…</div>;
   }
 
-  // ⬇️ ahora sí devolvemos las rutas
   return (
     <Routes>
       {/* redirección por defecto */}

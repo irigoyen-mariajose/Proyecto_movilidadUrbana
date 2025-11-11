@@ -5,6 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../firebaseConfig";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
+/**
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
 const ProgramarViaje = ({ onCerrarSesion }) => {
   const [origen, setOrigen] = useState("");
   const [destino, setDestino] = useState("");
@@ -12,6 +17,9 @@ const ProgramarViaje = ({ onCerrarSesion }) => {
   const [hora, setHora] = useState("");
   const navigate = useNavigate();
 
+  /**
+   * useEfefect () => navigate
+   */
   useEffect(() => {
     if (Notification.permission !== "granted") {
       Notification.requestPermission();
